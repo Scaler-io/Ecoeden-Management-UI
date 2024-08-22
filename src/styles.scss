@@ -1,1 +1,124 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./assets/styles/variables";
+
+@use "@angular/material" as mat;
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$light-primary: mat.define-palette(mat.$deep-purple-palette, 400, 500, 800);
+$base-color: #3a3153;
+$custom-accent: (
+  50: #f5f4f9,
+  // Very light shade
+  100: #e0dbe6,
+  // Light shade
+  200: #c2b8d0,
+  // Slightly darker shade
+  300: #a799b7,
+  // Medium light shade
+  400: #8e7f9e,
+  // Medium shade
+  500: $base-color,
+  // Base color
+  600: #353040,
+  // Slightly darker than base
+  700: #2d2938,
+  // Darker shade
+  800: #242034,
+  // Very dark shade
+  900: #1a1628,
+  // Darkest shade
+  A100: #f5f4f9,
+  // Light accent
+  A200: #e0dbe6,
+  // Slightly darker accent
+  A400: #8e7f9e,
+  // Medium accent
+  A700: #242034,
+  // Dark accent
+  contrast:
+    (
+      50: #000000,
+      // High contrast
+      100: #000000,
+      200: #000000,
+      300: #000000,
+      400: #000000,
+      500: #ffffff,
+      // High contrast for base color
+      600: #ffffff,
+      700: #ffffff,
+      800: #ffffff,
+      900: #ffffff,
+      A100: #000000,
+      // High contrast for accent
+      A200: #000000,
+      A400: #ffffff,
+      A700: #ffffff,
+    ),
+);
+
+$light-accent: mat.define-palette($custom-accent, 500);
+
+// The warn palette is optional (defaults to red).
+$light-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $light-primary,
+      accent: $light-accent,
+      warn: $light-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($light-theme);
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+  font-size: 10px;
+}
+
+body {
+  font-family: "Titillium Web", "sans-serif";
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $color-accent;
+  border-radius: 0.5rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $color-secondary;
+}

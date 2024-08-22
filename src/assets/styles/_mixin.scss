@@ -1,0 +1,82 @@
+/* media query mixins */
+@mixin for-phone-only-up {
+  @media screen and (max-width: 499px) {
+    @content;
+  }
+}
+
+@mixin for-phone-only-down {
+  @media screen and (min-width: 499px) {
+    @content;
+  }
+}
+
+@mixin for-tablet-landscape-up {
+  @media only screen and (max-width: 700px) {
+    @content;
+  }
+}
+@mixin for-tablet-landscape-down {
+  @media only screen and (min-width: 700px) {
+    @content;
+  }
+}
+@mixin for-desktop-up {
+  @media only screen and (max-width: 1024px) {
+    @content;
+  }
+}
+@mixin for-desktop-down {
+  @media only screen and (min-width: 1024px) {
+    @content;
+  }
+}
+@mixin for-big-desktop-up {
+  @media only screen and (min-width: 1800px) {
+    @content;
+  }
+}
+@mixin for-big-desktop-down {
+  @media only screen and (max-width: 1800px) {
+    @content;
+  }
+}
+
+@mixin placeColumn($col) {
+  @if $col == 1 {
+    grid-column: $grid-span-1;
+  }
+  @if $col == 2 {
+    grid-column: $grid-span-2;
+  }
+  @if $col == 3 {
+    grid-column: $grid-span-3;
+  }
+  @if $col == 4 {
+    grid-column: $grid-span-4;
+  }
+  @if $col == 5 {
+    grid-column: $grid-span-5;
+  }
+  @if $col == 6 {
+    grid-column: $grid-span-6;
+  }
+  @if $col == 7 {
+    grid-column: $grid-span-7;
+  }
+  @if $col == 8 {
+    grid-column: $grid-span-8;
+  }
+  @if $col == 9 {
+    grid-column: $grid-span-9;
+  }
+  @if $col == 10 {
+    grid-column: $grid-span-10;
+  }
+  @if $col == 11 {
+    grid-column: $grid-span-11;
+  }
+  @if $col == 12 {
+    grid-column: $grid-span-12;
+  }
+}
