@@ -8,10 +8,13 @@
     display: flex;
     flex: 1;
     overflow: hidden;
-
     .app__main--content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       flex: 1;
-      z-index: -1;
+      z-index: 1;
       overflow-y: auto;
       padding: 16px;
       background-color: $color-light-gray;

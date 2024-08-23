@@ -2,7 +2,11 @@
   <ecoeden-navbar></ecoeden-navbar>
   <div class="app__main__container">
     <ecoeden-sidenav></ecoeden-sidenav>
-
-    <div class="app__main--content">The main content</div>
+    <div class="app__main--content">
+      <div class="pb-5">
+        <router-outlet></router-outlet>
+      </div>
+      <ecoeden-footer></ecoeden-footer>
+    </div>
   </div>
 </main>

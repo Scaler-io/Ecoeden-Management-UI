@@ -11,6 +11,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { AppMaterialModule } from './app-material.module';
 import { SidenavModule } from './features/sidenav/sidenav.module';
+import { FooterModule } from './shared/components/footer/footer.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { SidenavModule } from './features/sidenav/sidenav.module';
     BrowserAnimationsModule,
     NavbarModule,
     SidenavModule,
+    FooterModule,
     AppMaterialModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({

@@ -211,3 +211,8 @@ li {
 .mat-ripple-element {
   background-color: rgba($color-primary, 0.17) !important;
 }
+
+.hyperlink {
+  text-decoration: none;
+  color: $color-primary;
+}
