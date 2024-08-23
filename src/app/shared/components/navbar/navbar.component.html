@@ -1,0 +1,52 @@
+<nav class="navbar">
+  <div class="navbar__brand">
+    <h3 class="navbar__brand-text">Ecoeden</h3>
+  </div>
+  <ng-container *ngIf="!isMobileView">
+    <div class="navbar__nav">
+      <div class="navbar__nav-item mt-1">
+        <span class="material-symbols-outlined">Notifications</span>
+        <span>{{ notificationCount }}</span>
+      </div>
+      <div class="navbar__nav-item avatar">
+        <div class="avatar--name text-semibold">
+          Username
+          <span class="material-symbols-outlined mt-1"
+            >keyboard_arrow_down</span
+          >
+        </div>
+        <img
+          src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724284800&semt=ais_hybrid"
+          class="avatar--image"
+        />
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="isMobileView">
+    <div class="navbar__nav--mobile">
+      <span class="material-symbols-outlined mt-1" (click)="toggleAccordion()">
+        menu
+      </span>
+    </div>
+  </ng-container>
+</nav>
+
+<div class="container" *ngIf="isMobileView">
+  <mat-accordion multi>
+    <mat-expansion-panel>
+      <li class="mat-expansion-panel--list-item" matRipple>
+        <span class="material-symbols-outlined">person</span>
+        <span>My Profile</span>
+      </li>
+      <li class="mat-expansion-panel--list-item" matRipple>
+        <span class="material-symbols-outlined">settings</span>
+        <span>Account</span>
+      </li>
+      <li class="mat-expansion-panel--list-item" matRipple>
+        <span class="material-symbols-outlined text-warn">power_settings_new</span>
+        <span>Logout</span>
+      </li>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
