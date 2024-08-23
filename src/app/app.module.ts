@@ -9,6 +9,8 @@ import { StoreModule } from '@ngrx/store';
 import { appReducers } from './store/app.state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
+import { AppMaterialModule } from './app-material.module';
+import { SidenavModule } from './features/sidenav/sidenav.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +19,8 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     BrowserAnimationsModule,
     NavbarModule,
+    SidenavModule,
+    AppMaterialModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,

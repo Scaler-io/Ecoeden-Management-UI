@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './navbar.component';
+import { SidenavComponent } from './sidenav.component';
 import { AppMaterialModule } from 'src/app/app-material.module';
 
 @NgModule({
-  declarations: [NavbarComponent],
+  declarations: [SidenavComponent],
   imports: [CommonModule, AppMaterialModule],
-  exports: [NavbarComponent],
+  exports: [SidenavComponent],
 })
-export class NavbarModule {}
+export class SidenavModule {}

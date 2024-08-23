@@ -1,0 +1,20 @@
+@import "../assets/styles/variables";
+
+.app__main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  &__container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+
+    .app__main--content {
+      flex: 1;
+      z-index: -1;
+      overflow-y: auto;
+      padding: 16px;
+      background-color: $color-light-gray;
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<div
+  class="sidenav sidenav--collapse-full"
+  [class.sidenav--collapse]="!isMobileView && !sidenavExpanded"
+  [class.sidenav--collapse-full]="isMobileView && sidenavExpanded"
+>
+  <div class="sidenav__content">
+    <ul class="sidenav__content-list">
+      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick()" matRipple>
+        <span class="material-symbols-outlined item-icon">Dashboard</span>
+        <span class="item-label">Dashboard</span>
+      </li>
+
+      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick()" matRipple>
+        <span class="material-symbols-outlined">person</span>
+        <span class="item-label">Users</span>
+      </li>
+
+      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick()" matRipple>
+        <span class="material-symbols-outlined item-icon">psychiatry</span>
+        <span class="item-label">Products</span>
+      </li>
+    </ul>
+  </div>
+</div>

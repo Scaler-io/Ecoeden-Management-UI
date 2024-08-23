@@ -159,7 +159,6 @@
 }
 html,
 body {
-  height: 100%;
   font-size: 10px;
 }
 
@@ -207,4 +206,8 @@ body {
 li {
   list-style: none;
   padding: 16px 60px;
+}
+
+.mat-ripple-element {
+  background-color: rgba($color-primary, 0.17) !important;
 }

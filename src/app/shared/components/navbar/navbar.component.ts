@@ -3,6 +3,7 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { select, Store } from '@ngrx/store';
 import { getMobileViewState } from 'src/app/state/mobile-view/mobile-view.selector';
 import { AppState } from 'src/app/store/app.state';
+import { ToggleSideNav } from '../../../state/sidenav/sidenav.action';
 
 @Component({
   selector: 'ecoeden-navbar',
@@ -33,5 +34,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public toggleAccordion(): void {
     if (this.panel.expanded) this.panel.close();
     else this.panel.open();
+  }
+
+  public toggleSidenav(): void {
+    this.store.dispatch(new ToggleSideNav());
   }
 }

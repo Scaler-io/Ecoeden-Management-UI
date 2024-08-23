@@ -1,0 +1,44 @@
+@import "../../../assets/styles/variables";
+
+.sidenav {
+  height: 100%;
+  max-width: 25rem;
+  min-width: 7.5rem;
+  width: 25rem;
+  box-shadow: -3px -1px 20px 5px rgba(116, 116, 116, 0.15);
+  z-index: 1;
+  &__content {
+    height: 100%;
+    padding-top: 5rem;
+    &-list {
+      &--item {
+        padding: 10px 0 10px 30px;
+        display: flex;
+        align-items: center;
+        column-gap: 2rem;
+        margin-bottom: 1.5rem;
+        &:hover {
+          color: $color-primary;
+          cursor: pointer;
+          transition: color 0.2s ease-in-out;
+        }
+        .item-label {
+          font-size: $font-sm;
+        }
+      }
+    }
+  }
+  transition: all 0.3s ease-in-out;
+  &--collapse {
+    width: 7.5rem !important;
+    white-space: nowrap;
+    .sidenav__content-list--item {
+      padding: 10px 0 10px 25px;
+      column-gap: 2.6rem;
+    }
+  }
+  &--collapse-full {
+    min-width: 0rem;
+    width: 0;
+  }
+}

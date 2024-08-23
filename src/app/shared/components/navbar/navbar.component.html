@@ -1,5 +1,11 @@
 <nav class="navbar">
   <div class="navbar__brand">
+    <span
+      class="material-symbols-outlined navbar__brand-icon"
+      matRipple
+      (click)="toggleSidenav()"
+      >menu</span
+    >
     <h3 class="navbar__brand-text">Ecoeden</h3>
   </div>
   <ng-container *ngIf="!isMobileView">
@@ -44,7 +50,9 @@
         <span>Account</span>
       </li>
       <li class="mat-expansion-panel--list-item" matRipple>
-        <span class="material-symbols-outlined text-warn">power_settings_new</span>
+        <span class="material-symbols-outlined text-warn"
+          >power_settings_new</span
+        >
         <span>Logout</span>
       </li>
     </mat-expansion-panel>

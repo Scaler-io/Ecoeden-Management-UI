@@ -5,11 +5,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 6rem 1rem 6rem;
+  padding: 1rem 6rem 1rem 2.5rem;
   background-color: $color-light;
-  border-bottom: 2px solid $color-light-gray;
+  border-bottom: 2px solid $color-blue-gray;
   &__brand {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    &-icon {
+      font-size: $font-lg;
+      color: $color-accent;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 50%;
+      margin-top: 5px;
+    }
     &-text {
+      flex: 1;
       font-size: $font-xl;
       color: $color-primary;
     }
@@ -58,4 +70,3 @@
     border-radius: 50%;
   }
 }
-
