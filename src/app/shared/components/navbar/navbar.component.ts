@@ -6,6 +6,7 @@ import { AppState } from 'src/app/store/app.state';
 import { ToggleSideNav } from '../../../state/sidenav/sidenav.action';
 import { AuthUser } from 'src/app/core/models/auth-user';
 import { getLoggedInUser } from 'src/app/state/auth/auth.selector';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'ecoeden-navbar',
@@ -24,7 +25,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     authState: null,
   };
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private auth: AuthService) {}
 
   ngOnInit(): void {
     this.subcriptions.mobileViewState = this.store
@@ -51,5 +52,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public toggleSidenav(): void {
     this.store.dispatch(new ToggleSideNav());
+  }
+
+  public signout() {
+    this.auth.signoff();
   }
 }

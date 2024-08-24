@@ -228,3 +228,20 @@ li {
     display: none !important;
   }
 }
+.mat-menu-panel {
+  .mat-menu-content {
+    .mat-menu-item {
+      display: flex;
+      align-items: center;
+      column-gap: 1.2rem;
+      span {
+        &:first-child {
+          font-size: $font-md !important;
+        }
+        &:last-child {
+          font-size: $font-sm !important;
+        }
+      }
+    }
+  }
+}

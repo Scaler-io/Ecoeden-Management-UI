@@ -15,7 +15,7 @@
         <span>{{ notificationCount }}</span>
       </div>
       <div class="navbar__nav-item avatar">
-        <div class="avatar--name text-semibold">
+        <div class="avatar--name text-semibold" [matMenuTriggerFor]="menu">
           {{ loggedInUser.firstName }} {{ loggedInUser.lastName }}
           <span class="material-symbols-outlined mt-1"
             >keyboard_arrow_down</span
@@ -50,7 +50,7 @@
         <span class="material-symbols-outlined">settings</span>
         <span>Account</span>
       </li>
-      <li class="mat-expansion-panel--list-item" matRipple>
+      <li class="mat-expansion-panel--list-item" matRipple (click)="signout()">
         <span class="material-symbols-outlined text-warn"
           >power_settings_new</span
         >
@@ -59,3 +59,19 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
+
+<!-- profile menu -->
+<mat-menu #menu="matMenu">
+  <div mat-button mat-menu-item>
+    <span class="material-symbols-outlined">person</span>
+    <span>My profile</span>
+  </div>
+  <div mat-button mat-menu-item>
+    <span class="material-symbols-outlined">settings</span>
+    <span>Account</span>
+  </div>
+  <div mat-button mat-menu-item (click)="signout()">
+    <span class="material-symbols-outlined">power_settings_new</span>
+    <span>Logout</span>
+  </div>
+</mat-menu>
