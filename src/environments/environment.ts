@@ -2,10 +2,23 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { LogLevel } from 'angular-auth-oidc-client';
 import { IConfiguration } from './IConfiguration';
 
 export const environment: IConfiguration = {
   production: false,
+  oidcConfig: {
+    authority: 'http://localhost:5000',
+    redirectUrl: window.location.origin,
+    postLogoutRedirectUri: window.location.origin,
+    clientId: 'ecoeden.management.ui',
+    logLevel: LogLevel.Error,
+    responseType: 'code',
+    scope:
+      'openid profile email catalogueapi:read catalogueapi:write userapi:read userapi:write',
+    silentRenew: false,
+    useRefreshToken: false,
+  },
 };
 
 /*

@@ -1,19 +1,41 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './store/app.state';
 
 import * as mobileViewActions from './state/mobile-view/mobile-view.action';
+import * as authActions from './state/auth/auth.action';
+import { AuthService } from './core/auth/auth.service';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'ecoeden-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  title = 'Ecoeden-Management-UI';
+export class AppComponent implements OnInit, OnDestroy {
+  public title: string = 'Ecoeden-Management-UI';
   public isMobileView: boolean = false;
+  public isAuthenticated: boolean = false;
+  public isAppBusy: boolean = true;
 
-  constructor(private store: Store<AppState>) {}
+  private subscriptions = {
+    authState: null,
+  };
+  constructor(
+    private auth: AuthService,
+    private store: Store<AppState>,
+    private router: Router
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart && this.router.url === '/') {
+        this.isAppBusy = true;
+      } else {
+        setTimeout(() => {
+          this.isAppBusy = false;
+        }, 1000);
+      }
+    });
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -29,6 +51,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.chekIfMobileView();
+    this.performAuthentcation();
   }
 
   private chekIfMobileView(): void {
@@ -39,5 +62,24 @@ export class AppComponent implements OnInit {
       this.isMobileView = false;
       this.store.dispatch(new mobileViewActions.SetMobileView(false));
     }
+  }
+
+  private performAuthentcation(): void {
+    this.subscriptions.authState = this.auth
+      .isAuthenticated()
+      .subscribe((response) => {
+        console.log(response);
+        this.isAuthenticated = response.isAuthenticated;
+        if (!response.isAuthenticated) {
+          this.auth.authorize();
+        } else {
+          this.store.dispatch(new authActions.SetAuthState(response));
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscriptions.authState)
+      this.subscriptions.authState.unsubscribe();
   }
 }

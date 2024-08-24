@@ -4,6 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { getMobileViewState } from 'src/app/state/mobile-view/mobile-view.selector';
 import { AppState } from 'src/app/store/app.state';
 import { ToggleSideNav } from '../../../state/sidenav/sidenav.action';
+import { AuthUser } from 'src/app/core/models/auth-user';
+import { getLoggedInUser } from 'src/app/state/auth/auth.selector';
 
 @Component({
   selector: 'ecoeden-navbar',
@@ -13,9 +15,13 @@ import { ToggleSideNav } from '../../../state/sidenav/sidenav.action';
 export class NavbarComponent implements OnInit, OnDestroy {
   @ViewChild(MatExpansionPanel) panel: MatExpansionPanel;
   @Input() notificationCount: number = 0;
+
   public isMobileView: boolean;
+  public loggedInUser: AuthUser;
+
   private subcriptions = {
     mobileViewState: null,
+    authState: null,
   };
 
   constructor(private store: Store<AppState>) {}
@@ -24,11 +30,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.subcriptions.mobileViewState = this.store
       .pipe(select(getMobileViewState))
       .subscribe((state) => (this.isMobileView = state));
+
+    this.subcriptions.authState = this.store
+      .pipe(select(getLoggedInUser))
+      .subscribe((state) => {
+        this.loggedInUser = state;
+      });
   }
 
   ngOnDestroy(): void {
     if (this.subcriptions.mobileViewState)
       this.subcriptions.mobileViewState.unsubscribe();
+    if (this.subcriptions.authState) this.subcriptions.authState.unsubscribe();
   }
 
   public toggleAccordion(): void {

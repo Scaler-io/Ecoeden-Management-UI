@@ -11,3 +11,8 @@
     </div>
   </div>
 </main>
+
+<div class="overlay" [class.overlay--hidden]="!isAppBusy && isAuthenticated">
+  <mat-spinner diameter="40" color="primary"></mat-spinner>
+  <div class="overlay__loading-text">Please wait</div>
+</div>

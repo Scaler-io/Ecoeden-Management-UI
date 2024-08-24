@@ -13,6 +13,7 @@ import { AppMaterialModule } from './app-material.module';
 import { SidenavModule } from './features/sidenav/sidenav.module';
 import { FooterModule } from './shared/components/footer/footer.module';
 import { ContentHeaderModule } from './shared/components/content-header/content-header.module';
+import { AuthModule } from 'angular-auth-oidc-client';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { ContentHeaderModule } from './shared/components/content-header/content-
     FooterModule,
     AppMaterialModule,
     ContentHeaderModule,
+    AuthModule.forRoot({ config: environment.oidcConfig }),
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,

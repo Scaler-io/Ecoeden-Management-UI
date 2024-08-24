@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
   MAT_RIPPLE_GLOBAL_OPTIONS,
   MatRippleModule,
@@ -20,6 +21,7 @@ const MaterialComponentModule = [
   MatSidenavModule,
   MatExpansionModule,
   MatRippleModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({
