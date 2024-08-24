@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { AppMaterialModule } from './app-material.module';
 import { SidenavModule } from './features/sidenav/sidenav.module';
 import { FooterModule } from './shared/components/footer/footer.module';
+import { ContentHeaderModule } from './shared/components/content-header/content-header.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { FooterModule } from './shared/components/footer/footer.module';
     SidenavModule,
     FooterModule,
     AppMaterialModule,
+    ContentHeaderModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,

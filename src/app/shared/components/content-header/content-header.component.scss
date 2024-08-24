@@ -1,0 +1,19 @@
+@import "../../../../assets/styles/variables";
+
+.content-header {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+
+  &__page-icon {
+    display: flex;
+    align-items: center;
+    font-size: $font-sm;
+    column-gap: 15px;
+  }
+  &__breadcrumb {
+    font-size: $font-xs;
+  }
+}

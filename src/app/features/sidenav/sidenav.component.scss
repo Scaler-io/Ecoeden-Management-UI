@@ -16,15 +16,23 @@
         padding: 10px 0 10px 30px;
         display: flex;
         align-items: center;
-        column-gap: 2rem;
+        column-gap: 2.6rem;
         margin-bottom: 1.5rem;
         &:hover {
           color: $color-primary;
           cursor: pointer;
-          transition: color 0.2s ease-in-out;
+          .item-icon,
+          .item-label {
+            color: $color-primary;
+            transition: all 0.3s ease-in-out;
+          }
+        }
+        .item-icon {
+          color: $color-accent;
         }
         .item-label {
-          font-size: $font-sm;
+          font-size: 15px;
+          color: #7a7a7a;
         }
       }
     }

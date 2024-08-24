@@ -216,3 +216,14 @@ li {
   text-decoration: none;
   color: $color-primary;
 }
+
+.route-active {
+  background-color: $color-primary;
+  .item-icon,
+  .item-label {
+    color: $color-light !important;
+  }
+  .mat-ripple-element {
+    display: none !important;
+  }
+}
