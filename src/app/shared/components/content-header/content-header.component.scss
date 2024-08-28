@@ -4,16 +4,17 @@
   &__container {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid $color-accent;
   }
 
   &__page-icon {
     display: flex;
     align-items: center;
-    font-size: $font-sm;
+    font-size: $font-md;
     column-gap: 15px;
   }
   &__breadcrumb {
-    font-size: $font-xs;
+    font-size: $font-sm;
   }
 }

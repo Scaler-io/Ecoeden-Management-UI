@@ -7,6 +7,12 @@ import { IConfiguration } from './IConfiguration';
 
 export const environment: IConfiguration = {
   production: false,
+  ecoedenUserApiUrl: 'http://localhost:8000/catalogue',
+  ecoedenCatalogueApiUrl: 'http://localhost:8000/user',
+  ecoedenSearchApiUrl: 'http://localhost:8000/search',
+  searchApiSubscriptionKey: '79AE4A5B04CC48B887E38FAE7D1282C0',
+  catalogueApiSubscriptionKey: 'F340FE8EA8604456AC4E66F31A87574C',
+  userApiSubscriptionKey: '7B6AD94DCC3C4E9F891C52C8C340D99E',
   oidcConfig: {
     authority: 'http://localhost:5000',
     redirectUrl: window.location.origin,

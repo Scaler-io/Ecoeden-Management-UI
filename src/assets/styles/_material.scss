@@ -1,0 +1,81 @@
+@import './variables';
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.mat-expansion-panel-body {
+  padding: 0 !important;
+  .mat-expansion-panel {
+    &--list-item {
+      display: flex;
+      align-items: center;
+      column-gap: 15px;
+      padding: 10px!important;
+    }
+  }
+}
+
+li {
+  list-style: none;
+  padding: 16px 60px;
+}
+
+.mat-ripple-element {
+  background-color: rgba($color-primary, 0.17) !important;
+}
+
+.hyperlink {
+  text-decoration: none;
+  color: $color-primary;
+}
+
+.route-active {
+  background-color: $color-primary;
+  .item-icon,
+  .item-label {
+    color: $color-light !important;
+  }
+  .mat-ripple-element {
+    display: none !important;
+  }
+}
+
+.mat-menu-panel {
+  .mat-menu-content {
+    .mat-menu-item {
+      display: flex!important;
+      align-items: center!important;
+      column-gap: 1.2rem!important;
+      span {
+        &:first-child {
+          font-size: $font-md !important;
+        }
+        &:last-child {
+          font-size: $font-sm !important;
+        }
+      }
+    }
+  }
+}
+
+.mat-paginator-container {
+  background-color: $color-light-gray;
+}
+
+.mat-card{
+  overflow: hidden;
+  padding: 14px 15px 14px 0!important;
+  border-left: 5px solid $color-primary;
+  .mat-card-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .mat-card-footer{
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    padding-right: 25px!important;
+    margin: 0 -16px 0 16px;
+  }
+}

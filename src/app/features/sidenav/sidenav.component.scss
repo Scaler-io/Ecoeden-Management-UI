@@ -47,6 +47,7 @@
     }
   }
   &--collapse-full {
+    position: static;
     min-width: 0rem;
     width: 0;
   }

@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-sm-12" *ngFor="let user of userList | paginate: { itemsPerPage: 5, currentPage: currentPage, totalItems: totalCount }">
+    <mat-card class="mb-5">
+      <mat-card-header>
+        <div matCardTitle>
+          {{ user.fullName }}
+        </div>
+        <div matCardSubtitle>{{ user.userName }} 
+          <span class="badge rounded-pill" [class]="{
+            'badge--success': user.isActive,
+            'badge--danger': !user.isActive
+           }">{{ user.isActive | formatStatus }}</span>
+        </div>
+        <div matCardSubtitle>{{ user.userRoles }}</div>
+        <mat-card-actions>
+          <button mat-icon-button color="primary" 
+            [matMenuTriggerFor]="actionMenu"
+            #actionMenuTrigger="matMenuTrigger"
+          ><span class="material-symbols-outlined">more_horiz</span></button>
+        </mat-card-actions>
+      </mat-card-header>
+      <mat-card-footer>
+        <span class="material-symbols-outlined">history</span>
+        <span>{{ user.lastLogin | formatDate | formatStatus }}</span>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+  </div>
+</div>
+
+<!-- Action menu -->
+ <mat-menu #actionMenu="matMenu">
+  <div mat-button mat-menu-item>
+    <span class="material-symbols-outlined text-primary">visibility</span>
+    <span>View details</span>
+  </div>
+  <div mat-button mat-menu-item>
+    <span class="material-symbols-outlined text-secondary">edit</span>
+    <span>Edit</span>
+  </div>
+  <div mat-button mat-menu-item>
+    <span class="material-symbols-outlined text-warn">delete</span>
+    <span>Delete</span>
+  </div>
+ </mat-menu>

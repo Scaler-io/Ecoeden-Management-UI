@@ -1,1 +1,38 @@
-<p>users works!</p>
+<div class="user-list__container">
+  <ng-container *ngIf="isPageLoading">
+    <div class="user-list-loading-content">
+      <mat-spinner [diameter]="40" color="primary"></mat-spinner>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isPageLoading">
+    <!-- tables -->
+    <div class="row height-full" *ngIf="!isMobileView">
+      <div class="col-sm-12">
+        <ecoeden-table
+          [dataSource]="users"
+          [columns]="displayedColumns"
+          (pageChange)="pageChange($event)"
+          [actionsEnabled]="true"
+          (visit)="onVisit($event)"
+          (edit)="onEdit($event)"
+          (delete)="onDelete($event)"
+          [paginationMetadata]="paginationMetaData"
+          [fieldValueMap]="coulumnNameMap"
+          [dataLength]="dataLength"
+        ></ecoeden-table>
+      </div>
+    </div>
+    
+
+    <!-- Mobile fiendly user list -->
+    <div class="row" *ngIf="isMobileView">
+      <div class="col-sm-12">
+        <ecoeden-user-list-mobile [userList]="users.data" 
+        (pageChange)="onMobilePageChange($event)" 
+        [totalCount]="9" 
+        [currentPage]="paginationMetaData.currentPage"></ecoeden-user-list-mobile>
+      </div>
+    </div>
+  </ng-container>
+</div>

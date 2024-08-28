@@ -24,6 +24,8 @@
     "@ngrx/store": "^13.2.0",
     "@ngrx/store-devtools": "^13.2.0",
     "angular-auth-oidc-client": "^13.1.0",
+    "moment": "^2.30.1",
+    "ngx-pagination": "^6.0.3",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "xng-breadcrumb": "^7.2.0",

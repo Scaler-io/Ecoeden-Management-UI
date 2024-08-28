@@ -5,17 +5,17 @@
 >
   <div class="sidenav__content">
     <ul class="sidenav__content-list">
-      <li class="sidenav__content-list--item" matRipple (click)="handleSidenavItemClick()"  routerLink="dashboard" [routerLinkActive]="!isMobileView && 'route-active'">
+      <li class="sidenav__content-list--item" matRipple (click)="handleSidenavItemClick()"  routerLink="dashboard"  [routerLinkActive]="'route-active'">
         <span class="material-symbols-outlined item-icon">Dashboard</span>
         <span class="item-label">Dashboard</span>
       </li>
 
-      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick()" matRipple routerLink="users" [routerLinkActive]="!isMobileView && 'route-active'">
+      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick()" matRipple routerLink="users" [routerLinkActive]="'route-active'">
         <span class="material-symbols-outlined item-icon">person</span>
         <span class="item-label">Users</span>
       </li>
 
-      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick()" matRipple routerLink="products" [routerLinkActive]="!isMobileView && 'route-active'">
+      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick()" matRipple routerLink="products" [routerLinkActive]="'route-active'">
         <span class="material-symbols-outlined item-icon">psychiatry</span>
         <span class="item-label">Products</span>
       </li>

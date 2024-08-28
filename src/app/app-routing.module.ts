@@ -7,6 +7,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     data: { breadcrumb: { label: 'Dashboard' } },
+    pathMatch: 'full',
   },
   {
     path: 'users',

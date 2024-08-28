@@ -68,7 +68,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.authState = this.auth
       .isAuthenticated()
       .subscribe((response) => {
-        console.log(response);
         this.isAuthenticated = response.isAuthenticated;
         if (!response.isAuthenticated) {
           this.auth.authorize();

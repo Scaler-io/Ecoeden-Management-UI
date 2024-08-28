@@ -1,0 +1,11 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/grid";
+
+.user-list {
+  &-loading-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+}

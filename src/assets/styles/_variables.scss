@@ -6,7 +6,9 @@ $color-light: #fefdfd;
 $color-dark: #010101;
 $color-light-gray: #fafafa;
 $color-blue-gray: #eaeaea;
-$color-warn: rgb(248, 93, 93);
+$color-warn: #f85d5d;
+$color-success: #29ae5c;
+$color-success-dark: #134d29;
 
 // typography
 $font-weight-light: 300;
@@ -14,7 +16,7 @@ $font-weight-semibold: 400;
 $font-weight-bold: 600;
 
 $font-xs: 1.2rem;
-$font-sm: 1.6rem;
+$font-sm: 1.4rem;
 $font-md: 1.8rem;
 $font-lg: 2.2rem;
 $font-xl: 2.6rem;
@@ -32,4 +34,3 @@ $grid-span-9: span 9;
 $grid-span-10: span 10;
 $grid-span-11: span 11;
 $grid-span-12: span 12;
-

@@ -13,7 +13,9 @@ import { AppMaterialModule } from './app-material.module';
 import { SidenavModule } from './features/sidenav/sidenav.module';
 import { FooterModule } from './shared/components/footer/footer.module';
 import { ContentHeaderModule } from './shared/components/content-header/content-header.module';
-import { AuthModule } from 'angular-auth-oidc-client';
+import { AuthInterceptor, AuthModule } from 'angular-auth-oidc-client';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,11 +30,14 @@ import { AuthModule } from 'angular-auth-oidc-client';
     ContentHeaderModule,
     AuthModule.forRoot({ config: environment.oidcConfig }),
     StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

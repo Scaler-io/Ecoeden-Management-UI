@@ -5,6 +5,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
 
 import {
   MAT_RIPPLE_GLOBAL_OPTIONS,
@@ -27,6 +31,10 @@ const MaterialComponentModule = [
   MatProgressSpinnerModule,
   MatMenuModule,
   MatButtonModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSlideToggleModule,
+  MatCardModule
 ];
 
 @NgModule({
