@@ -6,11 +6,7 @@
           <div class="col-sm-12 col-md-6">
             <div class="user-details__primary">
               <div class="avatar-container">
-                <img
-                  src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724284800&semt=ais_hybrid"
-                  alt="user_avatar"
-                  class="avatar"
-                />
+                <img src="../../../../assets/images/user_avatar2.webp" alt="user_avatar" class="avatar" />
               </div>
               <div class="row basic-details">
                 <div class="basic-details__title">
@@ -36,85 +32,91 @@
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
-            <div class="user-details__action-group" *ngIf="!user.isDefaultAdmin || !  isCurrentUser">
-              <button mat-raised-button button color="primary"
-                ><span class="material-symbols-outlined">edit</span>
-                <span>Edit</span>
-              </button>
-              <button mat-raised-button color="warn">
-                <span class="material-symbols-outlined">delete</span>
-                <span>Delete</span>
-              </button>
-            </div>
+            <ng-container *ngIf="!user.isDefaultAdmin || !  isCurrentUser; else actionNotice">
+              <div class="user-details__action-group">
+                <button mat-raised-button button color="primary"
+                  ><span class="material-symbols-outlined">edit</span>
+                  <span>Edit</span>
+                </button>
+                <button mat-raised-button color="warn">
+                  <span class="material-symbols-outlined">delete</span>
+                  <span>Delete</span>
+                </button>
+              </div>
+            </ng-container>
+            <ng-template #actionNotice>
+              <div class="user-details__action-group">
+                <ecoeden-notice-banner [isImportant]="true" [type]="BannerType.basic">
+                  You do not have permission to modify your data from here as you have default admin flag set. Click here to know more about default
+                  Admin role.
+                </ecoeden-notice-banner>
+              </div>
+            </ng-template>
           </div>
         </div>
 
         <div class="row">
-          <!-- Basic details  -->
           <div class="col-sm-12 col-md-6">
             <div class="container">
+              <!-- Basic details here -->
               <div class="row">
                 <div class="col-sm-12"><ecoeden-divider label="Basic details"></ecoeden-divider></div>
-                <div class="col-sm-12 col-md-6">
-                  <ecoeden-individual-details icon="person" label="User name" [value]="user.userName"></ecoeden-individual-details>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <ecoeden-individual-details icon="email" label="Email" [value]="user.email"></ecoeden-individual-details>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <ecoeden-individual-details
+                <div class="col-sm-12 col-md-6"
+                  ><ecoeden-individual-details icon="person" label="User name" [value]="user.userName"></ecoeden-individual-details
+                ></div>
+                <div class="col-sm-12 col-md-6"
+                  ><ecoeden-individual-details icon="email" label="Email" [value]="user.email"></ecoeden-individual-details
+                ></div>
+                <div class="col-sm-12 col-md-6"
+                  ><ecoeden-individual-details
                     icon="verified"
                     label="Email verification"
                     [value]="user.emailConfirmed ? 'Confirmed' : 'Pending'"
-                  ></ecoeden-individual-details>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <ecoeden-individual-details icon="history" label="Last login" [value]="user.lastLogin | formatDate"></ecoeden-individual-details>
-                </div>
+                  ></ecoeden-individual-details
+                ></div>
+                <div class="col-sm-12 col-md-6"
+                  ><ecoeden-individual-details icon="history" label="Last login" [value]="user.lastLogin | formatDate"></ecoeden-individual-details
+                ></div>
               </div>
-            </div>
-          </div>
 
-          <!-- User meta data details -->
-          <div class="col-sm-12 col-md-6">
-            <div class="container">
+              <!-- Metadata details here -->
               <div class="row">
                 <div class="col-sm-12"><ecoeden-divider label="Metadata details"></ecoeden-divider></div>
-                <div class="col-sm-12 col-md-6">
-                  <ecoeden-individual-details
+                <div class="col-sm-12 col-md-6"
+                  ><ecoeden-individual-details
                     icon="person_add"
                     label="Created by"
                     [value]="showMinimalData(user.metaData.createdBy)"
-                  ></ecoeden-individual-details>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <ecoeden-individual-details
+                  ></ecoeden-individual-details
+                ></div>
+                <div class="col-sm-12 col-md-6"
+                  ><ecoeden-individual-details
                     icon="manage_accounts"
                     label="Update by"
                     [value]="showMinimalData(user.metaData.updtedBy)"
-                  ></ecoeden-individual-details>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <ecoeden-individual-details
+                  ></ecoeden-individual-details
+                ></div>
+                <div class="col-sm-12 col-md-6"
+                  ><ecoeden-individual-details
                     icon="schedule"
                     label="Created on"
                     [value]="user.metaData.createdAt | formatDate"
-                  ></ecoeden-individual-details>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <ecoeden-individual-details
+                  ></ecoeden-individual-details
+                ></div>
+                <div class="col-sm-12 col-md-6"
+                  ><ecoeden-individual-details
                     icon="schedule"
                     label="Updated on"
                     [value]="user.metaData.updatedAt | formatDate"
-                  ></ecoeden-individual-details>
-                </div>
+                  ></ecoeden-individual-details
+                ></div>
               </div>
             </div>
           </div>
 
-          <!-- Role details -->
-          <div class="col-sm-12">
+          <div class="col-sm-12 col-md-6">
             <div class="container">
+              <!-- Role details here -->
               <div class="row">
                 <div class="col-sm-12"><ecoeden-divider label="Role details"></ecoeden-divider></div>
                 <div class="col-sm-12">

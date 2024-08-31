@@ -1,0 +1,24 @@
+<div
+  class="notice-banner"
+  [class]="{
+    'notice-banner--warning': type == 'warning',
+    'notice-banner--danger': type == 'danger',
+    'notice-banner--info': type == 'info'
+}"
+>
+  <h3 class="notice-banner__heading">
+    <ng-container *ngIf="!customHeading">
+      <span class="material-symbols-outlined" *ngIf="type!=='basic'">{{type === 'warning' ? 'warning' : type === 'danger' ? 'error' : 'info'}}</span>
+      <span *ngIf="isImportant">Important</span>
+      <span *ngIf="!isImportant">{{ 
+        type === 'warning' ? 'Warning' : type === 'danger' ? 'Error' : 'Info'
+      }}</span>
+    </ng-container>
+    <ng-container *ngIf="customHeading">
+      <span>{{ customHeading }}</span>
+    </ng-container>
+  </h3>
+  <p class="notice-banner__content">
+    <ng-content></ng-content>
+  </p>
+</div>

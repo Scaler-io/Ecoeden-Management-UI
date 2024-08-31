@@ -9,6 +9,7 @@ import {combineLatest, delay} from 'rxjs';
 import {getLoggedInUser} from 'src/app/state/auth/auth.selector';
 import {fadeSlideInOut} from 'src/app/core/animations/fadeInOut';
 import * as userActions from '../../../state/user/user.action';
+import {BannerType} from 'src/app/shared/components/notice-banner/banner.model';
 
 @Component({
   selector: 'ecoeden-user-detailed-view',
@@ -21,6 +22,7 @@ export class UserDetailedViewComponent implements OnInit, OnDestroy {
   public isBusy: boolean;
   public user: User;
   public isCurrentUser: boolean;
+  public BannerType = BannerType;
 
   constructor(
     private breadcrumbService: BreadcrumbService,
@@ -42,20 +44,19 @@ export class UserDetailedViewComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.subscriptions.authAndUserCombinedState = combineLatest([
-      this.store.pipe(select(getUserDetails)),
-      this.store.pipe(select(getLoggedInUser))
-    ]).subscribe(([userResponse, authResponse]) => {
-      if (userResponse && authResponse) {
-        this.zone.run(() => {
-          this.breadcrumbService.set('@username', `${userResponse.firstName} ${userResponse.lastName}`);
-          this.user = userResponse;
-          this.isBusy = false;
-          this.isCurrentUser = authResponse.username === userResponse.userName;
-          this.cdr.markForCheck();
-        });
-      }
-    });
+    this.subscriptions.authAndUserCombinedState = combineLatest([this.store.pipe(select(getUserDetails)), this.store.pipe(select(getLoggedInUser))])
+      .pipe(delay(1000))
+      .subscribe(([userResponse, authResponse]) => {
+        if (userResponse && authResponse) {
+          this.zone.run(() => {
+            this.breadcrumbService.set('@username', `${userResponse.firstName} ${userResponse.lastName}`);
+            this.user = userResponse;
+            this.isBusy = false;
+            this.isCurrentUser = authResponse.username === userResponse.userName;
+            this.cdr.markForCheck();
+          });
+        }
+      });
   }
 
   ngOnDestroy(): void {

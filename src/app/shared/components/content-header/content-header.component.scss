@@ -3,11 +3,11 @@
 .content-header {
   &__container {
     display: flex;
+    align-items: center;
     justify-content: space-between;
   }
   &__page-icon {
     display: flex;
-    align-items: center;
     font-size: $font-md;
     column-gap: 15px;
   }

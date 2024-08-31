@@ -1,0 +1,47 @@
+@import '../../../../assets/styles/variables';
+
+$banner-default-width: 45rem;
+$banner-full-width: 100%;
+
+.notice-banner {
+  width: $banner-full-width;
+  background: lighten($color: $color-accent, $amount: 25%);
+  border-radius: 5px;
+  padding: 15px;
+  color: #6f6f6f;
+  &__heading {
+    font-size: $font-sm;
+    color: #6f6f6f;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    span {
+      display: inline-block;
+    }
+  }
+  &__content {
+    font-size: $font-xs;
+  }
+
+  &--warning,
+  &--danger,
+  &--info {
+    .notice-banner__heading {
+      color: #ffffff !important;
+    }
+  }
+
+  &--warning {
+    background: lighten(#ffc012, 10%);
+    color: #fff;
+  }
+  &--danger {
+    background: lighten(#d23a3a, 10%);
+    color: #fff;
+  }
+  &--info {
+    background: lighten(#1c66b4, 10%);
+    color: #fff;
+  }
+}

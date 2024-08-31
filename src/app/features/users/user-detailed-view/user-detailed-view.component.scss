@@ -94,10 +94,11 @@
 }
 
 .code-segment {
+  border-radius: 5px;
   padding: 0.5rem;
   background-color: #383838;
   box-shadow: rgba(99, 99, 99, 0.507) 0px 5px 5px 0px;
-  width: calc(100% - 48px);
+  width: auto;
   @include for-phone-only-up {
     width: 100% !important;
   }
