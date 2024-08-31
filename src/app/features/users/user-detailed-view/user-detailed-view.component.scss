@@ -1,0 +1,108 @@
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/mixin';
+
+.user-details {
+  &__primary {
+    display: flex;
+    .avatar-container {
+      max-height: 20rem;
+      max-width: 16rem;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      @include for-phone-only-up {
+        max-height: 16rem;
+        max-width: 12rem;
+      }
+      .avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    .basic-details {
+      display: flex;
+      flex-grow: 0;
+      flex-direction: column;
+      margin-left: 1.2rem;
+      row-gap: 10px;
+      &__title {
+        font-weight: $font-weight-bold;
+        font-size: $font-xl;
+        color: $color-primary;
+        padding: 0;
+        @include for-phone-only-up {
+          font-size: $font-lg;
+        }
+      }
+      &__subtitle {
+        font-size: $font-sm;
+        color: $color-accent;
+      }
+      &__role {
+        display: flex;
+        align-items: center;
+        column-gap: 5px;
+        font-size: $font-sm;
+        padding: 0;
+      }
+    }
+  }
+  &__action-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+    height: 100%;
+    column-gap: 1.2rem;
+    @include for-phone-only-up {
+      justify-content: center;
+    }
+    button {
+      display: flex;
+      @include for-phone-only-up {
+        line-height: 25px;
+      }
+      span {
+        display: inline-block;
+        font-size: $font-sm;
+        @include for-phone-only-up {
+          font-size: $font-xs;
+        }
+        &:last-child {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
+
+[class^='col-'] {
+  margin-bottom: 2rem;
+  @include for-phone-only-up {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.user-loading-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.code-segment {
+  padding: 0.5rem;
+  background-color: #383838;
+  box-shadow: rgba(99, 99, 99, 0.507) 0px 5px 5px 0px;
+  width: calc(100% - 48px);
+  @include for-phone-only-up {
+    width: 100% !important;
+  }
+  pre {
+    color: $color-light;
+    padding: 10px;
+  }
+}

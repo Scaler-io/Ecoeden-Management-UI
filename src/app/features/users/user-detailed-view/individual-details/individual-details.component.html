@@ -1,0 +1,15 @@
+<div
+  class="individual-details"
+  [class]="{
+  'individual-details--basic': style === 'basic',
+  'individual-details--material': style === 'material'
+}"
+>
+  <div class="individual-details__icon">
+    <span class="material-symbols-outlined">{{ icon }}</span>
+  </div>
+  <div class="individual-details__data">
+    <span class="individual-details__data-label">{{ label }}</span>
+    <span class="individual-details__data-value">{{ value }}</span>
+  </div>
+</div>

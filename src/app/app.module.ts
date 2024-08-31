@@ -13,9 +13,10 @@ import { AppMaterialModule } from './app-material.module';
 import { SidenavModule } from './features/sidenav/sidenav.module';
 import { FooterModule } from './shared/components/footer/footer.module';
 import { ContentHeaderModule } from './shared/components/content-header/content-header.module';
-import { AuthInterceptor, AuthModule } from 'angular-auth-oidc-client';
+import { AuthModule } from 'angular-auth-oidc-client';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
+import { AuthInterceptor } from './core/auth/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,14 @@ import { EffectsModule } from '@ngrx/effects';
     FooterModule,
     AppMaterialModule,
     ContentHeaderModule,
-    AuthModule.forRoot({ config: environment.oidcConfig }),
+    AuthModule.forRoot({
+      config: {
+        ...environment.oidcConfig,
+        refreshTokenRetryInSeconds: 3600 * 24,
+        silentRenewTimeoutInSeconds: 3600 * 24,
+        tokenRefreshInSeconds: 3600 * 24,
+      },
+    }),
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({

@@ -1,4 +1,4 @@
-@import './variables';
+@import "./variables";
 
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
@@ -11,7 +11,7 @@
       display: flex;
       align-items: center;
       column-gap: 15px;
-      padding: 10px!important;
+      padding: 10px !important;
     }
   }
 }
@@ -44,9 +44,9 @@ li {
 .mat-menu-panel {
   .mat-menu-content {
     .mat-menu-item {
-      display: flex!important;
-      align-items: center!important;
-      column-gap: 1.2rem!important;
+      display: flex !important;
+      align-items: center !important;
+      column-gap: 1.2rem !important;
       span {
         &:first-child {
           font-size: $font-md !important;
@@ -63,19 +63,23 @@ li {
   background-color: $color-light-gray;
 }
 
-.mat-card{
+.mat-card {
   overflow: hidden;
-  padding: 14px 15px 14px 0!important;
+  padding: 14px 15px 14px 0 !important;
   border-left: 5px solid $color-primary;
   .mat-card-header {
     display: flex;
     justify-content: space-between;
   }
-  .mat-card-footer{
+  .mat-card-content {
+    padding: 10px 15px;
+  }
+  .mat-card-footer {
     display: flex;
     align-items: center;
     column-gap: 1rem;
-    padding-right: 25px!important;
+    padding-right: 25px !important;
     margin: 0 -16px 0 16px;
   }
 }
+

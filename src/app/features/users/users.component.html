@@ -7,7 +7,7 @@
 
   <ng-container *ngIf="!isPageLoading">
     <!-- tables -->
-    <div class="row height-full" *ngIf="!isMobileView">
+    <div class="row height-full" @fadeSlideInOut *ngIf="!isMobileView">
       <div class="col-sm-12">
         <ecoeden-table
           [dataSource]="users"
@@ -23,15 +23,16 @@
         ></ecoeden-table>
       </div>
     </div>
-    
 
     <!-- Mobile fiendly user list -->
-    <div class="row" *ngIf="isMobileView">
+    <div class="row" @fadeSlideInOut *ngIf="isMobileView">
       <div class="col-sm-12">
-        <ecoeden-user-list-mobile [userList]="users.data" 
-        (pageChange)="onMobilePageChange($event)" 
-        [totalCount]="9" 
-        [currentPage]="paginationMetaData.currentPage"></ecoeden-user-list-mobile>
+        <ecoeden-user-list-mobile
+          [userList]="users.data"
+          (pageChange)="onMobilePageChange($event)"
+          [totalCount]="9"
+          [currentPage]="paginationMetaData.currentPage"
+        ></ecoeden-user-list-mobile>
       </div>
     </div>
   </ng-container>

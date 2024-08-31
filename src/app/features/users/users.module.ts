@@ -9,6 +9,7 @@ import { USER_STATE_NAME, userReducer } from 'src/app/state/user/user.reducer';
 import { TableModule } from 'src/app/shared/components/table/table.module';
 import { AppMaterialModule } from 'src/app/app-material.module';
 import { UserListMobileModule } from './user-list-mobile/user-list-mobile.module';
+import { UserDetailedViewModule } from './user-detailed-view/user-detailed-view.module';
 
 @NgModule({
   declarations: [UsersComponent],
@@ -19,7 +20,8 @@ import { UserListMobileModule } from './user-list-mobile/user-list-mobile.module
     EffectsModule.forFeature([UserStateEffect]),
     TableModule,
     AppMaterialModule,
-    UserListMobileModule
+    UserListMobileModule,
+    UserDetailedViewModule,
   ],
 })
 export class UsersModule {}

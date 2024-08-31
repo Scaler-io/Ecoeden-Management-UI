@@ -1,7 +1,7 @@
 <div class="content-header__container">
   <div class="content-header__page-icon">
     <div class="material-symbols-outlined icon">{{ pageIcon }}</div>
-    <div class="label">{{ pageName }}</div>
+    <div *ngIf="!isBusy" class="label">{{ pageName }}</div>
   </div>
   <div class="content-header__breadcrumb">
     <xng-breadcrumb></xng-breadcrumb>

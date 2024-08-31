@@ -1,0 +1,48 @@
+@import '../../../../../assets/styles/variables';
+
+.individual-details {
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 100%;
+  &__icon {
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+  }
+  &__data {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    row-gap: 2px;
+    padding: 8px 10px;
+    column-gap: 10px;
+    &-label {
+      color: $color-primary;
+      font-size: $font-xs;
+      font-weight: $font-weight-bold;
+    }
+    &-value {
+      color: rgb(78, 78, 78);
+      font-size: $font-sm;
+    }
+  }
+  &--basic {
+    .individual-details {
+      &__icon {
+        background-color: $color-light;
+        color: $color-primary;
+      }
+    }
+  }
+  &--material {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    .individual-details {
+      &__icon {
+        background-color: $color-primary;
+        color: $color-light;
+      }
+    }
+  }
+}

@@ -1,13 +1,10 @@
-@import "../../../../assets/styles/variables";
+@import '../../../../assets/styles/variables';
 
 .content-header {
   &__container {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 3rem;
-    border-bottom: 1px solid $color-accent;
   }
-
   &__page-icon {
     display: flex;
     align-items: center;

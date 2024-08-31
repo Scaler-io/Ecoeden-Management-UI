@@ -3,11 +3,10 @@
   <div class="app__main__container">
     <ecoeden-sidenav></ecoeden-sidenav>
     <div class="app__main--content">
-      <ecoeden-content-header></ecoeden-content-header>
+      <ecoeden-content-header *ngIf="!isMobileView"></ecoeden-content-header>
       <div class="content-render">
         <router-outlet></router-outlet>
       </div>
-      <ecoeden-footer></ecoeden-footer>
     </div>
   </div>
 </main>

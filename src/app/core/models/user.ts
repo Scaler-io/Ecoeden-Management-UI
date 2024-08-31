@@ -1,13 +1,8 @@
-import { PaginatedResult } from './pagination';
-import { TableDataSource } from './table-source';
+import {PaginatedResult} from './pagination';
+import {TableDataSource} from './table-source';
 
 export class PaginatedUserList extends PaginatedResult {
-  constructor(
-    public pageIndex: number,
-    public pageSize: number,
-    public count: number,
-    public data: UserSummary[]
-  ) {
+  constructor(public pageIndex: number, public pageSize: number, public count: number, public data: UserSummary[]) {
     super(pageIndex, pageSize, count, data);
   }
 }
@@ -43,13 +38,11 @@ export interface UserSearchRequest {
 export interface User {
   id: string;
   userName: string;
-  normalizedUserName: string;
   firstName: string;
   lastName: string;
   email: string;
   isDefaultAdmin: boolean;
   isActive: boolean;
-  normalizedEmail: string;
   emailConfirmed: boolean;
   phoneNumber: string | null;
   userRoles: string[];
@@ -62,5 +55,5 @@ interface MetaData {
   createdAt: Date | string;
   updatedAt: Date | string;
   createdBy: string;
-  updatedBy: string;
+  updtedBy: string;
 }

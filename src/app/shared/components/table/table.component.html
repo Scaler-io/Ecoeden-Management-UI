@@ -4,15 +4,17 @@
     <td cdk-cell *cdkCellDef="let element; let i = index">
       <ng-container *ngIf="column !== 'actions'; else actionColumns">
         <ng-container *ngIf="isStatusField(column); else defaultDisplay">
-          <span class="badge rounded-pill"
+          <span
+            class="badge rounded-pill"
             [ngClass]="element[getColumnValue(column)] ? 'badge--success':'badge--danger'"
-          >{{ element[getColumnValue(column)] | formatStatus }}</span>
+            >{{ element[getColumnValue(column)] | formatStatus }}</span
+          >
         </ng-container>
         <ng-template #defaultDisplay>
           {{ !fieldValueMap ? element[column] 
             : isDateField(column)   
             ? (element[getColumnValue(column)] | formatDate | formatStatus)  
-            : element[getColumnValue(column)]  
+            : element[getColumnValue(column)]
           }}
         </ng-template>
       </ng-container>

@@ -1,23 +1,26 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
-import { PaginatedUserList, UserSearchRequest, UserSummary } from 'src/app/core/models/user';
-import { getPaginatedUsers } from 'src/app/state/user/user.selector';
-import { MatTableDataSource } from '@angular/material/table';
-import { PaginationMetaData } from 'src/app/core/models/pagination';
-import { PageEvent } from '@angular/material/paginator';
-import { TableColumnMap, TableDataSource } from 'src/app/core/models/table-source';
-import { delay } from 'rxjs';
-import { getLoggedInUser } from 'src/app/state/auth/auth.selector';
-import { AuthUser } from 'src/app/core/models/auth-user';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {select, Store} from '@ngrx/store';
+import {AppState} from 'src/app/store/app.state';
+import {PaginatedUserList, UserSearchRequest, UserSummary} from 'src/app/core/models/user';
+import {getPaginatedUsers} from 'src/app/state/user/user.selector';
+import {MatTableDataSource} from '@angular/material/table';
+import {PaginationMetaData} from 'src/app/core/models/pagination';
+import {PageEvent} from '@angular/material/paginator';
+import {TableColumnMap, TableDataSource} from 'src/app/core/models/table-source';
+import {delay} from 'rxjs';
+import {getLoggedInUser} from 'src/app/state/auth/auth.selector';
+import {AuthUser} from 'src/app/core/models/auth-user';
 
 import * as userActions from '../../state/user/user.action';
-import { getMobileViewState } from 'src/app/state/mobile-view/mobile-view.selector';
+import {getMobileViewState} from 'src/app/state/mobile-view/mobile-view.selector';
+import {Router} from '@angular/router';
+import {fadeSlideInOut} from 'src/app/core/animations/fadeInOut';
 
 @Component({
   selector: 'ecoeden-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
+  animations: [fadeSlideInOut],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersComponent implements OnInit, OnDestroy {
@@ -26,13 +29,12 @@ export class UsersComponent implements OnInit, OnDestroy {
   public isPageLoading: boolean = true;
   public paginationMetaData: PaginationMetaData;
   public users = new MatTableDataSource<UserSummary>([]);
-  public displayedColumns = [ 'userName', 'fullName', 'email', 'status', 'lastLogin' ];
+  public displayedColumns = ['userName', 'fullName', 'email', 'status'];
   public coulumnNameMap: TableColumnMap = {
-    userName: { value: 'userName', isDateField: false, isStatusField: false },
-    fullName: { value: 'fullName', isDateField: false, isStatusField: false },
-    email: { value: 'email', isDateField: false, isStatusField: false },
-    status: { value: 'isActive', isDateField: false, isStatusField: true },
-    lastLogin: { value: 'lastLogin', isDateField: true, isStatusField: false },
+    userName: {value: 'userName', isDateField: false, isStatusField: false},
+    fullName: {value: 'fullName', isDateField: false, isStatusField: false},
+    email: {value: 'email', isDateField: false, isStatusField: false},
+    status: {value: 'isActive', isDateField: false, isStatusField: true}
   };
   public isMobileView: boolean;
 
@@ -42,11 +44,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     mobileViewState: null
   };
 
-  constructor(
-    private store: Store<AppState>,
-    private cdr: ChangeDetectorRef,
-    private zone: NgZone
-  ) {}
+  constructor(private store: Store<AppState>, private cdr: ChangeDetectorRef, private zone: NgZone, private router: Router) {}
 
   ngOnInit(): void {
     this.dataLength = 9;
@@ -56,17 +54,17 @@ export class UsersComponent implements OnInit, OnDestroy {
 
     this.subscriptions.currentUser = this.store.pipe(select(getLoggedInUser)).subscribe(response => {
       this.loggedInUser = response;
-    })
+    });
     this.subscriptions.mobileViewState = this.store.pipe(select(getMobileViewState)).subscribe(response => {
       this.zone.run(() => {
         this.isMobileView = response;
         this.cdr.markForCheck();
-      })
-    })
+      });
+    });
 
     this.subscriptions.paginatedUsers = this.store // fetches serach result, along with page information
-      .pipe(select(getPaginatedUsers), delay(1000))
-      .subscribe((response) => {
+      .pipe(delay(1000), select(getPaginatedUsers))
+      .subscribe(response => {
         if (response && response.data.length > 0) {
           this.zone.run(() => {
             this.isPageLoading = false;
@@ -78,10 +76,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.subscriptions.paginatedUsers)
-      this.subscriptions.paginatedUsers.unsubscribe();
-    if(this.subscriptions.mobileViewState)
-      this.subscriptions.mobileViewState.unsubscribe();
+    if (this.subscriptions.paginatedUsers) this.subscriptions.paginatedUsers.unsubscribe();
+    if (this.subscriptions.mobileViewState) this.subscriptions.mobileViewState.unsubscribe();
   }
 
   // fetch user summary list
@@ -98,7 +94,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       pageIndex: pageIndex,
       pageSize: pageSize,
       sortField: sortField,
-      sortOrder: sortOrder,
+      sortOrder: sortOrder
     };
     this.store.dispatch(new userActions.UserListFetch(userSearchRequest));
   }
@@ -108,7 +104,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.paginationMetaData = {
       count: response.count,
       currentPage: response.pageIndex,
-      top: response.pageSize,
+      top: response.pageSize
     };
   }
 
@@ -118,14 +114,14 @@ export class UsersComponent implements OnInit, OnDestroy {
     });
   }
 
-  public onMobilePageChange(pageIndex: number){
+  public onMobilePageChange(pageIndex: number) {
     this.zone.runOutsideAngular(() => {
       this.fetchUserList(false, pageIndex, 5);
     });
   }
 
   public onVisit(event: TableDataSource) {
-    console.log(event);
+    this.router.navigateByUrl(`users/${(event as UserSummary).id}`);
   }
 
   public onEdit(event: TableDataSource) {

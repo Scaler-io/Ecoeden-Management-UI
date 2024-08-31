@@ -1,5 +1,5 @@
-@import "./variables";
-@import "./mixin";
+@import './variables';
+@import './mixin';
 
 .container {
   width: 100%;
@@ -7,142 +7,54 @@
   padding: 10px;
 }
 
+//
+
+// Define breakpointss
+$breakpoint-sm: 0px;
+$breakpoint-md: 576px;
+$breakpoint-lg: 768px;
+$breakpoint-xl: 992px;
+
+// Mixin for setting up the grid column
+@mixin place-column($col) {
+  grid-column: span $col;
+}
+
+// Responsive mixin to apply media queries
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == xl {
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+}
+
+// Grid container setup
 .row {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  column-gap: 1.5rem;
+  gap: 1.5rem;
+}
 
-  [class^="col-lg"] {
-    @include for-desktop-up {
-      @include placeColumn($col: 12);
+// Generate column classes for each breakpoint
+@each $size, $breakpoint in (sm: $breakpoint-sm, md: $breakpoint-md, lg: $breakpoint-lg, xl: $breakpoint-xl) {
+  @for $i from 1 through 12 {
+    .col-#{$size}-#{$i} {
+      @include responsive($size) {
+        @include place-column($i);
+      }
     }
   }
-  [class^="col-md"] {
-    height: 100%;
-    @include for-tablet-landscape-up {
-      @include placeColumn($col: 12);
-    }
-  }
-  [class^="col-sm"] {
-    @include for-phone-only-up {
-      @include placeColumn($col: 12);
-    }
-  }
-}
-
-// large screen
-.col-lg-1 {
-  @include placeColumn($col: 1);
-}
-.col-lg-2 {
-  @include placeColumn($col: 2);
-}
-.col-lg-3 {
-  @include placeColumn($col: 3);
-}
-.col-lg-4 {
-  @include placeColumn($col: 4);
-}
-.col-lg-5 {
-  @include placeColumn($col: 5);
-}
-.col-lg-6 {
-  @include placeColumn($col: 6);
-}
-.col-lg-7 {
-  @include placeColumn($col: 7);
-}
-.col-lg-8 {
-  @include placeColumn($col: 8);
-}
-.col-lg-9 {
-  @include placeColumn($col: 9);
-}
-.col-lg-10 {
-  @include placeColumn($col: 10);
-}
-.col-lg-11 {
-  @include placeColumn($col: 11);
-}
-.col-lg-12 {
-  @include placeColumn($col: 12);
-}
-
-// medium screen
-.col-md-1 {
-  @include placeColumn($col: 1);
-}
-.col-md-2 {
-  @include placeColumn($col: 2);
-}
-.col-md-3 {
-  @include placeColumn($col: 3);
-}
-.col-md-4 {
-  @include placeColumn($col: 4);
-}
-.col-md-5 {
-  @include placeColumn($col: 5);
-}
-.col-md-6 {
-  @include placeColumn($col: 6);
-}
-.col-md-7 {
-  @include placeColumn($col: 7);
-}
-.col-md-8 {
-  @include placeColumn($col: 8);
-}
-.col-md-9 {
-  @include placeColumn($col: 9);
-}
-.col-md-10 {
-  @include placeColumn($col: 10);
-}
-.col-md-11 {
-  @include placeColumn($col: 11);
-}
-.col-md-12 {
-  @include placeColumn($col: 12);
-}
-
-// small screen
-.col-sm-1 {
-  @include placeColumn($col: 1);
-}
-.col-sm-2 {
-  @include placeColumn($col: 2);
-}
-.col-sm-3 {
-  @include placeColumn($col: 3);
-}
-.col-sm-4 {
-  @include placeColumn($col: 4);
-}
-.col-sm-5 {
-  @include placeColumn($col: 5);
-}
-.col-sm-6 {
-  @include placeColumn($col: 6);
-}
-.col-sm-7 {
-  @include placeColumn($col: 7);
-}
-.col-sm-8 {
-  @include placeColumn($col: 8);
-}
-.col-sm-9 {
-  @include placeColumn($col: 9);
-}
-.col-sm-10 {
-  @include placeColumn($col: 10);
-}
-.col-sm-11 {
-  @include placeColumn($col: 11);
-}
-.col-sm-12 {
-  @include placeColumn($col: 12);
-}
-.col-xs-6 {
-  grid-column: span 6;
 }

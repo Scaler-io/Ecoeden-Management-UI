@@ -7,8 +7,8 @@ import { IConfiguration } from './IConfiguration';
 
 export const environment: IConfiguration = {
   production: false,
-  ecoedenUserApiUrl: 'http://localhost:8000/catalogue',
-  ecoedenCatalogueApiUrl: 'http://localhost:8000/user',
+  ecoedenUserApiUrl: 'http://localhost:8000/user',
+  ecoedenCatalogueApiUrl: 'http://localhost:8000/catalogue',
   ecoedenSearchApiUrl: 'http://localhost:8000/search',
   searchApiSubscriptionKey: '79AE4A5B04CC48B887E38FAE7D1282C0',
   catalogueApiSubscriptionKey: 'F340FE8EA8604456AC4E66F31A87574C',
@@ -22,8 +22,8 @@ export const environment: IConfiguration = {
     responseType: 'code',
     scope:
       'openid profile email catalogueapi:read catalogueapi:write userapi:read userapi:write',
-    silentRenew: false,
-    useRefreshToken: false,
+    silentRenew: true,
+    useRefreshToken: true,
   },
 };
 

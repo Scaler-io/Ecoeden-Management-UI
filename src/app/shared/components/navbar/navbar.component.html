@@ -1,11 +1,6 @@
 <nav class="navbar">
   <div class="navbar__brand">
-    <span
-      class="material-symbols-outlined navbar__brand-icon"
-      matRipple
-      (click)="toggleSidenav()"
-      >more_horiz</span
-    >
+    <span class="material-symbols-outlined navbar__brand-icon" matRipple (click)="toggleSidenav()">more_horiz</span>
     <h3 class="navbar__brand-text">Ecoeden</h3>
   </div>
   <ng-container *ngIf="!isMobileView">
@@ -15,12 +10,8 @@
         <span>{{ notificationCount }}</span>
       </div>
       <div class="navbar__nav-item avatar">
-        <div
-          class="avatar--name text-semibold"
-          [matMenuTriggerFor]="userActionMenu"
-          #userMenuTrigger="matMenuTrigger"
-        >
-          {{ loggedInUser.firstName }} {{ loggedInUser.lastName }}
+        <div class="avatar--name text-semibold" [matMenuTriggerFor]="userActionMenu" #userMenuTrigger="matMenuTrigger">
+          {{ loggedInUser?.firstName }} {{ loggedInUser?.lastName }}
           <span class="material-symbols-outlined">{{
             userMenuTrigger.menuOpen
               ? "keyboard_arrow_up"
@@ -38,9 +29,7 @@
 
   <ng-container *ngIf="isMobileView">
     <div class="navbar__nav--mobile">
-      <span class="material-symbols-outlined mt-1" (click)="toggleAccordion()">
-        menu
-      </span>
+      <span class="material-symbols-outlined mt-1" (click)="toggleAccordion()"> menu </span>
     </div>
   </ng-container>
 </nav>
@@ -57,9 +46,7 @@
         <span>Account</span>
       </li>
       <li class="mat-expansion-panel--list-item" matRipple (click)="signout()">
-        <span class="material-symbols-outlined text-warn"
-          >power_settings_new</span
-        >
+        <span class="material-symbols-outlined text-warn">power_settings_new</span>
         <span>Logout</span>
       </li>
     </mat-expansion-panel>

@@ -1,33 +1,33 @@
 /* media query mixins */
 @mixin for-phone-only-up {
-  @media screen and (max-width: 499px) {
+  @media screen and (max-width: 576px) {
     @content;
   }
 }
 
 @mixin for-phone-only-down {
-  @media screen and (min-width: 499px) {
+  @media screen and (min-width: 576px) {
     @content;
   }
 }
 
 @mixin for-tablet-landscape-up {
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 768px) {
     @content;
   }
 }
 @mixin for-tablet-landscape-down {
-  @media only screen and (min-width: 700px) {
+  @media only screen and (min-width: 768px) {
     @content;
   }
 }
 @mixin for-desktop-up {
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: 992px) {
     @content;
   }
 }
 @mixin for-desktop-down {
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 992px) {
     @content;
   }
 }

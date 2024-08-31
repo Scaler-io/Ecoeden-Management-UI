@@ -24,6 +24,21 @@
         <span>{{ user.lastLogin | formatDate | formatStatus }}</span>
       </mat-card-footer>
     </mat-card>
+    <!-- Action menu -->
+    <mat-menu #actionMenu="matMenu">
+      <div mat-button mat-menu-item (click)="onVisit(user.id)">
+        <span class="material-symbols-outlined text-primary">visibility</span>
+        <span>View details</span>
+      </div>
+      <div mat-button mat-menu-item>
+        <span class="material-symbols-outlined text-secondary">edit</span>
+        <span>Edit</span>
+      </div>
+      <div mat-button mat-menu-item>
+        <span class="material-symbols-outlined text-warn">delete</span>
+        <span>Delete</span>
+      </div>
+    </mat-menu>
   </div>
 </div>
 
@@ -32,19 +47,3 @@
     <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
   </div>
 </div>
-
-<!-- Action menu -->
- <mat-menu #actionMenu="matMenu">
-  <div mat-button mat-menu-item>
-    <span class="material-symbols-outlined text-primary">visibility</span>
-    <span>View details</span>
-  </div>
-  <div mat-button mat-menu-item>
-    <span class="material-symbols-outlined text-secondary">edit</span>
-    <span>Edit</span>
-  </div>
-  <div mat-button mat-menu-item>
-    <span class="material-symbols-outlined text-warn">delete</span>
-    <span>Delete</span>
-  </div>
- </mat-menu>

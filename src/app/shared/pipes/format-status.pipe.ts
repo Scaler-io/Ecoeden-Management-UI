@@ -1,11 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-  name: 'formatStatus',
+  name: 'formatStatus'
 })
 export class FormatStatusPipe implements PipeTransform {
   transform(value: string | boolean, ...args: unknown[]): string {
-    if (value === '01 Jan 01') return 'Not available';
+    if (value.toString().includes('0001')) return 'Not available';
     else if (typeof value == 'boolean') return value ? 'Enabled' : 'Disabled';
     else return value.toString();
   }

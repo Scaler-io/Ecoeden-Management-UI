@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { PaginationMetaData } from 'src/app/core/models/pagination';
-import { TableColumnMap, TableDataSource } from 'src/app/core/models/table-source';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {PaginationMetaData} from 'src/app/core/models/pagination';
+import {TableColumnMap, TableDataSource} from 'src/app/core/models/table-source';
 
 @Component({
   selector: 'ecoeden-table',
@@ -28,18 +28,25 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     if (this.actionEnabled && !this.columns.includes('actions')) {
       this.columns.push('actions');
-      if (!this.fieldValueMap['actions'])
-        this.fieldValueMap = {
-          ...this.fieldValueMap,
-          actions: {
-            value: 'actions',
-            isDateField: false,
-            isStatusField: false
-          },
-        };
+      this.fieldValueMap = {
+        ...this.fieldValueMap,
+        actions: {
+          value: 'actions',
+          isDateField: false,
+          isStatusField: false
+        }
+      };
     } else if (!this.actionEnabled && this.columns.includes('actions')) {
-      this.columns = this.columns.filter((column) => column != 'actions');
-      if(this.fieldValueMap['actions']) delete this.fieldValueMap['actions'];
+      this.columns = this.columns.filter(column => column != 'actions');
+    } else {
+      this.fieldValueMap = {
+        ...this.fieldValueMap,
+        actions: {
+          value: 'actions',
+          isDateField: false,
+          isStatusField: false
+        }
+      };
     }
   }
 
@@ -62,28 +69,22 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   public getColumnKey(column: string): string {
-    return Object.keys(this.fieldValueMap).find((k) => k === column);
+    return Object.keys(this.fieldValueMap).find(k => k === column);
   }
 
   public getColumnValue(column: string): string {
-    return this.fieldValueMap[
-      Object.keys(this.fieldValueMap).find((k) => k === column)
-    ].value
+    return this.fieldValueMap[Object.keys(this.fieldValueMap).find(k => k === column)].value;
   }
 
   public isDateField(column: string): boolean {
-    return this.fieldValueMap[
-      Object.keys(this.fieldValueMap).find((k) => k === column)
-    ].isDateField;
+    return this.fieldValueMap[Object.keys(this.fieldValueMap).find(k => k === column)].isDateField;
   }
 
   public isStatusField(column: string): boolean {
-    return this.fieldValueMap[
-      Object.keys(this.fieldValueMap).find((k) => k === column)
-    ].isStatusField;
+    return this.fieldValueMap[Object.keys(this.fieldValueMap).find(k => k === column)].isStatusField;
   }
 
-  public slideToggle(event){
-    console.log(event)
+  public slideToggle(event) {
+    console.log(event);
   }
 }

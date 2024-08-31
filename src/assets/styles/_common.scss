@@ -1,4 +1,4 @@
-@import "./variables";
+@import './variables';
 
 * {
   box-sizing: border-box;
@@ -12,12 +12,17 @@ body {
 }
 
 body {
-  font-family: "Titillium Web", "sans-serif";
+  font-family: 'Titillium Web', 'sans-serif';
+}
+
+hr {
+  border: none;
+  border-bottom: 2px solid $color-blue-gray;
 }
 
 /* width */
 ::-webkit-scrollbar {
-  width: 1rem;
+  width: 0.5rem;
 }
 
 /* Track */
@@ -35,7 +40,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: $color-secondary;
 }
-
 
 table {
   border-collapse: collapse;
@@ -99,11 +103,21 @@ table {
   }
 }
 
-.ngx-pagination{
+.ngx-pagination {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  li{
+  li {
     padding: 0;
+  }
+}
+
+.xng-breadcrumb-list {
+  display: flex;
+  .xng-breadcrumb-separator {
+    padding: 35px 0px;
+  }
+  .xng-breadcrumb-item {
+    padding: 35px 0;
   }
 }

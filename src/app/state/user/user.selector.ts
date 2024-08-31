@@ -12,3 +12,8 @@ export const getPaginatedUsers = createSelector(userState, (state) => {
     data: state.users,
   };
 });
+
+
+export const getUserDetails = createSelector(userState, (state) => {
+  return state.user;
+})

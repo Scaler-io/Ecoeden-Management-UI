@@ -1,16 +1,16 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from './store/app.state';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from './store/app.state';
 
 import * as mobileViewActions from './state/mobile-view/mobile-view.action';
 import * as authActions from './state/auth/auth.action';
-import { AuthService } from './core/auth/auth.service';
-import { NavigationStart, Router } from '@angular/router';
+import {AuthService} from './core/auth/auth.service';
+import {NavigationStart, Router} from '@angular/router';
 
 @Component({
   selector: 'ecoeden-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
   public title: string = 'Ecoeden-Management-UI';
@@ -19,14 +19,10 @@ export class AppComponent implements OnInit, OnDestroy {
   public isAppBusy: boolean = true;
 
   private subscriptions = {
-    authState: null,
+    authState: null
   };
-  constructor(
-    private auth: AuthService,
-    private store: Store<AppState>,
-    private router: Router
-  ) {
-    this.router.events.subscribe((event) => {
+  constructor(private auth: AuthService, private store: Store<AppState>, private router: Router) {
+    this.router.events.subscribe(event => {
       if (event instanceof NavigationStart && this.router.url === '/') {
         this.isAppBusy = true;
       } else {
@@ -40,10 +36,10 @@ export class AppComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     const window = event.currentTarget as Window;
-    if (window.innerWidth < 499 && !this.isMobileView) {
+    if (window.innerWidth < 576 && !this.isMobileView) {
       this.store.dispatch(new mobileViewActions.SetMobileView(true));
       this.isMobileView = true;
-    } else if (window.innerWidth > 499 && this.isMobileView) {
+    } else if (window.innerWidth > 576 && this.isMobileView) {
       this.store.dispatch(new mobileViewActions.SetMobileView(false));
       this.isMobileView = false;
     }
@@ -55,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private chekIfMobileView(): void {
-    if ((window as Window).innerWidth < 499) {
+    if ((window as Window).innerWidth < 576) {
       this.isMobileView = true;
       this.store.dispatch(new mobileViewActions.SetMobileView(true));
     } else {
@@ -65,20 +61,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private performAuthentcation(): void {
-    this.subscriptions.authState = this.auth
-      .isAuthenticated()
-      .subscribe((response) => {
-        this.isAuthenticated = response.isAuthenticated;
-        if (!response.isAuthenticated) {
-          this.auth.authorize();
-        } else {
-          this.store.dispatch(new authActions.SetAuthState(response));
-        }
-      });
+    this.subscriptions.authState = this.auth.isAuthenticated().subscribe(response => {
+      this.isAuthenticated = response.isAuthenticated;
+      if (!response.isAuthenticated) {
+        this.auth.authorize();
+      } else {
+        this.store.dispatch(new authActions.SetAuthState(response));
+      }
+    });
   }
 
   ngOnDestroy(): void {
-    if (this.subscriptions.authState)
-      this.subscriptions.authState.unsubscribe();
+    if (this.subscriptions.authState) this.subscriptions.authState.unsubscribe();
   }
 }
