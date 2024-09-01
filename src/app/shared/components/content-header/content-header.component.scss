@@ -8,7 +8,10 @@
   }
   &__page-icon {
     display: flex;
-    font-size: $font-md;
+    .icon {
+      font-size: $font-xl !important;
+    }
+    font-size: $font-lg;
     column-gap: 15px;
   }
   &__breadcrumb {
