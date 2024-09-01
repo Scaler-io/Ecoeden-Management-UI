@@ -22,6 +22,7 @@ export class UserDetailedViewComponent implements OnInit, OnDestroy {
   public isBusy: boolean;
   public user: User;
   public isCurrentUser: boolean;
+  public hasUserEditPermission: boolean;
   public BannerType = BannerType;
 
   constructor(
@@ -53,6 +54,8 @@ export class UserDetailedViewComponent implements OnInit, OnDestroy {
             this.user = userResponse;
             this.isBusy = false;
             this.isCurrentUser = authResponse.username === userResponse.userName;
+            this.hasUserEditPermission = authResponse.permissions.includes('user:write');
+            console.log(this.hasUserEditPermission);
             this.cdr.markForCheck();
           });
         }

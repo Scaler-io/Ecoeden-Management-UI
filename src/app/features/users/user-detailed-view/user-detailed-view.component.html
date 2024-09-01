@@ -32,7 +32,7 @@
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
-            <ng-container *ngIf="!user.isDefaultAdmin || !  isCurrentUser; else actionNotice">
+            <ng-container *ngIf="(!user.isDefaultAdmin || !isCurrentUser) && hasUserEditPermission; else actionNotice">
               <div class="user-details__action-group">
                 <button mat-raised-button button color="primary"
                   ><span class="material-symbols-outlined">edit</span>
@@ -46,16 +46,22 @@
             </ng-container>
             <ng-template #actionNotice>
               <div class="user-details__action-group">
-                <ecoeden-notice-banner [isImportant]="true" [type]="BannerType.basic">
-                  You do not have permission to modify your data from here as you have default admin flag set. Click here to know more about default
-                  Admin role.
+                <ecoeden-notice-banner *ngIf="user.isDefaultAdmin" [isImportant]="true" [type]="BannerType.basic">
+                  This profile has default admin flag set. details cannot be modified from here. Click here to know more about default Admin role.
+                </ecoeden-notice-banner>
+                <ecoeden-notice-banner *ngIf="isCurrentUser" [isImportant]="true" [type]="BannerType.basic">
+                  You cannot modify your own details from this page. You can update your basic profile details from profile page.
+                </ecoeden-notice-banner>
+                <ecoeden-notice-banner *ngIf="!hasUserEditPermission" [isImportant]="true" [type]="BannerType.basic">
+                  You do not have appropriate permission to modify any user data. Please contact your supervisor to update your permission set by
+                  elevating your role
                 </ecoeden-notice-banner>
               </div>
             </ng-template>
           </div>
         </div>
 
-        <div class="row">
+        <div class="row">  
           <div class="col-sm-12 col-md-6">
             <div class="container">
               <!-- Basic details here -->

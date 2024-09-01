@@ -99,6 +99,7 @@
   background-color: #383838;
   box-shadow: rgba(99, 99, 99, 0.507) 0px 5px 5px 0px;
   width: auto;
+  height: 100%;
   @include for-phone-only-up {
     width: 100% !important;
   }

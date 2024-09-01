@@ -20,8 +20,10 @@
       </ng-container>
       <ng-template #actionColumns>
         <button class="action-button--watch material-symbols-outlined" (click)="onVisit(element)"> visibility</button>
-        <button class="action-button--edit material-symbols-outlined" (click)="onEdit(element)">edit</button>
-        <button class="action-button--delete material-symbols-outlined" (click)="onDelete(element)">delete</button>
+        <ng-container *ngIf="allowModify">
+          <button class="action-button--edit material-symbols-outlined" (click)="onEdit(element)">edit</button>
+          <button class="action-button--delete material-symbols-outlined" (click)="onDelete(element)">delete</button>
+        </ng-container>
       </ng-template>
     </td>
   </ng-container>

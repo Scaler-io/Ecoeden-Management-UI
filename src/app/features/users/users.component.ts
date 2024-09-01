@@ -49,7 +49,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dataLength = 9;
     this.zone.runOutsideAngular(() => {
-      this.fetchUserList(false, 1, 5); // first time call, with default serach params
+      this.fetchUserList(false, 1, 20); // first time call, with default serach params
     });
 
     this.subscriptions.currentUser = this.store.pipe(select(getLoggedInUser)).subscribe(response => {
@@ -116,7 +116,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   public onMobilePageChange(pageIndex: number) {
     this.zone.runOutsideAngular(() => {
-      this.fetchUserList(false, pageIndex, 5);
+      this.fetchUserList(false, pageIndex, 10);
     });
   }
 
@@ -130,5 +130,9 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   public onDelete(event: TableDataSource) {
     console.log(event);
+  }
+
+  public get hasUserUpdatePermission(): boolean {
+    return this.loggedInUser.permissions.includes('user:write');
   }
 }
