@@ -22,6 +22,12 @@ export class UserService {
     });
   }
 
+  public getUserCount(): Observable<number> {
+    return this.http.get<number>(`${environment.ecoedenSearchApiUrl}/user-search-index/count`, {
+      headers: this.getHttpHeaders(environment.searchApiSubscriptionKey)
+    });
+  }
+
   private getHttpHeaders(subscriptionkey: string) {
     return {
       'api-version': 'v2',

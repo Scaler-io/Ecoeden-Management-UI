@@ -55,7 +55,6 @@ export class UserDetailedViewComponent implements OnInit, OnDestroy {
             this.isBusy = false;
             this.isCurrentUser = authResponse.username === userResponse.userName;
             this.hasUserEditPermission = authResponse.permissions.includes('user:write');
-            console.log(this.hasUserEditPermission);
             this.cdr.markForCheck();
           });
         }

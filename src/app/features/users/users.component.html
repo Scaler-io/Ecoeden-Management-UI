@@ -1,10 +1,32 @@
 <div class="user-list__container">
+  <!-- search, filter and sort action box -->
+  <ecoeden-search-layout
+    (searchInputChanged)="search($event)"
+    addButtonLabel="ADD USERS"
+    filterLabel="Filter users"
+    (filter)="onFilterApply()"
+    (filterClear)="onFilterClear()"
+    (sortChange)="sortMenuChanged($event)"
+    [isFileterFormValid]="userFilterFormGroup.valid"
+  >
+    <form [formGroup]="userFilterFormGroup">
+      <mat-form-field>
+        <mat-label>Select a role</mat-label>
+        <mat-select formControlName="userRoles">
+          <mat-option *ngFor="let roleFilter of roleFilters" [value]="roleFilter">{{ roleFilter }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </ecoeden-search-layout>
+
+  <!-- page loading spinner -->
   <ng-container *ngIf="isPageLoading">
     <div class="user-list-loading-content">
       <mat-spinner [diameter]="40" color="primary"></mat-spinner>
     </div>
   </ng-container>
 
+  <!-- user list table: For desktop view only -->
   <ng-container *ngIf="!isPageLoading">
     <!-- tables -->
     <div class="row height-full" @fadeSlideInOut *ngIf="!isMobileView">
@@ -25,13 +47,13 @@
       </div>
     </div>
 
-    <!-- Mobile fiendly user list -->
+    <!-- user list card: For mobile view only -->
     <div class="row" @fadeSlideInOut *ngIf="isMobileView">
       <div class="col-sm-12">
         <ecoeden-user-list-mobile
           [userList]="users.data"
           (pageChange)="onMobilePageChange($event)"
-          [totalCount]="9"
+          [totalCount]="totalUserCount"
           [currentPage]="paginationMetaData.currentPage"
         ></ecoeden-user-list-mobile>
       </div>

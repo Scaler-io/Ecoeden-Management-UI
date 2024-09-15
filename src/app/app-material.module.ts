@@ -10,6 +10,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatCardModule} from '@angular/material/card';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatSelectModule} from '@angular/material/select';
 
 import {MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleModule, RippleGlobalOptions} from '@angular/material/core';
 
@@ -32,7 +33,8 @@ const MaterialComponentModule = [
   MatPaginatorModule,
   MatSlideToggleModule,
   MatCardModule,
-  MatTreeModule
+  MatTreeModule,
+  MatSelectModule
 ];
 
 @NgModule({

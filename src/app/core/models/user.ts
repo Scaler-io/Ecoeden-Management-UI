@@ -27,10 +27,10 @@ export interface UserSearchRequest {
   sortOrder?: string;
   matchPhrase?: string;
   matchPhraseField?: string;
-  StartTime?: string;
-  EndTime?: string;
-  TimeField?: string;
-  Filters?: string[];
+  startTime?: string;
+  endTime?: string;
+  timeField?: string;
+  filters?: {[key: string]: string};
   pageSize: number;
   pageIndex: number;
 }
