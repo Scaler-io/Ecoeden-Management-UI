@@ -1,10 +1,11 @@
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
-import {catchError, map, Observable, switchMap} from 'rxjs';
+import {catchError, map, Observable, of, switchMap} from 'rxjs';
 import {UserService} from 'src/app/core/services/user.service';
 import {Injectable} from '@angular/core';
 
 import * as userActions from './user.action';
+import {UserCreateResponse, UserCreateStatus} from 'src/app/core/models/user';
 
 @Injectable({providedIn: 'root'})
 export class UserStateEffect {
@@ -55,6 +56,36 @@ export class UserStateEffect {
           catchError(error => {
             console.log(error);
             throw error;
+          })
+        );
+      })
+    );
+  });
+
+  public createUser$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(userActions.USER_CREATE_REQUEST),
+      switchMap((action: userActions.UserCreateRequest) => {
+        return this.userService.createUser(action.payload).pipe(
+          map(response => {
+            if (response) {
+              const userCreateResponse: UserCreateResponse = {
+                userId: response.id,
+                status: UserCreateStatus.Success,
+                error: null
+              };
+              return new userActions.UserCreateRequestSuccess(userCreateResponse);
+            }
+          }),
+          catchError(error => {
+            if (error) {
+              const errorResponse: UserCreateResponse = {
+                userId: '',
+                error: error,
+                status: UserCreateStatus.Failure
+              };
+              return of(new userActions.UserCreateRequestFailure(errorResponse));
+            }
           })
         );
       })

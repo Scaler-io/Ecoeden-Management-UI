@@ -1,4 +1,4 @@
-import {PaginatedUserList, User, UserSummary} from 'src/app/core/models/user';
+import {PaginatedUserList, User, UserCreateResponse, UserSummary} from 'src/app/core/models/user';
 import * as userActions from './user.action';
 
 export const USER_STATE_NAME = 'user';
@@ -10,6 +10,7 @@ export interface UserState {
   top: number;
   currentPage: number;
   totalUsers: number;
+  createUserResponse: UserCreateResponse;
 }
 
 const initialState: UserState = {
@@ -18,7 +19,11 @@ const initialState: UserState = {
   count: 0,
   top: 0,
   currentPage: 0,
-  totalUsers: 0
+  totalUsers: 0,
+  createUserResponse: {
+    userId: '',
+    status: null
+  }
 };
 
 export function userReducer(state: UserState = initialState, action: userActions.UserActions): UserState {
@@ -55,6 +60,21 @@ export function userReducer(state: UserState = initialState, action: userActions
       return {
         ...state,
         totalUsers: action.payload as number
+      };
+    case userActions.USER_CREATE_REQUEST:
+      return {
+        ...state,
+        createUserResponse: {userId: '', status: null}
+      };
+    case userActions.USER_CREATE_REQUEST_SUCCESS:
+      return {
+        ...state,
+        createUserResponse: action.payload
+      };
+    case userActions.USER_CREATE_REQUEST_FAILURE:
+      return {
+        ...state,
+        createUserResponse: action.payload
       };
     default:
       return state;

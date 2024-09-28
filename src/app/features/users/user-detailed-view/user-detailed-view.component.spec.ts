@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UserDetailedViewComponent } from './user-detailed-view.component';
+import {UserDetailedViewComponent} from './user-detailed-view.component';
 
 describe('UserDetailedViewComponent', () => {
   let component: UserDetailedViewComponent;
@@ -8,9 +8,8 @@ describe('UserDetailedViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserDetailedViewComponent ]
-    })
-    .compileComponents();
+      declarations: [UserDetailedViewComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

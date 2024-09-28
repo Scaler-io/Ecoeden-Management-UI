@@ -1,0 +1,15 @@
+<button
+  class="button__layout"
+  [class]="{
+  'button__layout--disabled': isDisabled,
+  'button__layout--autowidth': isAutoWidth
+}"
+  (click)="onButtonClick($event)"
+>
+  <span class="button__layout-label" *ngIf="!isLoading">
+    <ng-content></ng-content>
+  </span>
+  <div class="button__layout-spinner" *ngIf="isLoading">
+    <mat-spinner color="secondary" diameter="18"></mat-spinner>
+  </div>
+</button>

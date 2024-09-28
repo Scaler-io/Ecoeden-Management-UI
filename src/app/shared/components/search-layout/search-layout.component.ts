@@ -21,6 +21,7 @@ export class SearchLayoutComponent implements OnInit {
   @Output() filter = new EventEmitter<void>();
   @Output() sortChange = new EventEmitter<string>();
   @Output() filterClear = new EventEmitter<void>();
+  @Output() addNewAction = new EventEmitter<void>();
 
   constructor() {}
 
@@ -45,7 +46,13 @@ export class SearchLayoutComponent implements OnInit {
   }
 
   public clearFilter(): void {
-    this.isFilterApplied = false;
-    this.filterClear.emit();
+    if (this.isFilterApplied) {
+      this.isFilterApplied = false;
+      this.filterClear.emit();
+    }
+  }
+
+  public onAddResource(): void {
+    this.addNewAction.emit();
   }
 }

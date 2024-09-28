@@ -48,6 +48,7 @@ export interface User {
   userRoles: string[];
   permissions: string[];
   lastLogin: string;
+  image: string;
   metaData: MetaData;
 }
 
@@ -56,4 +57,40 @@ interface MetaData {
   updatedAt: Date | string;
   createdBy: string;
   updtedBy: string;
+}
+
+export enum UserRoles {
+  Admin = 'Admin',
+  Opeartor = 'Operator',
+  Auditor = 'Auditor'
+}
+
+export interface UserFormModel {
+  userName: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  roles: UserRoles[];
+}
+
+export interface CreateUserRequest {
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  roles: UserRoles[];
+}
+
+export interface UserCreateResponse {
+  status?: UserCreateStatus;
+  error?: string;
+  userId: string;
+}
+
+export enum UserCreateStatus {
+  Success = 'Success',
+  Failure = 'Failure'
 }

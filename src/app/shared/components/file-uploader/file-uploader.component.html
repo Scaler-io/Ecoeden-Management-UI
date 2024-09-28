@@ -1,0 +1,18 @@
+<div class="file-upload__container">
+  <div>
+    <label class="upload-button">
+      <input type="file" accept=".jpg,.jpeg,.png,.gif,.heic,.heif" ng2FileSelect [uploader]="uploader" (change)="onFileSelected($event)" />
+      Choose File
+    </label>
+    <button class="clear-button ml-5" (click)="onClearFileSelection($event)">Clear selection</button>
+  </div>
+  <div class="upload-content">
+    <div class="image-preview" *ngIf="previewUrl">
+      <img [src]="previewUrl" alt="Selected Image" />
+    </div>
+    <div class="upload-content__hint"
+      ><strong>Note:</strong> Please upload an image file (JPG, JPEG, PNG, GIF, BMP, SVG, HEIC, or HEIF) with a maximum size of 2 MB.</div
+    >
+    <div *ngIf="fileName" class="upload-content__file-info"> File uploaded: {{ fileName }} </div>
+  </div>
+</div>

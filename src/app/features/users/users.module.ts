@@ -11,7 +11,8 @@ import {AppMaterialModule} from 'src/app/app-material.module';
 import {UserListMobileModule} from './user-list-mobile/user-list-mobile.module';
 import {UserDetailedViewModule} from './user-detailed-view/user-detailed-view.module';
 import {ReactiveFormsModule} from '@angular/forms';
-import { SearchLayoutModule } from 'src/app/shared/components/search-layout/search-layout.module';
+import {SearchLayoutModule} from 'src/app/shared/components/search-layout/search-layout.module';
+import {UserCreatePageModule} from './user-create-page/user-create-page.module';
 
 @NgModule({
   declarations: [UsersComponent],
@@ -24,6 +25,7 @@ import { SearchLayoutModule } from 'src/app/shared/components/search-layout/sear
     AppMaterialModule,
     UserListMobileModule,
     UserDetailedViewModule,
+    UserCreatePageModule,
     ReactiveFormsModule,
     SearchLayoutModule
   ]

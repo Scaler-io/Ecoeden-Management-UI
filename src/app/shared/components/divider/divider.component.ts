@@ -7,6 +7,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class DividerComponent implements OnInit {
   @Input() label: string;
+  @Input() color: string = '#fff';
+
   constructor() {}
 
   ngOnInit(): void {}

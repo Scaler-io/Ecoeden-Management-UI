@@ -6,7 +6,7 @@
           <div class="col-sm-12 col-md-6">
             <div class="user-details__primary">
               <div class="avatar-container">
-                <img src="../../../../assets/images/user_avatar2.webp" alt="user_avatar" class="avatar" />
+                <img src="{{ user.image }}" alt="{{ user.userName }}" class="avatar" />
               </div>
               <div class="row basic-details">
                 <div class="basic-details__title">
@@ -47,7 +47,8 @@
             <ng-template #actionNotice>
               <div class="user-details__action-group">
                 <ecoeden-notice-banner *ngIf="user.isDefaultAdmin" [isImportant]="true" [type]="BannerType.basic">
-                  This profile has default admin flag set. details cannot be modified from here. Click here to know more about default Admin role.
+                  This profile has default admin flag set. details cannot be modified from here. Click here to know more about default Admin
+                  role.
                 </ecoeden-notice-banner>
                 <ecoeden-notice-banner *ngIf="isCurrentUser" [isImportant]="true" [type]="BannerType.basic">
                   You cannot modify your own details from this page. You can update your basic profile details from profile page.
@@ -61,7 +62,7 @@
           </div>
         </div>
 
-        <div class="row">  
+        <div class="row">
           <div class="col-sm-12 col-md-6">
             <div class="container">
               <!-- Basic details here -->
@@ -81,7 +82,11 @@
                   ></ecoeden-individual-details
                 ></div>
                 <div class="col-sm-12 col-md-6"
-                  ><ecoeden-individual-details icon="history" label="Last login" [value]="user.lastLogin | formatDate"></ecoeden-individual-details
+                  ><ecoeden-individual-details
+                    icon="history"
+                    label="Last login"
+                    [value]="user.lastLogin | formatDate"
+                  ></ecoeden-individual-details
                 ></div>
               </div>
 

@@ -1,0 +1,31 @@
+@import '../../../../assets/styles/variables';
+
+.button__layout {
+  padding: 6px 20px;
+  font-size: $font-sm;
+  font-family: 'Titillium Web', 'sans-serif';
+  border-radius: 20px;
+  border: none;
+  width: 120px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 1px;
+  background-color: #fddc63;
+  color: #7a7a7a;
+  text-transform: capitalize !important;
+  &--autowidth {
+    width: 100%;
+  }
+  &--disabled {
+    background-color: $color-blue-gray;
+    box-shadow: none;
+  }
+
+  &:active {
+    box-shadow: none;
+    transition: box-shadow 0.1s ease-out;
+  }
+  &-spinner {
+    display: flex;
+    justify-content: center;
+  }
+}

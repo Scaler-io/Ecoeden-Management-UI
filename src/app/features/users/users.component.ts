@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from 'src/app/store/app.state';
-import {PaginatedUserList, UserSearchRequest, UserSummary} from 'src/app/core/models/user';
+import {PaginatedUserList, UserRoles, UserSearchRequest, UserSummary} from 'src/app/core/models/user';
 import {getPaginatedUsers, getUserCount} from 'src/app/state/user/user.selector';
 import {MatTableDataSource} from '@angular/material/table';
 import {PaginationMetaData} from 'src/app/core/models/pagination';
@@ -15,7 +15,7 @@ import * as userActions from '../../state/user/user.action';
 import {getMobileViewState} from 'src/app/state/mobile-view/mobile-view.selector';
 import {Router} from '@angular/router';
 import {fadeSlideInOut} from 'src/app/core/animations/fadeInOut';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'ecoeden-users',
@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   public displayedColumns = ['userName', 'fullName', 'email', 'status'];
   public totalUserCount: number;
   public isMobileView: boolean;
-  public roleFilters: string[] = ['Admin', 'Operator', 'Auditor'];
+  public roleFilters: UserRoles[] = [UserRoles.Admin, UserRoles.Opeartor, UserRoles.Auditor];
   private currentSortField: string;
   public filterPanelOpened: boolean = false;
   public isFilterApplied: boolean;
@@ -130,7 +130,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     matchPhrase: string = null,
     matchPhraseField: string = null,
     sortField: string = 'createdOn',
-    sortOrder: string = 'Asc'
+    sortOrder: string = 'Desc'
   ): void {
     this.isPageLoading = true;
     const userSearchRequest: UserSearchRequest = {
@@ -145,6 +145,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.store.dispatch(new userActions.UserListFetch(userSearchRequest));
   }
 
+  // fetch user list with filtered data
   private fetchUserListWithFilters(
     filters: {[key: string]: string},
     sortField: string = 'createdOn',
@@ -159,7 +160,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       matchPhrase: matchPhrase,
       matchPhraseField: matchPhraseField,
       sortField: sortField,
-      sortOrder: 'Asc',
+      sortOrder: 'Desc',
       filters: filters
     };
     this.store.dispatch(new userActions.UserListFetch(userSearchRequest));
@@ -236,5 +237,9 @@ export class UsersComponent implements OnInit, OnDestroy {
       fn();
       this.cdr.markForCheck();
     });
+  }
+
+  public onAddUser(): void {
+    this.router.navigate(['users', 'add']);
   }
 }

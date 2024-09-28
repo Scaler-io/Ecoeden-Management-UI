@@ -20,3 +20,7 @@ export const getUserDetails = createSelector(userState, state => {
 export const getUserCount = createSelector(userState, state => {
   return state.totalUsers;
 });
+
+export const getUserCreateResponse = createSelector(userState, state => {
+  return state.createUserResponse;
+});

@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {PaginatedUserList, User, UserSearchRequest} from '../models/user';
+import {map, Observable} from 'rxjs';
+import {CreateUserRequest, PaginatedUserList, User, UserSearchRequest} from '../models/user';
 import {environment} from 'src/environments/environment';
 
 @Injectable({
@@ -16,6 +16,12 @@ export class UserService {
     });
   }
 
+  public userNameExists(username: string): Observable<boolean> {
+    return this.http.get<boolean>(`${environment.ecoedenUserApiUrl}/exists/${username}`, {
+      headers: this.getHttpHeaders(environment.userApiSubscriptionKey)
+    });
+  }
+
   public getUserDetails(id: string): Observable<User> {
     return this.http.get<User>(`${environment.ecoedenUserApiUrl}/${id}`, {
       headers: this.getHttpHeaders(environment.userApiSubscriptionKey)
@@ -25,6 +31,12 @@ export class UserService {
   public getUserCount(): Observable<number> {
     return this.http.get<number>(`${environment.ecoedenSearchApiUrl}/user-search-index/count`, {
       headers: this.getHttpHeaders(environment.searchApiSubscriptionKey)
+    });
+  }
+
+  public createUser(request: CreateUserRequest): Observable<{[id: string]: string}> {
+    return this.http.post<{[id: string]: string}>(`${environment.ecoedenUserApiUrl}`, request, {
+      headers: this.getHttpHeaders(environment.userApiSubscriptionKey)
     });
   }
 

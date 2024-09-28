@@ -19,7 +19,7 @@
   </div>
   <div class="col-sm-2">
     <div class="filter-container">
-      <span class="filter-action" (click)="toggleFilterPanel()">{{ isFilterApplied ? 'Filter Applied' : 'Apply filter' }}</span>
+      <span class="filter-action"  (click)="toggleFilterPanel()">{{ isFilterApplied ? 'Filter Applied' : 'Apply filter' }}</span>
       <span class="filter-action" [class.disabled]="!isFilterApplied" (click)="clearFilter()">Clear filter</span>
       <div class="filter-options-panel" [class.filter-options-panel--hidden]="!filterPanelOpened">
         <div class="filter-options-panel__header">
@@ -39,8 +39,8 @@
       </div>
     </div>
   </div>
-
+  
   <div class="col-sm-1">
-    <button mat-flat-button color="primary">{{ addButtonLabel }}</button>
+    <button mat-flat-button color="primary" (click)="onAddResource()">{{ addButtonLabel }}</button>
   </div>
 </div>

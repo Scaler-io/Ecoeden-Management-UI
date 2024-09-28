@@ -39,13 +39,18 @@ export class UserDetailedViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.params.subscribe(param => {
-      this.isBusy = true;
-      this.zone.runOutsideAngular(() => {
-        this.store.dispatch(new userActions.UserDetailsFetch(param.id));
-      });
+      if (param.id) {
+        this.isBusy = true;
+        this.zone.runOutsideAngular(() => {
+          this.store.dispatch(new userActions.UserDetailsFetch(param.id));
+        });
+      }
     });
 
-    this.subscriptions.authAndUserCombinedState = combineLatest([this.store.pipe(select(getUserDetails)), this.store.pipe(select(getLoggedInUser))])
+    this.subscriptions.authAndUserCombinedState = combineLatest([
+      this.store.pipe(select(getUserDetails)),
+      this.store.pipe(select(getLoggedInUser))
+    ])
       .pipe(delay(1000))
       .subscribe(([userResponse, authResponse]) => {
         if (userResponse && authResponse) {
