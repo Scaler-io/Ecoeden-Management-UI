@@ -5,21 +5,46 @@
 >
   <div class="sidenav__content">
     <ul class="sidenav__content-list">
-      <li class="sidenav__content-list--item" matRipple (click)="handleSidenavItemClick()"  routerLink="dashboard"  [routerLinkActive]="'route-active'">
-        <span class="material-symbols-outlined item-icon">Dashboard</span>
-        <span class="item-label">Dashboard</span>
+      <li class="sidenav__content-list--item" matRipple (click)="handleSidenavItemClick()" routerLink="dashboard" [routerLinkActive]="'route-active'">
+        <div class="main-content">
+          <span class="material-symbols-outlined item-icon">Dashboard</span>
+          <span class="item-label">Dashboard</span>
+        </div>
       </li>
 
-      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick()" matRipple routerLink="users" [routerLinkActive]="'route-active'">
-        <span class="material-symbols-outlined item-icon">person</span>
-        <span class="item-label">Users</span>
+      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick('users')" [routerLinkActive]="'route-active'">
+        <div class="main-content">
+          <span class="material-symbols-outlined item-icon">person</span>
+          <span class="item-label">Users</span>
+        </div>
+        <ul class="submenu" [class.submenu--active]="subMenuList.users">
+          <li matRipple routerLink="users" (click)="hadndleSubmenuClick()" >
+            <span class="material-symbols-outlined">list</span>
+            <span>All users</span>
+          </li>
+          <li matRipple routerLink="users/add" (click)="hadndleSubmenuClick()">
+            <span class="material-symbols-outlined">add</span>
+            <span>Create new user</span>
+          </li>
+        </ul>
       </li>
 
-      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick()" matRipple routerLink="products" [routerLinkActive]="'route-active'">
-        <span class="material-symbols-outlined item-icon">psychiatry</span>
-        <span class="item-label">Products</span>
+      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick('products')" [routerLinkActive]="'route-active'">
+        <div class="main-content">
+          <span class="material-symbols-outlined item-icon">psychiatry</span>
+          <span class="item-label">Products</span>
+        </div>
+        <ul class="submenu" [class.submenu--active]="subMenuList.products">
+          <li matRipple routerLink="products" (click)="hadndleSubmenuClick()">
+            <span class="material-symbols-outlined">list</span>
+            <span>All products</span>
+          </li>
+          <li matRipple (click)="hadndleSubmenuClick()">
+            <span class="material-symbols-outlined">add</span>
+            <span>Create new product</span>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>
 </div>
- 

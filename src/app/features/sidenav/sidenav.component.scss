@@ -13,26 +13,51 @@
     padding-top: 5rem;
     &-list {
       &--item {
-        padding: 10px 0 10px 30px;
-        display: flex;
-        align-items: center;
-        column-gap: 2.6rem;
+        min-height: 5rem;
+        overflow: hidden;
+        padding: 10px 0 0 0;
         margin-bottom: 1.5rem;
         &:hover {
-          color: $color-primary;
-          cursor: pointer;
-          .item-icon,
-          .item-label {
+          .main-content {
             color: $color-primary;
-            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            .item-icon,
+            .item-label {
+              color: $color-primary;
+              transition: all 0.3s ease-in-out;
+            }
           }
         }
-        .item-icon {
-          color: #7a7a7a;
+        .main-content {
+          padding-left: 25px;
+          display: flex;
+          align-items: center;
+          column-gap: 2.6rem;
+          .item-icon {
+            color: #7a7a7a;
+          }
+          .item-label {
+            font-size: $font-md;
+            color: #3b3b3b;
+          }
         }
-        .item-label {
-          font-size: $font-md;
-          color: #3b3b3b;
+        .submenu {
+          max-height: 0;
+          white-space: nowrap;
+          margin-top: 1.2rem;
+          background-color: lighten($color-accent, 25%);
+          transition: all 0.2s ease-in-out;
+          li {
+            display: flex;
+            align-items: center;
+            font-size: $font-sm;
+            column-gap: 15px;
+            padding: 1.2rem 0 1.2rem 3rem;
+            cursor: pointer;
+          }
+          &--active {
+            max-height: 200px;
+          }
         }
       }
     }
@@ -42,13 +67,24 @@
     width: 7.5rem !important;
     white-space: nowrap;
     .sidenav__content-list--item {
-      padding: 10px 0 10px 25px;
-      column-gap: 2.6rem;
+      // padding: 10px 0 10px 25px;
+      // column-gap: 2.6rem;
     }
   }
   &--collapse-full {
     position: static;
     min-width: 0rem;
     width: 0;
+  }
+}
+
+.route-active {
+  background-color: $color-primary;
+  .item-icon,
+  .item-label {
+    color: $color-light !important;
+  }
+  .mat-ripple-element {
+    display: none !important;
   }
 }
