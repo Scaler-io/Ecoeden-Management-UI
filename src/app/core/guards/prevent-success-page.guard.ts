@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {map, Observable} from 'rxjs';
 import {getRequestPageDetails} from 'src/app/state/request-page/request-page.selector';
@@ -9,7 +9,7 @@ import {AppState} from 'src/app/store/app.state';
   providedIn: 'root'
 })
 export class PreventSuccessPageGuard implements CanActivate {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -20,6 +20,7 @@ export class PreventSuccessPageGuard implements CanActivate {
         if (value && value.requestPage !== '') {
           return true;
         } else {
+          this.router.navigate([]);
           return false;
         }
       })

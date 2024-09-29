@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {UserCreatePageComponent} from './user-create-page.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppMaterialModule} from 'src/app/app-material.module';
 import {FileUploaderModule} from 'src/app/shared/components/file-uploader/file-uploader.module';
 import {DividerModule} from '../../../shared/components/divider/divider.module';
@@ -10,7 +10,7 @@ import {DirectiveModule} from 'src/app/shared/directives/directive/directive.mod
 
 @NgModule({
   declarations: [UserCreatePageComponent],
-  imports: [CommonModule, ReactiveFormsModule, AppMaterialModule, FileUploaderModule, DividerModule, ButtonModule, DirectiveModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, AppMaterialModule, FileUploaderModule, DividerModule, ButtonModule, DirectiveModule],
   exports: [UserCreatePageComponent]
 })
 export class UserCreatePageModule {}
