@@ -9,6 +9,7 @@ import {validationMessage} from 'src/app/core/validators/validationMessage';
 import {AppState} from 'src/app/store/app.state';
 
 import * as userActions from '../../../state/user/user.action';
+import * as requestPageActions from '../../../state/request-page/request-page.action';
 import {getUserCreateResponse} from 'src/app/state/user/user.selector';
 import {Router} from '@angular/router';
 import {UserFormMapper} from 'src/app/core/mappers/user.mapper';
@@ -93,9 +94,9 @@ export class UserCreatePageComponent implements OnInit, OnDestroy {
     return validationMessage(formControlName, this.userFormGroup);
   }
 
-  public toggle(event: MouseEvent, fieldType: string) {
+  public toggle(event: MouseEvent, fieldName: string) {
     event.preventDefault();
-    switch (fieldType) {
+    switch (fieldName) {
       case 'password':
         this.hidePassword = !this.hidePassword;
         break;
@@ -111,8 +112,20 @@ export class UserCreatePageComponent implements OnInit, OnDestroy {
     this.fileService.setUserUploadOptions(userId, this.uploader);
     this.fileService.uploadFile(this.uploader).subscribe(response => {
       console.log('Document upload response ' + response);
-      this.isFormSubmitting = false;
-      this.router.navigate(['users']);
+      this.completeFormSubmission(userId);
     });
+  }
+
+  private completeFormSubmission(userId: string) {
+    this.store.dispatch(
+      new requestPageActions.RequestPageSet({
+        requestPage: 'user',
+        heading: `Successfully created user '${this.userFormGroup.get('userName').value}'`,
+        subheading: 'You can create more or get back to the previous page',
+        previousUrl: `users/${userId}`,
+        nextUrl: 'users/add'
+      })
+    );
+    this.router.navigate(['success']);
   }
 }

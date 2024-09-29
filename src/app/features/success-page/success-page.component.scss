@@ -1,0 +1,31 @@
+@import '../../../assets/styles/variables';
+
+.success-pgae__container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .success-page__image {
+    img {
+      height: 65px;
+      width: 65px;
+    }
+  }
+
+  .success-page__content {
+    text-align: center;
+    &-heading {
+      font-size: $font-lg;
+      color: $color-primary;
+    }
+    &-subheading {
+      font-size: $font-sm;
+    }
+  }
+  .success-page__action-layout {
+    padding: 15px;
+    display: flex;
+    column-gap: 15px;
+  }
+}

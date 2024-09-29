@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ActivatedRoute, NavigationEnd, NavigationStart, Router} from '@angular/router';
 import {BreadcrumbService} from 'xng-breadcrumb';
 
 @Component({
@@ -10,15 +11,23 @@ export class ContentHeaderComponent implements OnInit {
   public pageIcon: string;
   public pageName: string;
   public isBusy: boolean = true;
+  public isSuccessPage: boolean;
+
   private pageIconMap = {
     ['Dashboard']: 'dashboard',
     ['Users']: 'person',
     ['Products']: 'psychiatry'
   };
 
-  constructor(private breadcrumb: BreadcrumbService) {}
+  constructor(private breadcrumb: BreadcrumbService, private router: Router) {}
 
   ngOnInit(): void {
+    this.router.events.subscribe(value => {
+      if (value instanceof NavigationEnd) {
+        this.isSuccessPage = this.router.url === '/success';
+      }
+    });
+
     this.breadcrumb.breadcrumbs$.subscribe(page => {
       if (page) {
         const pageLabel = page[page.length - 1]?.label as string;

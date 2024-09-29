@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './features/dashboard/dashboard.component';
+import {PreventSuccessPageGuard} from './core/guards/prevent-success-page.guard';
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
     path: 'products',
     loadChildren: () => import('./features/products/products.module').then(m => m.ProductsModule),
     data: {breadcrumb: {label: 'Products'}}
+  },
+  {
+    path: 'success',
+    canActivate: [PreventSuccessPageGuard],
+    loadChildren: () => import('./features/success-page/success-page.module').then(m => m.SuccessPageModule)
   },
   {
     path: '',

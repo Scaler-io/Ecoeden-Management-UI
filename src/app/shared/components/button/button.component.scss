@@ -1,12 +1,12 @@
 @import '../../../../assets/styles/variables';
 
 .button__layout {
-  padding: 6px 20px;
+  padding: 8px 20px;
   font-size: $font-sm;
   font-family: 'Titillium Web', 'sans-serif';
   border-radius: 20px;
   border: none;
-  width: 120px;
+  min-width: 120px;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 1px;
   background-color: #fddc63;

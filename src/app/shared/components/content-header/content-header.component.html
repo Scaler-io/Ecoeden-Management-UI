@@ -1,4 +1,4 @@
-<div class="content-header__container">
+<div class="content-header__container" *ngIf="!isSuccessPage">
   <div class="content-header__page-icon">
     <div class="material-symbols-outlined icon">{{ pageIcon }}</div>
     <div *ngIf="!isBusy" class="label">{{ pageName }}</div>
