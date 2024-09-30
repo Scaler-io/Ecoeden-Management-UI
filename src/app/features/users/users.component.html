@@ -1,22 +1,17 @@
 <div class="user-list__container">
   <!-- search, filter and sort action box -->
-  <ecoeden-search-layout
-    (searchInputChanged)="search($event)"
-    addButtonLabel="ADD USERS"
-    filterLabel="Filter users"
-    (filter)="onFilterApply()"
-    (filterClear)="onFilterClear()"
-    (sortChange)="sortMenuChanged($event)"
-    [isFileterFormValid]="userFilterFormGroup.valid"
-    (addNewAction)="onAddUser()"
-  >
+  <ecoeden-search-layout addButtonLabel="ADD USERS" filterLabel="Filter users" [isFileterFormValid]="userFilterFormGroup.valid">
     <form [formGroup]="userFilterFormGroup">
-      <mat-form-field>
-        <mat-label>Select a role</mat-label>
-        <mat-select formControlName="userRoles">
-          <mat-option *ngFor="let roleFilter of roleFilters" [value]="roleFilter">{{ roleFilter }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="row">
+        <div class="col-md-4 col-sm-7">
+          <mat-form-field>
+            <mat-label>Select a role</mat-label>
+            <mat-select formControlName="userRoles">
+              <mat-option *ngFor="let roleFilter of roleFilters" [value]="roleFilter">{{ roleFilter }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
     </form>
   </ecoeden-search-layout>
 
@@ -35,15 +30,15 @@
         <ecoeden-table
           [dataSource]="users"
           [columns]="displayedColumns"
-          (pageChange)="pageChange($event)"
           [actionsEnabled]="true"
-          (visit)="onVisit($event)"
-          (edit)="onEdit($event)"
-          (delete)="onDelete($event)"
           [paginationMetadata]="paginationMetaData"
           [fieldValueMap]="coulumnNameMap"
           [dataLength]="dataLength"
           [allowModify]="hasUserUpdatePermission"
+          (visit)="onVisit($event)"
+          (edit)="onEdit($event)"
+          (delete)="onDelete($event)"
+          (pageChange)="pageChange($event)"
         ></ecoeden-table>
       </div>
     </div>

@@ -11,7 +11,8 @@ const routes: Routes = [
     component: UsersComponent
   },
   {path: 'add', component: UserCreatePageComponent, data: {breadcrumb: {label: 'Add new user'}}},
-  {path: ':id', component: UserDetailedViewComponent, data: {breadcrumb: {alias: 'username'}}}
+  {path: ':id', component: UserDetailedViewComponent, data: {breadcrumb: {alias: 'username'}}},
+  {path: 'update/:id', component: UserDetailedViewComponent, data: {breadcrumb: {label: 'Update user'}}}
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 <div class="row search-layout__action-box">
-  <div class="col-sm-7">
+  <div class="col-sm-12 col-md-7">
     <div class="search-container">
       <div class="input-wrapper">
         <span class="material-symbols-outlined icon">search</span>
@@ -7,7 +7,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-2">
+  <div class="col-sm-4 col-md-2">
     <div class="sort-container" [matMenuTriggerFor]="sortMenu" #sortMenuTrigger="matMenuTrigger">
       <span class="label">Sort by : </span>
       <span class="value">{{ selectedSortField }}</span>
@@ -17,7 +17,7 @@
       <button matButton mat-menu-item (click)="sortMenuChanged('updatedOn')">Last updated</button>
     </mat-menu>
   </div>
-  <div class="col-sm-2">
+  <div class="col-sm-4 col-md-2">
     <div class="filter-container">
       <span class="filter-action"  (click)="toggleFilterPanel()">{{ isFilterApplied ? 'Filter Applied' : 'Apply filter' }}</span>
       <span class="filter-action" [class.disabled]="!isFilterApplied" (click)="clearFilter()">Clear filter</span>
@@ -40,7 +40,7 @@
     </div>
   </div>
   
-  <div class="col-sm-1">
+  <div class="col-sm-4 col-md-1">
     <button mat-flat-button color="primary" (click)="onAddResource()">{{ addButtonLabel }}</button>
   </div>
 </div>

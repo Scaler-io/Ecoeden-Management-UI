@@ -16,6 +16,7 @@ import {getMobileViewState} from 'src/app/state/mobile-view/mobile-view.selector
 import {Router} from '@angular/router';
 import {fadeSlideInOut} from 'src/app/core/animations/fadeInOut';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {SearchLayoutService} from 'src/app/shared/components/search-layout/search-layout.service';
 
 @Component({
   selector: 'ecoeden-users',
@@ -52,10 +53,22 @@ export class UsersComponent implements OnInit, OnDestroy {
     paginatedUsers: null,
     userTotalCountState: null,
     currentUser: null,
-    mobileViewState: null
+    mobileViewState: null,
+    performSearch: null,
+    applyFilter: null,
+    clearFilter: null,
+    changeSortMenu: null,
+    addUser: null,
+    closeFilterPanel: null
   };
 
-  constructor(private store: Store<AppState>, private cdr: ChangeDetectorRef, private zone: NgZone, private router: Router) {}
+  constructor(
+    private store: Store<AppState>,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone,
+    private router: Router,
+    private searchLayoutService: SearchLayoutService
+  ) {}
 
   ngOnInit(): void {
     this.zone.runOutsideAngular(() => {
@@ -82,44 +95,53 @@ export class UsersComponent implements OnInit, OnDestroy {
         this.processUserResponse(response);
       });
     });
+
+    this.performSearch();
+    this.applyFilter();
+    this.clearFilter();
+    this.changeSortMenu();
+    this.addUser();
+    this.closeFilterPanel();
   }
 
   ngOnDestroy(): void {
     if (this.subscriptions.paginatedUsers) this.subscriptions.paginatedUsers.unsubscribe();
     if (this.subscriptions.mobileViewState) this.subscriptions.mobileViewState.unsubscribe();
     if (this.subscriptions.mobileViewState) this.subscriptions.userTotalCountState.unsubscribe();
+    if (this.subscriptions.performSearch) this.subscriptions.performSearch.unsubscribe();
+    if (this.subscriptions.applyFilter) this.subscriptions.applyFilter.unsubscribe();
+    if (this.subscriptions.clearFilter) this.subscriptions.clearFilter.unsubscribe();
+    if (this.subscriptions.changeSortMenu) this.subscriptions.changeSortMenu.unsubscribe();
+    if (this.subscriptions.addUser) this.subscriptions.addUser.unsubscribe();
+    if (this.subscriptions.closeFilterPanel) this.subscriptions.closeFilterPanel.unsubscribe();
   }
 
-  public search(search: FormControl) {
-    search.valueChanges
-      .pipe(
-        tap(text => {
-          if (text.length > 3 || text.length === 0) this.isPageLoading = true;
-          else this.isPageLoading = false;
-        }),
-        debounceTime(500)
-      )
-      .subscribe((searchText: string) => {
-        if (searchText.length === 0) {
-          this.zone.runOutsideAngular(() => {
-            !this.isFilterApplied
-              ? this.fetchUserList(false, 1, 20)
-              : this.fetchUserListWithFilters(this.userFilterFormGroup.value, this.currentSortField);
-          });
-        }
-        if (searchText.length > 3) {
-          this.zone.runOutsideAngular(() => {
-            !this.isFilterApplied
-              ? this.fetchUserList(true, 1, 20, searchText, 'fullName, email,userName')
-              : this.fetchUserListWithFilters(
-                  {userRoles: this.userFilterFormGroup.value},
-                  this.currentSortField,
-                  searchText,
-                  'fullName, email,userName'
-                );
-          });
-        }
-      });
+  public pageChange(event: PageEvent) {
+    this.zone.runOutsideAngular(() => {
+      this.fetchUserList(false, event.pageIndex + 1, event.pageSize);
+    });
+  }
+
+  public onMobilePageChange(pageIndex: number) {
+    this.zone.runOutsideAngular(() => {
+      this.fetchUserList(false, pageIndex, 10);
+    });
+  }
+
+  public onVisit(event: TableDataSource) {
+    this.router.navigateByUrl(`users/${(event as UserSummary).id}`);
+  }
+
+  public onEdit(event: TableDataSource) {
+    console.log(event);
+  }
+
+  public onDelete(event: TableDataSource) {
+    console.log(event);
+  }
+
+  public get hasUserUpdatePermission(): boolean {
+    return this.loggedInUser.permissions.includes('user:write');
   }
 
   // fetch user summary list
@@ -151,7 +173,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     sortField: string = 'createdOn',
     matchPhrase: string = '',
     matchPhraseField: string = ''
-  ) {
+  ): void {
     this.isPageLoading = true;
     const userSearchRequest: UserSearchRequest = {
       isFilteredQuery: true,
@@ -175,60 +197,86 @@ export class UsersComponent implements OnInit, OnDestroy {
     };
   }
 
-  public pageChange(event: PageEvent) {
-    this.zone.runOutsideAngular(() => {
-      this.fetchUserList(false, event.pageIndex + 1, event.pageSize);
+  private performSearch(): void {
+    this.subscriptions.performSearch = this.searchLayoutService.searchInput$.subscribe(search => {
+      search.valueChanges
+        .pipe(
+          tap(text => {
+            if (text.length > 3 || text.length === 0) this.isPageLoading = true;
+            else this.isPageLoading = false;
+          }),
+          debounceTime(500)
+        )
+        .subscribe((searchText: string) => {
+          if (searchText.length === 0) {
+            this.zone.runOutsideAngular(() => {
+              !this.isFilterApplied
+                ? this.fetchUserList(false, 1, 20)
+                : this.fetchUserListWithFilters(this.userFilterFormGroup.value, this.currentSortField);
+            });
+          }
+          if (searchText.length > 3) {
+            this.zone.runOutsideAngular(() => {
+              !this.isFilterApplied
+                ? this.fetchUserList(true, 1, 20, searchText, 'fullName, email,userName')
+                : this.fetchUserListWithFilters(
+                    {userRoles: this.userFilterFormGroup.value},
+                    this.currentSortField,
+                    searchText,
+                    'fullName, email,userName'
+                  );
+            });
+          }
+        });
     });
   }
 
-  public onMobilePageChange(pageIndex: number) {
-    this.zone.runOutsideAngular(() => {
-      this.fetchUserList(false, pageIndex, 10);
+  private changeSortMenu(): void {
+    this.subscriptions.changeSortMenu = this.searchLayoutService.sortChange$.subscribe((sortField: string) => {
+      this.currentSortField = sortField;
+      this.zone.runOutsideAngular(() => {
+        if (!this.isFilterApplied) {
+          this.fetchUserList(false, 1, 20, null, null, sortField);
+        } else {
+          this.fetchUserListWithFilters(this.userFilterFormGroup.value, this.currentSortField);
+        }
+      });
     });
   }
 
-  public onVisit(event: TableDataSource) {
-    this.router.navigateByUrl(`users/${(event as UserSummary).id}`);
-  }
-
-  public onEdit(event: TableDataSource) {
-    console.log(event);
-  }
-
-  public onDelete(event: TableDataSource) {
-    console.log(event);
-  }
-
-  public get hasUserUpdatePermission(): boolean {
-    return this.loggedInUser.permissions.includes('user:write');
-  }
-
-  public sortMenuChanged(sortField: string): void {
-    this.currentSortField = sortField;
-    this.zone.runOutsideAngular(() => {
-      if (!this.isFilterApplied) {
-        this.fetchUserList(false, 1, 20, null, null, sortField);
-      } else {
+  private applyFilter(): void {
+    this.subscriptions.applyFilter = this.searchLayoutService.filter$.subscribe(() => {
+      this.isFilterApplied = true;
+      this.zone.runOutsideAngular(() => {
         this.fetchUserListWithFilters(this.userFilterFormGroup.value, this.currentSortField);
+      });
+    });
+  }
+
+  private clearFilter(): void {
+    this.subscriptions.clearFilter = this.searchLayoutService.filterClear$.subscribe(() => {
+      this.isFilterApplied = false;
+      this.userFilterFormGroup.patchValue({
+        userRoles: ''
+      });
+      this.userFilterFormGroup.get('userRoles').markAsUntouched();
+      this.zone.runOutsideAngular(() => {
+        this.fetchUserList(false, 1, 20, '', '', this.currentSortField);
+      });
+    });
+  }
+
+  private addUser(): void {
+    this.subscriptions.addUser = this.searchLayoutService.addNewAction$.subscribe(() => {
+      this.router.navigate(['users', 'add']);
+    });
+  }
+
+  private closeFilterPanel(): void {
+    this.subscriptions.closeFilterPanel = this.searchLayoutService.panelClosed$.subscribe((isClosed: boolean) => {
+      if (isClosed) {
+        this.userFilterFormGroup.reset();
       }
-    });
-  }
-
-  public onFilterApply(): void {
-    this.isFilterApplied = true;
-    this.zone.runOutsideAngular(() => {
-      this.fetchUserListWithFilters(this.userFilterFormGroup.value, this.currentSortField);
-    });
-  }
-
-  public onFilterClear(): void {
-    this.isFilterApplied = false;
-    this.userFilterFormGroup.patchValue({
-      userRoles: ''
-    });
-    this.userFilterFormGroup.get('userRoles').markAsUntouched();
-    this.zone.runOutsideAngular(() => {
-      this.fetchUserList(false, 1, 20, '', '', this.currentSortField);
     });
   }
 
@@ -237,9 +285,5 @@ export class UsersComponent implements OnInit, OnDestroy {
       fn();
       this.cdr.markForCheck();
     });
-  }
-
-  public onAddUser(): void {
-    this.router.navigate(['users', 'add']);
   }
 }

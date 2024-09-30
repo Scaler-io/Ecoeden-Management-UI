@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {SearchLayoutService} from './search-layout.service';
 
 @Component({
   selector: 'ecoeden-search-layout',
@@ -17,42 +18,37 @@ export class SearchLayoutComponent implements OnInit {
   @Input() addButtonLabel: string = 'ADD';
   @Input() isFileterFormValid: boolean;
 
-  @Output() searchInputChanged = new EventEmitter<FormControl>();
-  @Output() filter = new EventEmitter<void>();
-  @Output() sortChange = new EventEmitter<string>();
-  @Output() filterClear = new EventEmitter<void>();
-  @Output() addNewAction = new EventEmitter<void>();
-
-  constructor() {}
+  constructor(private searchLayoutService: SearchLayoutService) {}
 
   ngOnInit(): void {
-    this.searchInputChanged.emit(this.searchInput);
+    this.searchLayoutService.emitSearchInput(this.searchInput);
   }
 
   public toggleFilterPanel(): void {
     this.filterPanelOpened = !this.filterPanelOpened;
+    this.searchLayoutService.emitPanelClosed(this.filterPanelOpened);
   }
 
   public sortMenuChanged(sortField: string): void {
     if (sortField === 'createdOn') this.selectedSortField = 'Last created';
     else this.selectedSortField = 'Last updated';
-    this.sortChange.emit(sortField);
+    this.searchLayoutService.emitSortChange(sortField);
   }
 
   public applyFilter(): void {
     this.isFilterApplied = true;
     this.filterPanelOpened = false;
-    this.filter.emit();
+    this.searchLayoutService.emitFilter();
   }
 
   public clearFilter(): void {
     if (this.isFilterApplied) {
       this.isFilterApplied = false;
-      this.filterClear.emit();
+      this.searchLayoutService.emitFilterClear();
     }
   }
 
   public onAddResource(): void {
-    this.addNewAction.emit();
+    this.searchLayoutService.emitAddNewAction();
   }
 }

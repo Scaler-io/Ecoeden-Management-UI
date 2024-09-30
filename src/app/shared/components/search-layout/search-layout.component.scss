@@ -87,9 +87,9 @@
       @include for-phone-only-up {
         width: 90vw;
         height: 80vh;
-        top: 50%;
+        top: 0;
         left: 50%;
-        // transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         border-radius: 5px;
         .filter-options-panel__header,
         .filter-options-panel__body,
@@ -107,6 +107,7 @@
           font-weight: $font-weight-bold;
         }
         &-closebtn > span {
+          cursor: pointer;
           font-size: $font-md;
         }
       }
