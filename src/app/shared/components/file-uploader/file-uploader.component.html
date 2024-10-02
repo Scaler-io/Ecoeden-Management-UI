@@ -1,4 +1,4 @@
-<div class="file-upload__container">
+<div class="file-upload__container" [class.file-upload__container--overlay]="uploaderBusy">
   <div>
     <label class="upload-button">
       <input type="file" accept=".jpg,.jpeg,.png,.gif,.heic,.heif" ng2FileSelect [uploader]="uploader" (change)="onFileSelected($event)" />

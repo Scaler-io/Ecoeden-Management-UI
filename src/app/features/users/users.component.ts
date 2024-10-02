@@ -133,7 +133,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   public onEdit(event: TableDataSource) {
-    console.log(event);
+    this.router.navigateByUrl(`users/update/${(event as UserSummary).id}`);
   }
 
   public onDelete(event: TableDataSource) {
@@ -152,7 +152,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     matchPhrase: string = null,
     matchPhraseField: string = null,
     sortField: string = 'createdOn',
-    sortOrder: string = 'Desc'
+    sortOrder: string = 'Asc'
   ): void {
     this.isPageLoading = true;
     const userSearchRequest: UserSearchRequest = {

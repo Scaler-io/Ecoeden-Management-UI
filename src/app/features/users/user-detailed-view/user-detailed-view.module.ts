@@ -9,7 +9,6 @@ import {NoticeBannerModule} from '../../../shared/components/notice-banner/notic
 
 @NgModule({
   declarations: [UserDetailedViewComponent],
-  imports: [CommonModule, AppMaterialModule, IndividualDetailsModule, PipesModule, DividerModule, NoticeBannerModule],
-  exports: [UserDetailedViewComponent]
+  imports: [CommonModule, AppMaterialModule, IndividualDetailsModule, PipesModule, DividerModule, NoticeBannerModule]
 })
 export class UserDetailedViewModule {}

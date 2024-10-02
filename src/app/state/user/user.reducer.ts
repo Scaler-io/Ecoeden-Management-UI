@@ -76,6 +76,14 @@ export function userReducer(state: UserState = initialState, action: userActions
         ...state,
         createUserResponse: action.payload
       };
+    case userActions.ENABLE_USER_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          isActive: action.payload
+        }
+      };
     default:
       return state;
   }

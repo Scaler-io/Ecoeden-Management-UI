@@ -1,0 +1,22 @@
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/mixin';
+
+$page-main__padding: 40px 30px;
+
+.user-edit__page-layout {
+  padding: $page-main__padding;
+  .content-heading {
+    font-size: $font-lg;
+    font-weight: $font-weight-semibold;
+    font-family: 'Titillium Web', 'sans-serif';
+  }
+  .user-enable__layout {
+    text-align: right;
+    font-family: 'Titillium Web', 'sans-serif';
+    font-size: $font-sm;
+    color: lighten($color-secondary, 20%);
+    @include for-phone-only-up {
+      order: -1;
+    }
+  }
+}

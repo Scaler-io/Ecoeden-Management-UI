@@ -4,6 +4,7 @@
 
 /* Container for the file uploader */
 .file-upload__container {
+  position: relative;
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
@@ -13,11 +14,26 @@
   border: 1px dashed $color-accent;
   background-color: #fafafa;
   height: auto;
+  overflow: hidden;
+  &--overlay {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: $color-blue-gray;
+      opacity: 0.55;
+    }
+  }
+
   .upload-content {
     height: 100%;
     display: flex;
     flex-direction: column;
     row-gap: 15px;
+    font-family: 'Titillium Web', 'sans-serif';
     &__hint {
       font-size: $font-xs;
       color: $color-accent;
@@ -36,6 +52,7 @@
   }
 
   .upload-button {
+    font-family: 'Titillium Web', 'sans-serif';
     background-color: $color-primary;
     color: white;
     padding: 5px 10px;

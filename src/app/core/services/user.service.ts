@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {map, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {CreateUserRequest, PaginatedUserList, User, UserSearchRequest} from '../models/user';
 import {environment} from 'src/environments/environment';
 
@@ -36,6 +36,12 @@ export class UserService {
 
   public createUser(request: CreateUserRequest): Observable<{[id: string]: string}> {
     return this.http.post<{[id: string]: string}>(`${environment.ecoedenUserApiUrl}`, request, {
+      headers: this.getHttpHeaders(environment.userApiSubscriptionKey)
+    });
+  }
+
+  public enableUser(id: string): Observable<boolean> {
+    return this.http.post<boolean>(`${environment.ecoedenUserApiUrl}/enable/${id}`, null, {
       headers: this.getHttpHeaders(environment.userApiSubscriptionKey)
     });
   }

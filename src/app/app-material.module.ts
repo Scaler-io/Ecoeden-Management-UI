@@ -13,6 +13,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import {MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleModule, RippleGlobalOptions} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -40,7 +41,8 @@ const MaterialComponentModule = [
   MatSelectModule,
   MatFormFieldModule,
   MatInputModule,
-  MatIconModule
+  MatIconModule,
+  MatTabsModule
 ];
 
 @NgModule({

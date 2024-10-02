@@ -1,4 +1,4 @@
-import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {act, Actions, createEffect, ofType} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
 import {catchError, map, Observable, of, switchMap} from 'rxjs';
 import {UserService} from 'src/app/core/services/user.service';
@@ -86,6 +86,23 @@ export class UserStateEffect {
               };
               return of(new userActions.UserCreateRequestFailure(errorResponse));
             }
+          })
+        );
+      })
+    );
+  });
+
+  public enableUser$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(userActions.ENABLE_USER_REQUEST),
+      switchMap((action: userActions.EnableUserRequest) => {
+        return this.userService.enableUser(action.payload).pipe(
+          map(response => {
+            return new userActions.EnableUserSuccess(response);
+          }),
+          catchError(error => {
+            if (error) console.log(error);
+            throw error;
           })
         );
       })

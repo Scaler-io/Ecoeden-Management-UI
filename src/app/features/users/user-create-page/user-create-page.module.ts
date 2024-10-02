@@ -10,7 +10,6 @@ import {DirectiveModule} from 'src/app/shared/directives/directive/directive.mod
 
 @NgModule({
   declarations: [UserCreatePageComponent],
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, AppMaterialModule, FileUploaderModule, DividerModule, ButtonModule, DirectiveModule],
-  exports: [UserCreatePageComponent]
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, AppMaterialModule, FileUploaderModule, DividerModule, ButtonModule, DirectiveModule]
 })
 export class UserCreatePageModule {}

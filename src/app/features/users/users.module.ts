@@ -13,6 +13,7 @@ import {UserDetailedViewModule} from './user-detailed-view/user-detailed-view.mo
 import {ReactiveFormsModule} from '@angular/forms';
 import {SearchLayoutModule} from 'src/app/shared/components/search-layout/search-layout.module';
 import {UserCreatePageModule} from './user-create-page/user-create-page.module';
+import {UserUpdatePageModule} from './user-update-page/user-update-page.module';
 
 @NgModule({
   declarations: [UsersComponent],
@@ -26,6 +27,7 @@ import {UserCreatePageModule} from './user-create-page/user-create-page.module';
     UserListMobileModule,
     UserDetailedViewModule,
     UserCreatePageModule,
+    UserUpdatePageModule,
     ReactiveFormsModule,
     SearchLayoutModule
   ]

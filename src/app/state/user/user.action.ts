@@ -12,6 +12,9 @@ export const USER_CREATE_REQUEST = 'USER_CREATE_REQUEST';
 export const USER_CREATE_REQUEST_SUCCESS = 'USER_CREATE_REQUEST_SUCCESS';
 export const USER_CREATE_REQUEST_FAILURE = 'USER_CREATE_REQUEST_FAILURE';
 
+export const ENABLE_USER_REQUEST = 'ENABLE_USER_REQUEST';
+export const ENABLE_USER_SUCCESS = 'ENABLE_USER_SUCCESS';
+
 export class UserListFetch implements Action {
   type: string = USER_LIST_FETCH;
   constructor(public payload: UserSearchRequest) {}
@@ -57,6 +60,16 @@ export class UserCreateRequestFailure implements Action {
   constructor(public payload: UserCreateResponse) {}
 }
 
+export class EnableUserRequest implements Action {
+  type: string = ENABLE_USER_REQUEST;
+  constructor(public payload: string) {}
+}
+
+export class EnableUserSuccess implements Action {
+  type: string = ENABLE_USER_SUCCESS;
+  constructor(public payload: boolean) {}
+}
+
 export type UserActions =
   | UserListFetch
   | UserDetailsFetch
@@ -66,4 +79,6 @@ export type UserActions =
   | UserCountFetchSuccess
   | UserCreateRequest
   | UserCreateRequestSuccess
-  | UserCreateRequestFailure;
+  | UserCreateRequestFailure
+  | EnableUserRequest
+  | EnableUserSuccess;

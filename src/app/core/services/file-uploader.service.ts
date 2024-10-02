@@ -10,12 +10,17 @@ import {environment} from 'src/environments/environment';
 })
 export class FileUploaderService {
   public onUploadStarted = new Subject<number>();
+  public onUploadSuccess = new Subject<boolean>();
   public onUploadError = new Subject<boolean>();
 
   constructor(private authService: AuthService) {}
 
-  public createUserImageUploader(): FileUploader {
-    return new FileUploader({});
+  public createUserImageUploader(userId?: string): FileUploader {
+    const uploader = new FileUploader({});
+    if (userId) {
+      this.setUserUploadOptions(userId, uploader);
+    }
+    return uploader;
   }
 
   public setUserUploadOptions(userId: string, uploader: FileUploader): void {
@@ -45,6 +50,7 @@ export class FileUploaderService {
     uploader.onSuccessItem = (item, response) => {
       item.formData.response = response;
       item.remove();
+      this.onUploadSuccess.next(true);
     };
     uploader.onErrorItem = item => {
       errorCount++;

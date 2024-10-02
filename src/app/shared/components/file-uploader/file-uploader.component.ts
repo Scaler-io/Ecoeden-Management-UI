@@ -1,5 +1,6 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FileUploader} from 'ng2-file-upload';
+import {FileUploaderService} from 'src/app/core/services/file-uploader.service';
 
 @Component({
   selector: 'ecoeden-file-uploader',
@@ -8,17 +9,28 @@ import {FileUploader} from 'ng2-file-upload';
 })
 export class FileUploaderComponent implements OnInit {
   @Input() uploader: FileUploader;
-  public fileName: string | null = null;
-  public previewUrl: string | ArrayBuffer | null = 'assets/images/user_avatar2.webp';
+  @Input() previewUrl: string | ArrayBuffer | null;
+  @Input() uploaderBusy: boolean;
 
-  constructor() {}
+  public fileName: string | null = null;
+  public tempPreview: string | ArrayBuffer | null;
+
+  constructor(private fileService: FileUploaderService) {}
 
   ngOnInit(): void {
+    if (!this.previewUrl) this.previewUrl = 'assets/images/user_avatar2.webp';
+    this.tempPreview = this.previewUrl;
+
     this.uploader.onAfterAddingFile = () => {
       if (this.uploader.queue.length > 1) {
         this.uploader.removeFromQueue(this.uploader.queue[0]);
       }
     };
+
+    this.fileService.onUploadSuccess.subscribe(res => {
+      this.fileName = '';
+      this.uploaderBusy = false;
+    });
   }
 
   public onFileSelected(event): void {
@@ -27,6 +39,7 @@ export class FileUploaderComponent implements OnInit {
       const fileItem = this.uploader.queue[0];
       if (fileItem && fileItem._file) {
         this.fileName = fileItem.file.name;
+
         const fileReader = new FileReader();
         fileReader.onload = () => {
           this.previewUrl = fileReader.result;
@@ -34,7 +47,6 @@ export class FileUploaderComponent implements OnInit {
         fileReader.readAsDataURL(event.target.files[0]);
       }
     }
-    console.log(this.uploader);
   }
 
   public onClearFileSelection(event): void {
@@ -46,6 +58,6 @@ export class FileUploaderComponent implements OnInit {
 
   private resetPrevieUrlAndFileName(): void {
     this.fileName = '';
-    this.previewUrl = 'assets/images/user_avatar2.webp';
+    this.previewUrl = this.tempPreview;
   }
 }

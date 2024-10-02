@@ -1,1 +1,61 @@
-<p>user-update-page works!</p>
+<div class="user-edit__page-layout">
+  <ng-container *ngIf="!user">
+    <mat-spinner diameter="50"></mat-spinner>
+  </ng-container>
+
+  <ng-container *ngIf="user">
+    <div class="row">
+      <div class="col-sm-12 col-md-8 ">
+        <mat-tab-group mat-align-tabs="center">
+          <mat-tab label="UPDATE AVATAR">
+            <div class=" mt-5">
+              <div class="container">
+                <h1 class="content-heading">Update user avatar</h1>
+              </div>
+              <ecoeden-file-uploader [previewUrl]="user.image" [uploader]="uploader" [uploaderBusy]="isImageUploading"></ecoeden-file-uploader>
+              <div class="mt-5">
+                <ecoeden-button (next)="uploadImage()" [isLoading]="isImageUploading">Update</ecoeden-button>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="UPDATE ROLE" *ngIf="!user.isDefaultAdmin">
+            <div class=" mt-5">
+              <div class="container">
+                <h1 class="content-heading">Update user role</h1>
+                <div class="mt-5">
+                  <form>
+                    <div class="row ">
+                      <div class="col-sm-12 col-md-4">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Roles</mat-label>
+                          <mat-select [value]="user.userRoles" multiple>
+                            <mat-option value="Admin">Admin</mat-option>
+                            <mat-option value="Operator">Operator</mat-option>
+                            <mat-option value="Auditor">Auditor</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-5">
+                        <ecoeden-button>Update</ecoeden-button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <div class="col-sm-12 col-md-4 user-enable__layout">
+        <div class="">
+          <mat-slide-toggle *ngIf="!user.isDefaultAdmin" color="primary" (change)="enableUser($event)" [checked]="user.isActive">
+            <span *ngIf="userToggleDone">User is {{ user.isActive ? 'Live' : 'Offline' }}</span>
+            <mat-spinner *ngIf="!userToggleDone" diameter="25" color="primary"></mat-spinner>
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
