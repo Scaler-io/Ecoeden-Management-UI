@@ -11,6 +11,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'suppliers',
+    loadChildren: () => import('./features/suppliers/suppliers.module').then(m => m.SuppliersModule),
+    data: {breadcrumb: {label: 'Suppliers'}}
+  },
+  {
     path: 'users',
     loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
     data: {breadcrumb: {label: 'Users'}}

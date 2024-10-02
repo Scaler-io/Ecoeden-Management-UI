@@ -16,7 +16,8 @@ export class ContentHeaderComponent implements OnInit {
   private pageIconMap = {
     ['Dashboard']: 'dashboard',
     ['Users']: 'person',
-    ['Products']: 'psychiatry'
+    ['Products']: 'psychiatry',
+    ['Suppliers']: 'local_shipping'
   };
 
   constructor(private breadcrumb: BreadcrumbService, private router: Router) {}

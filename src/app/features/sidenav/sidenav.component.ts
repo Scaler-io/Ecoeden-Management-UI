@@ -16,7 +16,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
   public isMobileView: boolean;
   public subMenuList = {
     users: false,
-    products: false
+    products: false,
+    suppliers: false
   };
 
   constructor(private store: Store<AppState>) {}
@@ -43,20 +44,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   }
 
   public handleSidenavItemClick(menu?: string) {
-    if (menu && menu === 'users') {
-      this.subMenuList = {
-        ...this.subMenuList,
-        users: !this.subMenuList.users,
-        products: false
-      };
-    }
-    if (menu && menu === 'products') {
-      this.subMenuList = {
-        ...this.subMenuList,
-        users: false,
-        products: !this.subMenuList.products
-      };
-    }
+    if (menu) this.updateSubmenuActions(menu);
     !this.isMobileView && !this.sidenavExpanded && this.store.dispatch(new sidenavToggleAction.ToggleSideNav());
   }
 
@@ -70,6 +58,37 @@ export class SidenavComponent implements OnInit, OnDestroy {
     }
     if (this.subscriptions.mobileViewState) {
       this.subscriptions.mobileViewState.unsubscribe();
+    }
+  }
+
+  private updateSubmenuActions(menu: string): void {
+    switch (menu) {
+      case 'users':
+        this.subMenuList = {
+          ...this.subMenuList,
+          users: !this.subMenuList.users,
+          products: false,
+          suppliers: false
+        };
+        break;
+      case 'products':
+        this.subMenuList = {
+          ...this.subMenuList,
+          users: false,
+          products: !this.subMenuList.products,
+          suppliers: false
+        };
+        break;
+      case 'suppliers':
+        this.subMenuList = {
+          ...this.subMenuList,
+          users: false,
+          products: false,
+          suppliers: !this.subMenuList.suppliers
+        };
+        break;
+      default:
+        break;
     }
   }
 }

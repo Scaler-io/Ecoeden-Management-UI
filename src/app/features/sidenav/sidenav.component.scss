@@ -35,10 +35,15 @@
           column-gap: 2.6rem;
           .item-icon {
             color: #7a7a7a;
+            &:last-child {
+              margin-right: 2rem;
+              justify-self: right !important;
+            }
           }
           .item-label {
             font-size: $font-md;
             color: #3b3b3b;
+            flex-grow: 1;
           }
         }
         .submenu {
@@ -66,10 +71,6 @@
   &--collapse {
     width: 7.5rem !important;
     white-space: nowrap;
-    .sidenav__content-list--item {
-      // padding: 10px 0 10px 25px;
-      // column-gap: 2.6rem;
-    }
   }
   &--collapse-full {
     position: static;
