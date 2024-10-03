@@ -19,7 +19,7 @@
   </div>
   <div class="col-sm-4 col-md-2">
     <div class="filter-container">
-      <span class="filter-action"  (click)="toggleFilterPanel()">{{ isFilterApplied ? 'Filter Applied' : 'Apply filter' }}</span>
+      <span class="filter-action" (click)="toggleFilterPanel()">{{ isFilterApplied ? 'Filter Applied' : 'Apply filter' }}</span>
       <span class="filter-action" [class.disabled]="!isFilterApplied" (click)="clearFilter()">Clear filter</span>
       <div class="filter-options-panel" [class.filter-options-panel--hidden]="!filterPanelOpened">
         <div class="filter-options-panel__header">
@@ -34,12 +34,14 @@
         </div>
 
         <div class="filter-options-panel__footer">
-          <button mat-flat-button color="primary" [disabled]="!isFileterFormValid" (click)="applyFilter()">Apply filter</button>
+          <ecoeden-button [isDisabled]="!isFileterFormValid" (next)="applyFilter()" [type]="ButtonType.info">Apply filter</ecoeden-button>
+          <!-- <button mat-flat-button color="primary" [disabled]="!isFileterFormValid" (click)="applyFilter()">Apply filter</button>
+          <button mat-flat-button color="primary" [disabled]="!isFileterFormValid" (click)="applyFilter()">Apply filter</button> -->
         </div>
       </div>
     </div>
   </div>
-  
+
   <div class="col-sm-4 col-md-1">
     <button mat-flat-button color="primary" (click)="onAddResource()">{{ addButtonLabel }}</button>
   </div>

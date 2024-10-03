@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ButtonType} from './button.model';
 
 @Component({
   selector: 'ecoeden-button',
@@ -9,6 +10,9 @@ export class ButtonComponent implements OnInit {
   @Input() isAutoWidth: boolean;
   @Input() isLoading: boolean;
   @Input() isDisabled: boolean;
+  @Input() type: ButtonType;
+
+  ButtonType = ButtonType;
 
   @Output() next: EventEmitter<void> = new EventEmitter<void>();
 
@@ -18,6 +22,8 @@ export class ButtonComponent implements OnInit {
 
   public onButtonClick(event: Event): void {
     event.preventDefault();
-    this.next.emit();
+    if (!this.isDisabled) {
+      this.next.emit();
+    }
   }
 }

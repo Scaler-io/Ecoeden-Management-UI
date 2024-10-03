@@ -87,7 +87,9 @@
         </div>
       </div>
       <div class="col-md-7 col-sm-12">
-        <ecoeden-button (next)="onSubmit()" [isLoading]="isFormSubmitting" [isDisabled]="isFormSubmitting">Create</ecoeden-button>
+        <ecoeden-button (next)="onSubmit()" [isLoading]="isFormSubmitting" [type]="ButtonType.info" [isDisabled]="isFormSubmitting"
+          >Create</ecoeden-button
+        >
       </div>
     </div>
   </ng-container>

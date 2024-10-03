@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {SearchLayoutService} from './search-layout.service';
+import {ButtonType} from '../button/button.model';
 
 @Component({
   selector: 'ecoeden-search-layout',
@@ -13,6 +14,7 @@ export class SearchLayoutComponent implements OnInit {
   public filterPanelOpened: boolean = false;
   public selectedSortField: string = 'Last created';
   public isFilterApplied: boolean = false;
+  public ButtonType = ButtonType;
 
   @Input() filterLabel: string = 'FILTER';
   @Input() addButtonLabel: string = 'ADD';

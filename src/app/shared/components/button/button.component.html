@@ -2,7 +2,9 @@
   class="button__layout"
   [class]="{
   'button__layout--disabled': isDisabled,
-  'button__layout--autowidth': isAutoWidth
+  'button__layout--autowidth': isAutoWidth,
+  'button__layout--info': type === ButtonType.info,
+  'button__layout--danger' : type === ButtonType.danger
 }"
   (click)="onButtonClick($event)"
 >
