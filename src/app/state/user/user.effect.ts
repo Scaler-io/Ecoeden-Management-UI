@@ -5,7 +5,7 @@ import {UserService} from 'src/app/core/services/user.service';
 import {Injectable} from '@angular/core';
 
 import * as userActions from './user.action';
-import {UserCreateResponse, UserCreateStatus} from 'src/app/core/models/user';
+import {RoleUpdateRequest, UserCreateResponse, UserCreateStatus} from 'src/app/core/models/user';
 
 @Injectable({providedIn: 'root'})
 export class UserStateEffect {
@@ -48,8 +48,8 @@ export class UserStateEffect {
   public fetchUserCount$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(userActions.USER_COUNT_FETCH),
-      switchMap(() => {
-        return this.userService.getUserCount().pipe(
+      switchMap((action: userActions.UserCountFetch) => {
+        return this.userService.getUserCount(action.payload).pipe(
           map(response => {
             return new userActions.UserCountFetchSuccess(response);
           }),
@@ -102,6 +102,23 @@ export class UserStateEffect {
           }),
           catchError(error => {
             if (error) console.log(error);
+            throw error;
+          })
+        );
+      })
+    );
+  });
+
+  public updateRole$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(userActions.ROLE_UPDATE_REQUEST),
+      switchMap((action: userActions.RoleUpdateRequest) => {
+        return this.userService.updateRole(action.payload).pipe(
+          map(response => {
+            return new userActions.RoleUpdateRequestSuccess(response);
+          }),
+          catchError(error => {
+            console.error(error);
             throw error;
           })
         );

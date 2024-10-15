@@ -1,13 +1,22 @@
 <div class="user-list__container">
   <!-- search, filter and sort action box -->
-  <ecoeden-search-layout addButtonLabel="ADD USER" filterLabel="Filter users" [isFileterFormValid]="userFilterFormGroup.valid">
+  <ecoeden-search-layout addButtonLabel="ADD USER" filterLabel="Filter users" [isFileterFormValid]="checkIfAnyControlHasValue()">
     <form [formGroup]="userFilterFormGroup">
       <div class="row">
         <div class="col-md-4 col-sm-7">
           <mat-form-field>
-            <mat-label>Select a role</mat-label>
+            <mat-label>Role</mat-label>
             <mat-select formControlName="userRoles">
-              <mat-option *ngFor="let roleFilter of roleFilters" [value]="roleFilter">{{ roleFilter }}</mat-option>
+              <mat-option matRipple *ngFor="let roleFilter of roleFilters" [value]="roleFilter">{{ roleFilter }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 col-sm-7">
+          <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="isActive">
+              <mat-option matRipple value="true">Active</mat-option>
+              <mat-option matRipple value="false">Inactive</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

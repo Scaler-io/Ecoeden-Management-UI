@@ -17,6 +17,7 @@ import {AuthModule} from 'angular-auth-oidc-client';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {EffectsModule} from '@ngrx/effects';
 import {AuthInterceptor} from './core/auth/auth.interceptor';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +42,15 @@ import {AuthInterceptor} from './core/auth/auth.interceptor';
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production
+    }),
+    ToastrModule.forRoot({
+      closeButton: true,
+      tapToDismiss: true,
+      positionClass: 'toast-top-right',
+      // timeOut: 1000,
+      disableTimeOut: true,
+      autoDismiss: false,
+      preventDuplicates: true,
     })
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],

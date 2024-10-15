@@ -1,13 +1,15 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {CreateUserRequest, PaginatedUserList, User, UserSearchRequest} from '../models/user';
+import {map, Observable, Subject} from 'rxjs';
+import {CreateUserRequest, PaginatedUserList, RoleUpdateRequest, User, UserSearchRequest} from '../models/user';
 import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  public userRoleUpdated$: Subject<boolean> = new Subject<boolean>();
+
   constructor(private http: HttpClient) {}
 
   public getAllUsers(searchRequest: UserSearchRequest): Observable<PaginatedUserList> {
@@ -28,8 +30,9 @@ export class UserService {
     });
   }
 
-  public getUserCount(): Observable<number> {
-    return this.http.get<number>(`${environment.ecoedenSearchApiUrl}/user-search-index/count`, {
+  public getUserCount(searchRequest?: UserSearchRequest): Observable<number> {
+    const query = searchRequest ?? null;
+    return this.http.post<number>(`${environment.ecoedenSearchApiUrl}/user-search-index/count`, query, {
       headers: this.getHttpHeaders(environment.searchApiSubscriptionKey)
     });
   }
@@ -44,6 +47,19 @@ export class UserService {
     return this.http.post<boolean>(`${environment.ecoedenUserApiUrl}/enable/${id}`, null, {
       headers: this.getHttpHeaders(environment.userApiSubscriptionKey)
     });
+  }
+
+  public updateRole(request: RoleUpdateRequest): Observable<boolean> {
+    return this.http
+      .put<boolean>(`${environment.ecoedenUserApiUrl}/role/update`, request, {
+        headers: this.getHttpHeaders(environment.userApiSubscriptionKey)
+      })
+      .pipe(
+        map(response => {
+          this.userRoleUpdated$.next(response);
+          return response;
+        })
+      );
   }
 
   private getHttpHeaders(subscriptionkey: string) {

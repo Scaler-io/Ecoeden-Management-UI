@@ -94,3 +94,12 @@ export enum UserCreateStatus {
   Success = 'Success',
   Failure = 'Failure'
 }
+
+export interface RoleUpdateFormModel {
+  roles: string[];
+}
+
+export interface RoleUpdateRequest {
+  userId: string;
+  roles: string[];
+}

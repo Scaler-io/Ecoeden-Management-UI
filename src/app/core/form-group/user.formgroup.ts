@@ -17,4 +17,12 @@ export class UserFormGroupHelper extends BaseFormGroupHelper {
     });
     return formGroup;
   }
+
+  public static createUserRoleUpdateFormGroup(): FormGroup {
+    const formGroup = this.fb.group({
+      roles: ['', Validators.required]
+    });
+
+    return formGroup;
+  }
 }

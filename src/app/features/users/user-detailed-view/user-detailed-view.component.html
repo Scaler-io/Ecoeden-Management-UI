@@ -34,7 +34,7 @@
           <div class="col-sm-12 col-md-6">
             <ng-container *ngIf="(!user.isDefaultAdmin || !isCurrentUser) && hasUserEditPermission; else actionNotice">
               <div class="user-details__action-group">
-                <button mat-raised-button button color="primary"
+                <button mat-raised-button button color="primary" (click)="redirectToEditView()"
                   ><span class="material-symbols-outlined">edit</span>
                   <span>Edit</span>
                 </button>
@@ -67,7 +67,7 @@
             <div class="container">
               <!-- Basic details here -->
               <div class="row">
-                <div class="col-sm-12"><ecoeden-divider label="Basic details"></ecoeden-divider></div>
+                <div class="col-sm-12"><ecoeden-divider label="Personal details"></ecoeden-divider></div>
                 <div class="col-sm-12 col-md-6"
                   ><ecoeden-individual-details icon="person" label="User name" [value]="user.userName"></ecoeden-individual-details
                 ></div>
@@ -92,7 +92,7 @@
 
               <!-- Metadata details here -->
               <div class="row">
-                <div class="col-sm-12"><ecoeden-divider label="Metadata details"></ecoeden-divider></div>
+                <div class="col-sm-12"><ecoeden-divider label="General details"></ecoeden-divider></div>
                 <div class="col-sm-12 col-md-6"
                   ><ecoeden-individual-details
                     icon="person_add"

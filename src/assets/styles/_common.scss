@@ -121,3 +121,13 @@ table {
     padding: 25px 0;
   }
 }
+
+.toast-container {
+  .toast-title {
+    font-size: $font-sm;
+    margin-bottom: .5rem;
+  }
+  .toast-message {
+    font-size: $font-sm;
+  }
+}

@@ -5,16 +5,22 @@
 
   <ng-container *ngIf="user">
     <div class="row">
-      <div class="col-sm-12 col-md-8 ">
+      <div class="col-sm-12 col-md-8">
         <mat-tab-group mat-align-tabs="center">
           <mat-tab label="UPDATE AVATAR">
-            <div class=" mt-5">
+            <div class="mt-5">
               <div class="container">
                 <h1 class="content-heading">Update user avatar</h1>
-              </div>
-              <ecoeden-file-uploader [previewUrl]="user.image" [uploader]="uploader" [uploaderBusy]="isImageUploading"></ecoeden-file-uploader>
-              <div class="mt-5">
-                <ecoeden-button (next)="uploadImage()" [isLoading]="isImageUploading">Update</ecoeden-button>
+                <ecoeden-file-uploader [previewUrl]="user.image" [uploader]="uploader" [uploaderBusy]="isImageUploading"></ecoeden-file-uploader>
+                <div class="mt-5">
+                  <ecoeden-button
+                    [type]="ButtonType.info"
+                    [isDisabled]="uploader.queue.length < 1"
+                    (next)="uploadImage()"
+                    [isLoading]="isImageUploading"
+                    >Update</ecoeden-button
+                  >
+                </div>
               </div>
             </div>
           </mat-tab>
@@ -23,22 +29,29 @@
               <div class="container">
                 <h1 class="content-heading">Update user role</h1>
                 <div class="mt-5">
-                  <form>
+                  <form [formGroup]="roleUpdateForm">
                     <div class="row ">
                       <div class="col-sm-12 col-md-4">
                         <mat-form-field appearance="outline">
                           <mat-label>Roles</mat-label>
-                          <mat-select [value]="user.userRoles" multiple>
+                          <mat-select formControlName="roles" [value]="user.userRoles" multiple>
                             <mat-option value="Admin">Admin</mat-option>
                             <mat-option value="Operator">Operator</mat-option>
                             <mat-option value="Auditor">Auditor</mat-option>
                           </mat-select>
+                          <mat-error>Please select at least one role</mat-error>
                         </mat-form-field>
                       </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-5">
                       <div class="col-sm-12 col-md-5">
-                        <ecoeden-button>Update</ecoeden-button>
+                        <ecoeden-button
+                          [type]="ButtonType.info"
+                          [isDisabled]="roleUpdateForm.invalid"
+                          (next)="onRoleUpdate()"
+                          [isLoading]="isRoleFormSubmitting"
+                          >Update</ecoeden-button
+                        >
                       </div>
                     </div>
                   </form>

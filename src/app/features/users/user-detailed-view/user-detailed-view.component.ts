@@ -3,7 +3,7 @@ import {select, Store} from '@ngrx/store';
 import {getUserDetails} from 'src/app/state/user/user.selector';
 import {AppState} from 'src/app/store/app.state';
 import {BreadcrumbService} from 'xng-breadcrumb';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {User} from 'src/app/core/models/user';
 import {combineLatest, delay} from 'rxjs';
 import {getLoggedInUser} from 'src/app/state/auth/auth.selector';
@@ -30,7 +30,8 @@ export class UserDetailedViewComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private route: ActivatedRoute,
     private zone: NgZone,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   private subscriptions = {
@@ -47,10 +48,7 @@ export class UserDetailedViewComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subscriptions.authAndUserCombinedState = combineLatest([
-      this.store.pipe(select(getUserDetails)),
-      this.store.pipe(select(getLoggedInUser))
-    ])
+    this.subscriptions.authAndUserCombinedState = combineLatest([this.store.pipe(select(getUserDetails)), this.store.pipe(select(getLoggedInUser))])
       .pipe(delay(1000))
       .subscribe(([userResponse, authResponse]) => {
         if (userResponse && authResponse) {
@@ -83,5 +81,9 @@ export class UserDetailedViewComponent implements OnInit, OnDestroy {
       Permissions: this.user.permissions
     };
     return JSON.stringify(rolePermission, null, 2).trim();
+  }
+
+  public redirectToEditView(): void {
+    this.router.navigate(['users', 'update', this.user.id]);
   }
 }

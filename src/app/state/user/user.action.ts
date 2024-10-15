@@ -1,5 +1,12 @@
 import {Action} from '@ngrx/store';
-import {User, PaginatedUserList, UserSearchRequest, UserCreateResponse, CreateUserRequest} from 'src/app/core/models/user';
+import {
+  User,
+  PaginatedUserList,
+  UserSearchRequest,
+  UserCreateResponse,
+  CreateUserRequest,
+  RoleUpdateRequest as UserRoleUpdateRequest
+} from 'src/app/core/models/user';
 
 export const USER_LIST_FETCH = 'USER_LIST_FETCH';
 export const USER_DETAILS_FETCH = 'USER_DETAILS_FETCH';
@@ -14,6 +21,9 @@ export const USER_CREATE_REQUEST_FAILURE = 'USER_CREATE_REQUEST_FAILURE';
 
 export const ENABLE_USER_REQUEST = 'ENABLE_USER_REQUEST';
 export const ENABLE_USER_SUCCESS = 'ENABLE_USER_SUCCESS';
+
+export const ROLE_UPDATE_REQUEST = 'ROLE_UPDATE_REQUEST';
+export const ROLE_UPDATE_REQUEST_SUCCESS = 'ROLE_UPDATE_SUCCESS';
 
 export class UserListFetch implements Action {
   type: string = USER_LIST_FETCH;
@@ -37,7 +47,7 @@ export class UserDetailsFetchSuccess implements Action {
 
 export class UserCountFetch implements Action {
   type: string = USER_COUNT_FETCH;
-  constructor(public payload: any = null) {}
+  constructor(public payload?: UserSearchRequest) {}
 }
 
 export class UserCountFetchSuccess implements Action {
@@ -70,6 +80,16 @@ export class EnableUserSuccess implements Action {
   constructor(public payload: boolean) {}
 }
 
+export class RoleUpdateRequest implements Action {
+  type: string = ROLE_UPDATE_REQUEST;
+  constructor(public payload: UserRoleUpdateRequest) {} // used type alias for RoleUpdateRequest as its creating ambiguity
+}
+
+export class RoleUpdateRequestSuccess implements Action {
+  type: string = ROLE_UPDATE_REQUEST_SUCCESS;
+  constructor(public payload: boolean) {}
+}
+
 export type UserActions =
   | UserListFetch
   | UserDetailsFetch
@@ -81,4 +101,6 @@ export type UserActions =
   | UserCreateRequestSuccess
   | UserCreateRequestFailure
   | EnableUserRequest
-  | EnableUserSuccess;
+  | EnableUserSuccess
+  | RoleUpdateRequest
+  | RoleUpdateRequestSuccess;

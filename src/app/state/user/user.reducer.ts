@@ -69,19 +69,19 @@ export function userReducer(state: UserState = initialState, action: userActions
     case userActions.USER_CREATE_REQUEST_SUCCESS:
       return {
         ...state,
-        createUserResponse: action.payload
+        createUserResponse: action.payload as UserCreateResponse
       };
     case userActions.USER_CREATE_REQUEST_FAILURE:
       return {
         ...state,
-        createUserResponse: action.payload
+        createUserResponse: action.payload as UserCreateResponse
       };
     case userActions.ENABLE_USER_SUCCESS:
       return {
         ...state,
         user: {
           ...state.user,
-          isActive: action.payload
+          isActive: action.payload as boolean
         }
       };
     default:
