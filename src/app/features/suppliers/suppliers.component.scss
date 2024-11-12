@@ -1,0 +1,10 @@
+@import '../../../assets/styles/grid';
+@import '../../../assets/styles/variables';
+
+.supplier-list-loading-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+

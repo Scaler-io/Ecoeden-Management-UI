@@ -1,4 +1,5 @@
 import {PaginatedResult} from './pagination';
+import {SearchRequestBase} from './search-request';
 import {TableDataSource} from './table-source';
 
 export class PaginatedUserList extends PaginatedResult {
@@ -21,19 +22,7 @@ export interface UserSummary extends TableDataSource {
   updatedOn: Date | null;
 }
 
-export interface UserSearchRequest {
-  isFilteredQuery: boolean;
-  sortField?: string;
-  sortOrder?: string;
-  matchPhrase?: string;
-  matchPhraseField?: string;
-  startTime?: string;
-  endTime?: string;
-  timeField?: string;
-  filters?: {[key: string]: string};
-  pageSize: number;
-  pageIndex: number;
-}
+export interface UserSearchRequest extends SearchRequestBase {}
 
 export interface User {
   id: string;

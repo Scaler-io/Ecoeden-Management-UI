@@ -3,10 +3,12 @@ export interface IConfiguration {
   oidcConfig: OidcConfig;
   ecoedenUserApiUrl: string;
   ecoedenCatalogueApiUrl: string;
+  ecoedenInventoryApiUrl: string;
   ecoedenSearchApiUrl: string;
   searchApiSubscriptionKey: string;
   userApiSubscriptionKey: string;
   catalogueApiSubscriptionKey: string;
+  inventoryApiSubscriptionKey: string;
 }
 
 interface OidcConfig {
