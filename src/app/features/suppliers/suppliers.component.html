@@ -24,7 +24,7 @@
 
   <ng-container *ngIf="!isPageLoading">
     <!-- supplier list table: for desktop view  only-->
-    <div class="row height-full">
+    <div class="row height-full" @fadeSlideInOut *ngIf="!isMobileView">
       <div class="col-sm-12">
         <ecoeden-table
           [dataSource]="suppliers"
@@ -37,6 +37,17 @@
           (visit)="onVisit($event)"
           (pageChange)="pageChange($event)"
         ></ecoeden-table>
+      </div>
+    </div>
+
+    <div class="row" @fadeSlideInOut *ngIf="isMobileView">
+      <div class="col-sm-12">
+        <ecoeden-supplier-list-mobile
+          [supplierList]="suppliers.data"
+          (pageChange)="onMobilePageChange($event)"
+          [totalCount]="totalSupplierCount"
+          [currentPage]="paginationMetaData.currentPage"
+        ></ecoeden-supplier-list-mobile>
       </div>
     </div>
   </ng-container>

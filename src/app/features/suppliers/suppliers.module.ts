@@ -11,6 +11,7 @@ import {AppMaterialModule} from 'src/app/app-material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SearchLayoutModule} from 'src/app/shared/components/search-layout/search-layout.module';
 import {TableModule} from 'src/app/shared/components/table/table.module';
+import {SupplierListMobileModule} from './supplier-list-mobile/supplier-list-mobile.module';
 
 @NgModule({
   declarations: [SuppliersComponent],
@@ -22,7 +23,8 @@ import {TableModule} from 'src/app/shared/components/table/table.module';
     ReactiveFormsModule,
     SearchLayoutModule,
     TableModule,
-    AppMaterialModule
+    AppMaterialModule,
+    SupplierListMobileModule
   ]
 })
 export class SuppliersModule {}

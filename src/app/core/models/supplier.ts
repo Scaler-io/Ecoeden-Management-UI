@@ -5,7 +5,7 @@ import {SearchRequestBase} from './search-request';
 import {TableDataSource} from './table-source';
 
 export class PaginatedSupplierList extends PaginatedResult {
-  constructor(public pageIndex: number, public pageSize: number, public count: number, public data) {
+  constructor(public pageIndex: number, public pageSize: number, public count: number, public data: SupplierSummary[]) {
     super(pageIndex, pageSize, count, data);
   }
 }
@@ -16,6 +16,7 @@ export interface SupplierSummary extends TableDataSource {
   email: string;
   phone: string;
   address: string;
+  status: boolean;
   createdOn: Date | null;
   updatedOn: Date | null;
 }

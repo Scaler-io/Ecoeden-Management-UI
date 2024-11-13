@@ -15,6 +15,7 @@ import {debounceTime, delay, tap} from 'rxjs';
 import {fadeSlideInOut} from 'src/app/core/animations/fadeInOut';
 import {PageEvent} from '@angular/material/paginator';
 import {FormControl, FormGroup} from '@angular/forms';
+import {getMobileViewState} from 'src/app/state/mobile-view/mobile-view.selector';
 
 @Component({
   selector: 'ecoeden-suppliers',
@@ -28,20 +29,21 @@ export class SuppliersComponent implements OnInit, OnDestroy {
   public isPageLoading: boolean = true;
   public paginationMetaData: PaginationMetaData;
   public suppliers = new MatTableDataSource<SupplierSummary>([]);
-  public displayedColumns = ['name', 'email', 'phone', 'status'];
+  public displayedColumns = ['name', 'email', 'address', 'status'];
   public totalSupplierCount: number;
   public searchTerm: string;
   public isSearchApplied: boolean;
   public isFilterApplied: boolean;
   private currentSortField: string;
-  public filterPanelOpened: boolean = false;
+  public filterPanelOpened: boolean;
+  public isMobileView: boolean;
   public supplierFilterFormGroup: FormGroup = new FormGroup({
     status: new FormControl('')
   });
 
   public columnNameMap: TableColumnMap = {
     name: {value: 'name', isDateField: false, isStatusField: false},
-    phone: {value: 'phone', isDateField: false, isStatusField: false},
+    address: {value: 'address', isDateField: false, isStatusField: false},
     email: {value: 'email', isDateField: false, isStatusField: false},
     status: {value: 'status', isDateField: false, isStatusField: true}
   };
@@ -61,7 +63,8 @@ export class SuppliersComponent implements OnInit, OnDestroy {
     performSearch: null,
     changeSortMenu: null,
     applyFilter: null,
-    clearFilter: null
+    clearFilter: null,
+    mobileViewState: null
   };
 
   ngOnInit(): void {
@@ -77,9 +80,13 @@ export class SuppliersComponent implements OnInit, OnDestroy {
 
     this.subscriptions.paginatedSuppliers = this.store.pipe(select(getPaginatedSuppliers), delay(1000)).subscribe(response => {
       this.useChangeDetection(() => {
-        if (response.data.length === 0) this.isPageLoading = false;
         this.processSupplierResponse(response);
+        if (response.data.length === 0) this.isPageLoading = false;
       });
+    });
+
+    this.subscriptions.mobileViewState = this.store.pipe(select(getMobileViewState)).subscribe(response => {
+      this.useChangeDetection(() => (this.isMobileView = response));
     });
 
     this.performSearch();
@@ -95,6 +102,7 @@ export class SuppliersComponent implements OnInit, OnDestroy {
     if (this.subscriptions.changeSortMenu) this.subscriptions.changeSortMenu.unsubscribe();
     if (this.subscriptions.applyFilter) this.subscriptions.applyFilter.unsubscribe();
     if (this.subscriptions.clearFilter) this.subscriptions.clearFilter.unsubscribe();
+    if (this.subscriptions.mobileViewState) this.subscriptions.mobileViewState.unsubscribe();
   }
 
   private fetchSuppliers(
@@ -168,6 +176,23 @@ export class SuppliersComponent implements OnInit, OnDestroy {
     };
   }
 
+  public onMobilePageChange(pageIndex: number) {
+    this.noChangeDetection(() => {
+      if (!this.isFilterApplied) {
+        this.fetchSuppliers(!!this.searchTerm, pageIndex, 10, this.searchTerm, 'name,email,address', this.currentSortField);
+      } else {
+        this.fetchSuppliersWithFilters(
+          this.supplierFilterFormGroup.value,
+          pageIndex,
+          10,
+          this.searchTerm,
+          'name,email,address',
+          this.currentSortField
+        );
+      }
+    });
+  }
+
   public pageChange(event: PageEvent): void {
     this.noChangeDetection(() => {
       if (this.isFilterApplied) {
@@ -176,11 +201,11 @@ export class SuppliersComponent implements OnInit, OnDestroy {
           event.pageIndex + 1,
           event.pageSize,
           this.searchTerm,
-          'name,email,phone',
+          'name,address,email',
           this.currentSortField
         );
       } else {
-        this.fetchSuppliers(!!this.searchTerm, event.pageIndex + 1, event.pageSize, this.searchTerm, 'name,email,phone', this.currentSortField);
+        this.fetchSuppliers(!!this.searchTerm, event.pageIndex + 1, event.pageSize, this.searchTerm, 'name,address,email', this.currentSortField);
       }
     });
   }
@@ -204,21 +229,28 @@ export class SuppliersComponent implements OnInit, OnDestroy {
             this.noChangeDetection(() => {
               if (!this.isFilterApplied) {
                 this.fetchSupplierCount();
-                this.fetchSuppliers(false, 1, 20, this.searchTerm, 'name,email,phone', this.currentSortField);
+                this.fetchSuppliers(false, 1, 20, this.searchTerm, 'name,address,email', this.currentSortField);
               } else {
                 this.fetchSupplierCount(this.supplierFilterFormGroup.value);
-                this.fetchSuppliersWithFilters(this.supplierFilterFormGroup.value, 1, 20, this.searchTerm, 'name,email,phone', this.currentSortField);
+                this.fetchSuppliersWithFilters(
+                  this.supplierFilterFormGroup.value,
+                  1,
+                  20,
+                  this.searchTerm,
+                  'name,address,email',
+                  this.currentSortField
+                );
               }
             });
           }
           if (searchText.length > 3) {
             this.noChangeDetection(() => {
               if (!this.isFilterApplied) {
-                this.fetchSupplierCount(null, searchText, 'name,email,phone');
-                this.fetchSuppliers(true, 1, 20, searchText, 'name,email,phone', this.currentSortField);
+                this.fetchSupplierCount(null, searchText, 'name,address,email');
+                this.fetchSuppliers(true, 1, 20, searchText, 'name,address,email', this.currentSortField);
               } else {
-                this.fetchSupplierCount(this.supplierFilterFormGroup.value, searchText, 'name,email,phone');
-                this.fetchSuppliersWithFilters(this.supplierFilterFormGroup.value, 1, 20, searchText, 'name,email,phone', this.currentSortField);
+                this.fetchSupplierCount(this.supplierFilterFormGroup.value, searchText, 'name,address,email');
+                this.fetchSuppliersWithFilters(this.supplierFilterFormGroup.value, 1, 20, searchText, 'name,address,email', this.currentSortField);
               }
             });
           }
@@ -231,9 +263,9 @@ export class SuppliersComponent implements OnInit, OnDestroy {
       this.currentSortField = sortField;
       this.noChangeDetection(() => {
         if (!this.isFilterApplied) {
-          this.fetchSuppliers(!!this.searchTerm, 1, 20, this.searchTerm, 'name,email,phone', sortField);
+          this.fetchSuppliers(!!this.searchTerm, 1, 20, this.searchTerm, 'name,address,email', sortField);
         } else {
-          this.fetchSuppliersWithFilters(this.supplierFilterFormGroup.value, 1, 20, this.searchTerm, 'name,email,phone', sortField);
+          this.fetchSuppliersWithFilters(this.supplierFilterFormGroup.value, 1, 20, this.searchTerm, 'name,address,email', sortField);
         }
       });
     });
@@ -243,8 +275,8 @@ export class SuppliersComponent implements OnInit, OnDestroy {
     this.subscriptions.applyFilter = this.searchLayoutService.filter$.subscribe(() => {
       this.isFilterApplied = true;
       this.noChangeDetection(() => {
-        this.fetchSupplierCount(this.supplierFilterFormGroup.value, this.searchTerm, 'name,email,phone');
-        this.fetchSuppliersWithFilters(this.supplierFilterFormGroup.value, 1, 20, this.searchTerm, 'name,email,phone', this.currentSortField);
+        this.fetchSupplierCount(this.supplierFilterFormGroup.value, this.searchTerm, 'name,address,email');
+        this.fetchSuppliersWithFilters(this.supplierFilterFormGroup.value, 1, 20, this.searchTerm, 'name,address,email', this.currentSortField);
       });
     });
   }
@@ -254,8 +286,8 @@ export class SuppliersComponent implements OnInit, OnDestroy {
       this.isFilterApplied = false;
       this.supplierFilterFormGroup.reset();
       this.noChangeDetection(() => {
-        this.fetchSupplierCount(null, this.searchTerm, 'name,email,phone');
-        this.fetchSuppliers(!!this.searchTerm, 1, 20, this.searchTerm, 'name,email,phone', this.currentSortField);
+        this.fetchSupplierCount(null, this.searchTerm, 'name,address,email');
+        this.fetchSuppliers(!!this.searchTerm, 1, 20, this.searchTerm, 'name,address,email', this.currentSortField);
       });
     });
   }
