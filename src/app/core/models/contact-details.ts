@@ -11,5 +11,5 @@ export interface AddressDetails {
   city: string;
   district: string;
   state: string;
-  postcode: string;
+  postCode: string;
 }

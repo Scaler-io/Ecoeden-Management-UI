@@ -293,7 +293,9 @@ export class SuppliersComponent implements OnInit, OnDestroy {
   }
 
   public onVisit(event: TableDataSource): void {
-    console.log(event);
+    this.router.navigate(['suppliers', (event as SupplierSummary).id], {
+      state: {supplierData: event as SupplierSummary}
+    });
   }
 
   private noChangeDetection(fn: Function): void {

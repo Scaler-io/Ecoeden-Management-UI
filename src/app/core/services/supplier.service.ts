@@ -12,7 +12,7 @@ export class SupplierService {
 
   public getAllSuppliers(searchRequest: SupplierSearchRequest): Observable<PaginatedSupplierList> {
     return this.http.post<PaginatedSupplierList>(`${environment.ecoedenSearchApiUrl}/supplier-search-index`, searchRequest, {
-      headers: this.getHttpHeaders(environment.searchApiSubscriptionKey)
+      headers: this.getHttpHeaders(environment.searchApiSubscriptionKey, 'v2')
     });
   }
 
@@ -24,7 +24,7 @@ export class SupplierService {
 
   public getSupplierCount(searchRequest?: SupplierSearchRequest): Observable<number> {
     return this.http.post<number>(`${environment.ecoedenSearchApiUrl}/supplier-search-index/count`, searchRequest, {
-      headers: this.getHttpHeaders(environment.searchApiSubscriptionKey)
+      headers: this.getHttpHeaders(environment.searchApiSubscriptionKey, 'v2')
     });
   }
 
@@ -40,9 +40,9 @@ export class SupplierService {
     });
   }
 
-  private getHttpHeaders(subscriptionkey: string) {
+  private getHttpHeaders(subscriptionkey: string, apiversion = 'v1') {
     return {
-      'api-version': 'v2',
+      'api-version': apiversion,
       'ocp-apim-subscriptionkey': subscriptionkey
     };
   }

@@ -1,0 +1,82 @@
+<div class="supplier-details" @fadeSlideInOut>
+  <div class="col-sm-12">
+    <mat-card>
+      <div matCardContent>
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="supplier-details__primary">
+              <div class="basic-details">
+                <div class="basic-details--title">
+                  {{ supplier.name }}
+                </div>
+                <div class="basic-details--subtitle"> ({{ supplier.id }}) </div>
+                <div class="basic-details--status">
+                  <span
+                    class="badge rounded-pill"
+                    [class]="{
+                      'badge--success': supplier.status,
+                      'badge--danger': !supplier.status
+                    }"
+                    >{{ supplier.status ? "Enabled" : "Disabled" }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <ng-container>
+              <div class="supplier-details__action-group">
+                <button mat-raised-button button color="primary"
+                  ><span class="material-symbols-outlined">edit</span>
+                  <span>Edit</span>
+                </button>
+                <button mat-raised-button color="warn">
+                  <span class="material-symbols-outlined">delete</span>
+                  <span>Delete</span>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="container">
+              <!-- Contact details here -->
+              <div class="row">
+                <div class="col-sm-12"><ecoeden-divider label="Contact details"></ecoeden-divider></div>
+                <div class="col-sm-12 col-md-6">
+                  <ecoeden-individual-details icon="email" label="Email" [value]="supplier.contactDetails.email"></ecoeden-individual-details>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <ecoeden-individual-details icon="phone" label="Phone" [value]="supplier.contactDetails.phone"></ecoeden-individual-details>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <ecoeden-individual-details icon="schedule" label="Created on" [value]="supplier.metadata.createdAt.toString()"></ecoeden-individual-details>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <ecoeden-individual-details icon="schedule" label="Updated on" [value]="supplier.metadata.updatedAt.toString()"></ecoeden-individual-details>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12"><ecoeden-divider label="Address details"></ecoeden-divider></div>
+                <div class="col-sm-12 col-md-6">
+                  <ecoeden-individual-details icon="pin_drop" label="Street" [value]="street"></ecoeden-individual-details>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <ecoeden-individual-details icon="location_city" label="City" [value]="supplier.contactDetails.address.city"></ecoeden-individual-details>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <ecoeden-individual-details icon="map" label="State" [value]="supplier.contactDetails.address.state"></ecoeden-individual-details>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <ecoeden-individual-details icon="my_location" label="Postcode" [value]="supplier.contactDetails.address.postCode"></ecoeden-individual-details>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

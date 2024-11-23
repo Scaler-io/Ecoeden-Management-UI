@@ -12,6 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {SearchLayoutModule} from 'src/app/shared/components/search-layout/search-layout.module';
 import {TableModule} from 'src/app/shared/components/table/table.module';
 import {SupplierListMobileModule} from './supplier-list-mobile/supplier-list-mobile.module';
+import {SupplierDetailedViewModule} from './supplier-detailed-view/supplier-detailed-view.module';
 
 @NgModule({
   declarations: [SuppliersComponent],
@@ -23,6 +24,7 @@ import {SupplierListMobileModule} from './supplier-list-mobile/supplier-list-mob
     ReactiveFormsModule,
     SearchLayoutModule,
     TableModule,
+    SupplierDetailedViewModule,
     AppMaterialModule,
     SupplierListMobileModule
   ]
