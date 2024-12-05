@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SearchLayoutComponent} from './search-layout.component';
 import {AppMaterialModule} from 'src/app/app-material.module';
 import {ReactiveFormsModule} from '@angular/forms';
-import { ButtonModule } from "../button/button.module";
+import {ButtonModule} from '../button/button.module';
 
 @NgModule({
   declarations: [SearchLayoutComponent],

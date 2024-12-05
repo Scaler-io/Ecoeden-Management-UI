@@ -9,7 +9,10 @@ import {RoleUpdateRequest, UserCreateResponse, UserCreateStatus} from 'src/app/c
 
 @Injectable({providedIn: 'root'})
 export class UserStateEffect {
-  constructor(private actions$: Actions, private userService: UserService) {}
+  constructor(
+    private actions$: Actions,
+    private userService: UserService
+  ) {}
 
   public fetchUserList$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(

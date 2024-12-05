@@ -34,13 +34,16 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
   public postcodeSelected: string;
   public isPostcodeValidating: boolean;
   private isProgrammaticPostcodeChange: boolean;
-
-  constructor(private store: Store<AppState>, private toastr: ToastrService, private router: Router) {}
-
   private subscriptions = {
     addressSuggestion: null,
     supplierCreated: null
   };
+
+  constructor(
+    private store: Store<AppState>,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.supplierFormGroup = SupplierFormGroupHelper.createSupplierFormGroup();
@@ -70,7 +73,7 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
     this.subscriptions.supplierCreated = this.store.pipe(select(getSupplierCommandResponse)).subscribe(response => {
       if (this.isFormSubmitting) {
         if (response?.status === CommandResultStatus.Success) {
-          // this.completeSupplierCreateCommand(response.supplierId);
+          this.completeSupplierCreateCommand(response.supplierId);
         } else {
           this.toastr.error('Something went wrong. Please try again');
         }
@@ -81,11 +84,6 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.subscriptions.addressSuggestion) this.subscriptions.addressSuggestion.unsubscribe();
-  }
-
-  public filterStreets(value: string): void {
-    const filterValue = value?.toLowerCase();
-    this.filteredStreets = this.streetTypes.filter(street => street.toLowerCase().includes(filterValue));
   }
 
   public onBlur(): void {
@@ -100,6 +98,42 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
     const supplierFormData: SupplierFormModel = this.supplierFormGroup.getRawValue();
     const supplierRequest: UpsertSupplierRequest = SupplierMapper.mapSupplierFormToSupplierRequest(supplierFormData);
     this.store.dispatch(new supplierActions.UpsertSupplier(supplierRequest));
+  }
+
+  public onAddressSelection(event: MatAutocompleteSelectedEvent): void {
+    const address = event.option.value.split(', ');
+    this.isProgrammaticPostcodeChange = true;
+    this.supplierFormGroup.patchValue({
+      postCode: this.postcodeSelected,
+      city: address[0],
+      district: address[1],
+      state: address[2]
+    });
+  }
+
+  public getErrorMessage(control: string): string {
+    return validationMessage(control, this.supplierFormGroup);
+  }
+
+  private clearAddressFields(): void {
+    this.supplierFormGroup.patchValue({
+      city: '',
+      district: '',
+      state: ''
+    });
+  }
+
+  private handleAddressSuggestionResponse(response: AddressSuggestion): void {
+    if (this.regions.length === 0) {
+      response.regions.map(region => {
+        this.regions.push(`${region.city}, ${region.district}, ${region.state}`);
+      });
+    }
+  }
+
+  public filterStreets(value: string): void {
+    const filterValue = value?.toLowerCase();
+    this.filteredStreets = this.streetTypes.filter(street => street.toLowerCase().includes(filterValue));
   }
 
   private triggerAddressSuggestion(): void {
@@ -121,34 +155,15 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
       });
   }
 
-  private handleAddressSuggestionResponse(response: AddressSuggestion): void {
-    if (this.regions.length === 0) {
-      response.regions.map(region => {
-        this.regions.push(`${region.city}, ${region.district}, ${region.state}`);
-      });
-    }
-  }
-
-  public onAddressSelection(event: MatAutocompleteSelectedEvent): void {
-    const address = event.option.value.split(', ');
-    this.isProgrammaticPostcodeChange = true;
-    this.supplierFormGroup.patchValue({
-      postCode: this.postcodeSelected,
-      city: address[0],
-      district: address[1],
-      state: address[2]
-    });
-  }
-
-  private clearAddressFields(): void {
-    this.supplierFormGroup.patchValue({
-      city: '',
-      district: '',
-      state: ''
-    });
-  }
-
-  public getErrorMessage(control: string): string {
-    return validationMessage(control, this.supplierFormGroup);
+  private completeSupplierCreateCommand(supplierId: string): void {
+    this.store.dispatch(
+      new requestPageActions.RequestPageSet({
+        requestPage: 'users',
+        heading: `Successfully created supplier '${this.supplierFormGroup.get('supplierName').value}'`,
+        subheading: 'You can create more or get back to the previous page',
+        previousUrl: `users/${supplierId}`,
+        nextUrl: 'suppliers/add'
+      })
+    );
   }
 }

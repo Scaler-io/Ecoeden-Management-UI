@@ -20,7 +20,10 @@ export class ContentHeaderComponent implements OnInit {
     ['Suppliers']: 'local_shipping'
   };
 
-  constructor(private breadcrumb: BreadcrumbService, private router: Router) {}
+  constructor(
+    private breadcrumb: BreadcrumbService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.router.events.subscribe(value => {

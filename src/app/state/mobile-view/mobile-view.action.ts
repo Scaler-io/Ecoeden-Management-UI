@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 
 export const SET_MOBILE_VIEW = 'SET_MOBILE_VIEW';
 

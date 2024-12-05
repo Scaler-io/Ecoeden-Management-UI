@@ -3,7 +3,12 @@ import {SearchRequestBase} from './search-request';
 import {TableDataSource} from './table-source';
 
 export class PaginatedUserList extends PaginatedResult {
-  constructor(public pageIndex: number, public pageSize: number, public count: number, public data: UserSummary[]) {
+  constructor(
+    public pageIndex: number,
+    public pageSize: number,
+    public count: number,
+    public data: UserSummary[]
+  ) {
     super(pageIndex, pageSize, count, data);
   }
 }

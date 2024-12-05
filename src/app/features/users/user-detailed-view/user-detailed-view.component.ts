@@ -48,7 +48,10 @@ export class UserDetailedViewComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subscriptions.authAndUserCombinedState = combineLatest([this.store.pipe(select(getUserDetails)), this.store.pipe(select(getLoggedInUser))])
+    this.subscriptions.authAndUserCombinedState = combineLatest([
+      this.store.pipe(select(getUserDetails)),
+      this.store.pipe(select(getLoggedInUser))
+    ])
       .pipe(delay(1000))
       .subscribe(([userResponse, authResponse]) => {
         if (userResponse && authResponse) {

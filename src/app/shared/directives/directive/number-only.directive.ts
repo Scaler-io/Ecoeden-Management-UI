@@ -9,7 +9,10 @@ export class NumberOnlyDirective {
   @HostListener('keydown', ['$event'])
   onKeyDow(event: KeyboardEvent) {
     const allowedKeys = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Delete'];
-    if (allowedKeys.includes(event.key) || (event.ctrlKey && (event.key === 'a' || event.key === 'c' || event.key === 'v' || event.key === 'x'))) {
+    if (
+      allowedKeys.includes(event.key) ||
+      (event.ctrlKey && (event.key === 'a' || event.key === 'c' || event.key === 'v' || event.key === 'x'))
+    ) {
       return;
     }
 

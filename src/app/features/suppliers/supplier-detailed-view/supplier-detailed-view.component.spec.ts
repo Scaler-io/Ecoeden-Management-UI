@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SupplierDetailedViewComponent } from './supplier-detailed-view.component';
+import {SupplierDetailedViewComponent} from './supplier-detailed-view.component';
 
 describe('SupplierDetailedViewComponent', () => {
   let component: SupplierDetailedViewComponent;
@@ -8,9 +8,8 @@ describe('SupplierDetailedViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SupplierDetailedViewComponent ]
-    })
-    .compileComponents();
+      declarations: [SupplierDetailedViewComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

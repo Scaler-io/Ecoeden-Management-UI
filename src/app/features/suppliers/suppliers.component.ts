@@ -206,7 +206,14 @@ export class SuppliersComponent implements OnInit, OnDestroy {
           this.currentSortField
         );
       } else {
-        this.fetchSuppliers(!!this.searchTerm, event.pageIndex + 1, event.pageSize, this.searchTerm, 'name,address,email', this.currentSortField);
+        this.fetchSuppliers(
+          !!this.searchTerm,
+          event.pageIndex + 1,
+          event.pageSize,
+          this.searchTerm,
+          'name,address,email',
+          this.currentSortField
+        );
       }
     });
   }
@@ -251,7 +258,14 @@ export class SuppliersComponent implements OnInit, OnDestroy {
                 this.fetchSuppliers(true, 1, 20, searchText, 'name,address,email', this.currentSortField);
               } else {
                 this.fetchSupplierCount(this.supplierFilterFormGroup.value, searchText, 'name,address,email');
-                this.fetchSuppliersWithFilters(this.supplierFilterFormGroup.value, 1, 20, searchText, 'name,address,email', this.currentSortField);
+                this.fetchSuppliersWithFilters(
+                  this.supplierFilterFormGroup.value,
+                  1,
+                  20,
+                  searchText,
+                  'name,address,email',
+                  this.currentSortField
+                );
               }
             });
           }

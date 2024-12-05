@@ -7,18 +7,15 @@ export interface MobileViewState {
 }
 
 const initialState: MobileViewState = {
-  isMobileView: false,
+  isMobileView: false
 };
 
-export function mobileViewReducer(
-  state: MobileViewState = initialState,
-  action: mobileActions.MobileViewActions
-) {
+export function mobileViewReducer(state: MobileViewState = initialState, action: mobileActions.MobileViewActions) {
   switch (action.type) {
     case mobileActions.SET_MOBILE_VIEW:
       return {
         ...state,
-        isMobileView: action.payload,
+        isMobileView: action.payload
       };
     default:
       return state;

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UserListMobileComponent } from './user-list-mobile.component';
+import {UserListMobileComponent} from './user-list-mobile.component';
 
 describe('UserListMobileComponent', () => {
   let component: UserListMobileComponent;
@@ -8,9 +8,8 @@ describe('UserListMobileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserListMobileComponent ]
-    })
-    .compileComponents();
+      declarations: [UserListMobileComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -13,18 +13,21 @@ import {AppState} from 'src/app/store/app.state';
 export class SuccessPageComponent implements OnInit {
   public requestPage: RequestPageState;
   public nexButtonLabel: string;
-
-  constructor(private store: Store<AppState>, private router: Router) {}
-
   private subscriptions = {
     requestPageDetails: null
   };
+
+  constructor(
+    private store: Store<AppState>,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.requestPageDetails = this.store.pipe(select(getRequestPageDetails)).subscribe(value => {
       if (value) {
         this.requestPage = value;
-        this.nexButtonLabel = value.requestPage === 'user' ? 'Add another user' : 'Next';
+        this.nexButtonLabel =
+          value.requestPage === 'user' ? 'Add another user' : value.requestPage === 'supplier' ? 'Add another supplier' : 'Next';
       }
     });
   }

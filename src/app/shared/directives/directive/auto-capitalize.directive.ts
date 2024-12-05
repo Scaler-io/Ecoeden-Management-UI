@@ -12,7 +12,10 @@ export class AutoCapitalizeDirective {
     this.defaultAutoCapitalize = value !== false && value !== 'false';
   }
 
-  constructor(private el: ElementRef, @Optional() private control: NgControl) {}
+  constructor(
+    private el: ElementRef,
+    @Optional() private control: NgControl
+  ) {}
 
   @HostListener('blur') onBlur() {
     if (this.defaultAutoCapitalize) {

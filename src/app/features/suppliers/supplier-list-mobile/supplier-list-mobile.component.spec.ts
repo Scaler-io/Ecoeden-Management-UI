@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SupplierListMobileComponent } from './supplier-list-mobile.component';
+import {SupplierListMobileComponent} from './supplier-list-mobile.component';
 
 describe('SupplierListMobileComponent', () => {
   let component: SupplierListMobileComponent;
@@ -8,9 +8,8 @@ describe('SupplierListMobileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SupplierListMobileComponent ]
-    })
-    .compileComponents();
+      declarations: [SupplierListMobileComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

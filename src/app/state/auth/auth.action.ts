@@ -1,5 +1,5 @@
-import { Action } from '@ngrx/store';
-import { LoginResponse } from 'angular-auth-oidc-client';
+import {Action} from '@ngrx/store';
+import {LoginResponse} from 'angular-auth-oidc-client';
 
 export const SET_AUTH_STATE = 'SET_AUTH_STATE';
 

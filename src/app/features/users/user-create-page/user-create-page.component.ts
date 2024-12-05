@@ -36,7 +36,12 @@ export class UserCreatePageComponent implements OnInit, OnDestroy {
 
   ButtonType = ButtonType;
 
-  constructor(private fileService: FileUploaderService, private store: Store<AppState>, private router: Router, private userService: UserService) {}
+  constructor(
+    private fileService: FileUploaderService,
+    private store: Store<AppState>,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   private subscriptions = {
     createUserResponse: null,
@@ -48,12 +53,8 @@ export class UserCreatePageComponent implements OnInit, OnDestroy {
     this.setupFormGroup();
 
     this.subscriptions.createUserResponse = this.store.pipe(select(getUserCreateResponse)).subscribe(response => {
-      if (this.isFormSubmitting) {
-        if (response?.status === UserCreateStatus.Success) {
-          this.uploadDocument(response?.userId);
-        } else {
-          console.error(response);
-        }
+      if (this.isFormSubmitting && response?.status === UserCreateStatus.Success) {
+        this.uploadDocument(response?.userId);
       }
     });
 
@@ -73,7 +74,9 @@ export class UserCreatePageComponent implements OnInit, OnDestroy {
   }
 
   private setupFormGroup(): void {
-    this.userFormGroup = UserFormGroupHelper.createUserFormGroup(this.userService, (loading: boolean) => this.userNameSearchSubject.next(loading));
+    this.userFormGroup = UserFormGroupHelper.createUserFormGroup(this.userService, (loading: boolean) =>
+      this.userNameSearchSubject.next(loading)
+    );
   }
 
   public onSubmit(): void {

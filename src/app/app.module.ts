@@ -50,7 +50,7 @@ import {ToastrModule} from 'ngx-toastr';
       // timeOut: 1000,
       disableTimeOut: true,
       autoDismiss: false,
-      preventDuplicates: true,
+      preventDuplicates: true
     })
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],

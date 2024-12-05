@@ -5,7 +5,12 @@ import {SearchRequestBase} from './search-request';
 import {TableDataSource} from './table-source';
 
 export class PaginatedSupplierList extends PaginatedResult {
-  constructor(public pageIndex: number, public pageSize: number, public count: number, public data: SupplierSummary[]) {
+  constructor(
+    public pageIndex: number,
+    public pageSize: number,
+    public count: number,
+    public data: SupplierSummary[]
+  ) {
     super(pageIndex, pageSize, count, data);
   }
 }

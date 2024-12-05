@@ -272,7 +272,14 @@ export class UsersComponent implements OnInit, OnDestroy {
                 this.fetchUserList(true, 1, 20, searchText, 'fullName,email,userName', this.currentSortField);
                 this.fetchUserCount(null, searchText, 'fullName,email,userName');
               } else {
-                this.fetchUserListWithFilters(this.userFilterFormGroup.value, 1, 20, searchText, 'fullName,email,userName', this.currentSortField);
+                this.fetchUserListWithFilters(
+                  this.userFilterFormGroup.value,
+                  1,
+                  20,
+                  searchText,
+                  'fullName,email,userName',
+                  this.currentSortField
+                );
                 this.fetchUserCount(this.userFilterFormGroup.value, searchText, 'fullName,email,userName');
               }
             });

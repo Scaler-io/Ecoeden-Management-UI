@@ -10,7 +10,10 @@ import {Action} from '@ngrx/store';
   providedIn: 'root'
 })
 export class AddressSuggestionEffect {
-  constructor(private postcodeValidationService: PostcodeValidationService, private $actions: Actions) {}
+  constructor(
+    private postcodeValidationService: PostcodeValidationService,
+    private $actions: Actions
+  ) {}
 
   public $fetchAddressSuggestion: Observable<Action> = createEffect(() => {
     return this.$actions.pipe(

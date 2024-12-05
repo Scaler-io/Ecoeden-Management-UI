@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { FileUploaderService } from './file-uploader.service';
+import {FileUploaderService} from './file-uploader.service';
 
 describe('FileUploaderService', () => {
   let service: FileUploaderService;

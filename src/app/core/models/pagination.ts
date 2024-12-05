@@ -12,5 +12,10 @@ export interface PaginationMetaData {
 }
 
 export class PaginatedResult implements IPaginatedResult {
-  constructor(public pageIndex, public pageSize, public count, public data) {}
+  constructor(
+    public pageIndex,
+    public pageSize,
+    public count,
+    public data
+  ) {}
 }

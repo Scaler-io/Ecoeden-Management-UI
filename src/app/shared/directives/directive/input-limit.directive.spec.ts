@@ -1,4 +1,4 @@
-import { InputLimitDirective } from './input-limit.directive';
+import {InputLimitDirective} from './input-limit.directive';
 
 describe('InputLimitDirective', () => {
   it('should create an instance', () => {

@@ -9,7 +9,10 @@ import {CommandResultStatus} from 'src/app/core/models/common';
 
 @Injectable({providedIn: 'root'})
 export class SupplierEffect {
-  constructor(private supplierService: SupplierService, private actions$: Actions) {}
+  constructor(
+    private supplierService: SupplierService,
+    private actions$: Actions
+  ) {}
 
   public fetchSupplierList$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(

@@ -1,5 +1,11 @@
 import {Action} from '@ngrx/store';
-import {PaginatedSupplierList, Supplier, SupplierSearchRequest, UpsertSupplierRequest, SupplierCommandResponse} from 'src/app/core/models/supplier';
+import {
+  PaginatedSupplierList,
+  Supplier,
+  SupplierSearchRequest,
+  UpsertSupplierRequest,
+  SupplierCommandResponse
+} from 'src/app/core/models/supplier';
 
 export const GET_SUPLIERS = 'GET_SUPPLIERS';
 export const GET_SUPLIERS_SUCCESS = 'GET_SUPPLIERS_SUCCESS';

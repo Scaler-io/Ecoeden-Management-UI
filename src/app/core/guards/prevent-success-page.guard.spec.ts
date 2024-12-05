@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { PreventSuccessPageGuard } from './prevent-success-page.guard';
+import {PreventSuccessPageGuard} from './prevent-success-page.guard';
 
 describe('PreventSuccessPageGuard', () => {
   let guard: PreventSuccessPageGuard;
