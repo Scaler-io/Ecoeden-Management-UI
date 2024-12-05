@@ -1,9 +1,9 @@
 <div
   class="notice-banner"
   [class]="{
-    'notice-banner--warning': type == 'warning',
-    'notice-banner--danger': type == 'danger',
-    'notice-banner--info': type == 'info'
+    'notice-banner--warning': type === 'warning',
+    'notice-banner--danger': type === 'danger',
+    'notice-banner--info': type === 'info'
 }"
 >
   <h3 class="notice-banner__heading">

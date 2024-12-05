@@ -106,8 +106,7 @@ export class UserCreatePageComponent implements OnInit, OnDestroy {
 
   private uploadDocument(userId: string) {
     this.fileService.setUserUploadOptions(userId, this.uploader);
-    this.fileService.uploadFile(this.uploader).subscribe(response => {
-      console.log('Document upload response ' + response);
+    this.fileService.uploadFile(this.uploader).subscribe(() => {
       this.completeFormSubmission(userId);
     });
   }

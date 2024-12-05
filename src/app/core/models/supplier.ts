@@ -51,3 +51,16 @@ export enum SupplierCommadType {
   Upsert = 'Supplier created or updated',
   Delete = 'Supplier deleted'
 }
+
+export interface SupplierFormModel {
+  supplierName: string;
+  supplierEmail: string;
+  supplierPhone: string;
+  streetNumber: string;
+  streetName: string;
+  streetType: string;
+  city: string;
+  district: string;
+  state: string;
+  postCode: string;
+}

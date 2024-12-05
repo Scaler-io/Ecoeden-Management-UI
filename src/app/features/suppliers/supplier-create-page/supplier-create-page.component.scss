@@ -1,0 +1,16 @@
+@import '../../../../assets/styles/grid';
+@import '../../../../assets/styles/variables';
+
+.pincode-hint {
+  font-size: $font-xs;
+  color: $color-accent;
+}
+
+.supplier-bg {
+  //   background: none;
+  background-image: url('../../../../assets/images/order_delivery.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  mix-blend-mode: multiply;
+}

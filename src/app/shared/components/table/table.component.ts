@@ -12,17 +12,17 @@ import {TableColumnMap, TableDataSource} from 'src/app/core/models/table-source'
 })
 export class TableComponent implements OnInit, OnChanges {
   @Input('dataSource') tableDataSource: MatTableDataSource<TableDataSource>;
-  @Input('columns') columns: string[];
-  @Input('fieldValueMap') fieldValueMap: TableColumnMap = null;
+  @Input() columns: string[];
+  @Input() fieldValueMap: TableColumnMap = null;
   @Input('actionsEnabled') actionEnabled: boolean;
   @Input('paginationMetadata') paginationMetaData: PaginationMetaData;
-  @Input('dataLength') dataLength: number;
+  @Input() dataLength: number;
   @Input() allowModify: boolean = true;
 
-  @Output('pageChange') pageChange: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
-  @Output('visit') visit: EventEmitter<TableDataSource> = new EventEmitter<TableDataSource>();
-  @Output('edit') edit: EventEmitter<TableDataSource> = new EventEmitter<TableDataSource>();
-  @Output('delete') delete: EventEmitter<TableDataSource> = new EventEmitter<TableDataSource>();
+  @Output() pageChange: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+  @Output() visit: EventEmitter<TableDataSource> = new EventEmitter<TableDataSource>();
+  @Output() edit: EventEmitter<TableDataSource> = new EventEmitter<TableDataSource>();
+  @Output() delete: EventEmitter<TableDataSource> = new EventEmitter<TableDataSource>();
 
   constructor() {}
 

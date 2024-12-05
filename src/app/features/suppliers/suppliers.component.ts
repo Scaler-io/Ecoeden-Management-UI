@@ -68,6 +68,7 @@ export class SuppliersComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit(): void {
+    console.log('here');
     this.noChangeDetection(() => {
       this.fetchSupplierCount(); // fetch total supplier list count
       this.fetchSuppliers(false, 1, 20); // first time call, with default serach params,

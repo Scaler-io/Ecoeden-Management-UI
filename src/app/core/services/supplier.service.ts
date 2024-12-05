@@ -3,12 +3,15 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {UpsertSupplierRequest, PaginatedSupplierList, Supplier, SupplierSearchRequest} from '../models/supplier';
 import {environment} from 'src/environments/environment';
+import {BaseService} from './base-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SupplierService {
-  constructor(private http: HttpClient) {}
+export class SupplierService extends BaseService {
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   public getAllSuppliers(searchRequest: SupplierSearchRequest): Observable<PaginatedSupplierList> {
     return this.http.post<PaginatedSupplierList>(`${environment.ecoedenSearchApiUrl}/supplier-search-index`, searchRequest, {
@@ -38,12 +41,5 @@ export class SupplierService {
     return this.http.delete<boolean>(`${environment.ecoedenInventoryApiUrl}/supplier/${id}`, {
       headers: this.getHttpHeaders(environment.inventoryApiSubscriptionKey)
     });
-  }
-
-  private getHttpHeaders(subscriptionkey: string, apiversion = 'v1') {
-    return {
-      'api-version': apiversion,
-      'ocp-apim-subscriptionkey': subscriptionkey
-    };
   }
 }

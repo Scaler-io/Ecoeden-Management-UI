@@ -76,3 +76,12 @@ li {
   width: 100%;
   font-size: $font-sm !important;
 }
+
+.mat-option.mat-active {
+  background: $color-primary !important;
+  color: #fff !important;
+}
+
+.custom-select-panel {
+  margin-top: 45px;
+}
