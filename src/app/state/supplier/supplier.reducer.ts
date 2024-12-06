@@ -69,6 +69,11 @@ export function supplieReducer(state: SupplierState = initialState, action: supp
         ...state,
         supplierCommandResponse: action.payload as SupplierCommandResponse
       };
+    case supplierActions.UPSERT_SUPPLIER_FAILURE:
+      return {
+        ...state,
+        supplierCommandResponse: action.payload as SupplierCommandResponse
+      };
     case supplierActions.DELETE_SUPPLIER:
       return {
         ...state,

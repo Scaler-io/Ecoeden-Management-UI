@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {select, Store} from '@ngrx/store';
+import {ButtonType} from 'src/app/shared/components/button/button.model';
 import {RequestPageState} from 'src/app/state/request-page/request-page.reducer';
 import {getRequestPageDetails} from 'src/app/state/request-page/request-page.selector';
 import {AppState} from 'src/app/store/app.state';
@@ -13,6 +14,7 @@ import {AppState} from 'src/app/store/app.state';
 export class SuccessPageComponent implements OnInit {
   public requestPage: RequestPageState;
   public nexButtonLabel: string;
+  public ButtonType = ButtonType;
   private subscriptions = {
     requestPageDetails: null
   };

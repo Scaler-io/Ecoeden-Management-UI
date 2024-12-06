@@ -51,7 +51,7 @@
             <div class="col-sm-12 col-md-4">
               <mat-form-field appearance="outline">
                 <mat-label>Street name</mat-label>
-                <input type="text" matInput autocomplete="new-password" formControlName="streetName" />
+                <input type="text" matInput autocomplete="new-password" formControlName="streetName" autoCapitalize="true" />
                 <mat-error>{{ getErrorMessage('streetName') }}</mat-error>
               </mat-form-field>
             </div>
@@ -118,7 +118,7 @@
         </form>
 
         <div class="col-md-7 col-sm-12 mt-5">
-          <ecoeden-button (next)="onSubmit()"  [type]="ButtonType.info" [isDisabled]="isFormSubmitting"
+          <ecoeden-button (next)="onSubmit()" [isLoading]="isFormSubmitting" [type]="ButtonType.info" [isDisabled]="isFormSubmitting"
             >Create</ecoeden-button
           >
         </div>

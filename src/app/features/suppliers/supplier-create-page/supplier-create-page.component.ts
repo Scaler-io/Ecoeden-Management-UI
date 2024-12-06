@@ -93,11 +93,13 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    this.isFormSubmitting = true;
     this.supplierFormGroup.markAllAsTouched();
-    const supplierFormData: SupplierFormModel = this.supplierFormGroup.getRawValue();
-    const supplierRequest: UpsertSupplierRequest = SupplierMapper.mapSupplierFormToSupplierRequest(supplierFormData);
-    this.store.dispatch(new supplierActions.UpsertSupplier(supplierRequest));
+    if (this.supplierFormGroup.valid) {
+      this.isFormSubmitting = true;
+      const supplierFormData: SupplierFormModel = this.supplierFormGroup.getRawValue();
+      const supplierRequest: UpsertSupplierRequest = SupplierMapper.mapSupplierFormToSupplierRequest(supplierFormData);
+      this.store.dispatch(new supplierActions.UpsertSupplier(supplierRequest));
+    }
   }
 
   public onAddressSelection(event: MatAutocompleteSelectedEvent): void {
@@ -158,12 +160,13 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
   private completeSupplierCreateCommand(supplierId: string): void {
     this.store.dispatch(
       new requestPageActions.RequestPageSet({
-        requestPage: 'users',
+        requestPage: 'suppliers',
         heading: `Successfully created supplier '${this.supplierFormGroup.get('supplierName').value}'`,
         subheading: 'You can create more or get back to the previous page',
-        previousUrl: `users/${supplierId}`,
+        previousUrl: `suppliers/${supplierId}`,
         nextUrl: 'suppliers/add'
       })
     );
+    this.router.navigate(['success']);
   }
 }

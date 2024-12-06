@@ -46,7 +46,7 @@ import {ToastrModule} from 'ngx-toastr';
     ToastrModule.forRoot({
       closeButton: true,
       tapToDismiss: true,
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-bottom-right',
       // timeOut: 1000,
       disableTimeOut: true,
       autoDismiss: false,
