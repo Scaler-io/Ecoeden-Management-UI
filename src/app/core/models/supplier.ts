@@ -64,6 +64,7 @@ export interface SupplierFormModel {
   streetNumber: string;
   streetName: string;
   streetType: string;
+  status?: boolean;
   city: string;
   district: string;
   state: string;

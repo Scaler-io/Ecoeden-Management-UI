@@ -1,5 +1,9 @@
 <div class="container">
-  <ng-container>
+  <ng-container *ngIf="isPageLoading">
+    <mat-spinner diameter="40" color="primary"></mat-spinner>
+  </ng-container>
+
+  <ng-container *ngIf="!isPageLoading">
     <div class="row">
       <div class="col-sm-12 col-md-7">
         <form [formGroup]="supplierFormGroup">
@@ -58,12 +62,27 @@
             <div class="col-sm-12 col-md-4">
               <mat-form-field appearance="outline">
                 <mat-label>Street type</mat-label>
-                <input type="text" matInput autocomplete="off" [matAutocomplete]="auto" (blur)="onBlur()" formControlName="streetType" />
+                <input
+                  type="text"
+                  matInput
+                  autocomplete="off"
+                  [matAutocomplete]="auto"
+                  (blur)="onBlur()"
+                  formControlName="streetType"
+                />
                 <mat-autocomplete #auto="matAutocomplete">
                   <mat-option *ngFor="let streetType of filteredStreets" [value]="streetType">{{ streetType }}</mat-option>
                 </mat-autocomplete>
                 <mat-error>{{ getErrorMessage('streetType') }}</mat-error>
               </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="isUpdatePage">
+            <div class="col-sm-12">
+              <mat-slide-toggle formControlName="status">
+                <span style="font-size: 14px;">Status</span>
+              </mat-slide-toggle>
             </div>
           </div>
 
@@ -82,35 +101,41 @@
                   autocomplete="false"
                 />
                 <mat-spinner matSuffix diameter="20" color="primary" *ngIf="isPostcodeValidating"></mat-spinner>
-                <mat-autocomplete (optionSelected)="onAddressSelection($event)" #autoAddressSuggestion="matAutocomplete" autocomplete="false">
+                <mat-autocomplete
+                  (optionSelected)="onAddressSelection($event)"
+                  #autoAddressSuggestion="matAutocomplete"
+                  autocomplete="false"
+                >
                   <mat-option *ngFor="let region of regions" [value]="region">{{ region }}</mat-option>
                 </mat-autocomplete>
                 <mat-error>{{ getErrorMessage('streetType') }}</mat-error>
               </mat-form-field>
             </div>
             <div class="col-sm-7 mt-2">
-              <p class="pincode-hint">Find the city, district and state using appropriate pincode. If not found please enter manually.</p>
+              <p class="pincode-hint"
+                >Find the city, district and state using appropriate pincode. If not found please enter manually.</p
+              >
             </div>
           </div>
           <div class="row page-content--disabled">
             <div class="col-sm-12 col-md-4">
               <mat-form-field appearance="outline">
                 <mat-label>City</mat-label>
-                <input type="text" matInput formControlName="city" />
+                <input type="text" readonly matInput formControlName="city" />
                 <mat-error>{{ getErrorMessage('city') }}</mat-error>
               </mat-form-field>
             </div>
             <div class="col-sm-12 col-md-4">
               <mat-form-field appearance="outline">
                 <mat-label>District</mat-label>
-                <input type="text" matInput formControlName="district" />
+                <input type="text" readonly matInput formControlName="district" />
                 <mat-error>{{ getErrorMessage('district') }}</mat-error>
               </mat-form-field>
             </div>
             <div class="col-sm-12 col-md-4">
               <mat-form-field appearance="outline">
                 <mat-label>State</mat-label>
-                <input type="text" matInput formControlName="state" />
+                <input type="text" readonly matInput formControlName="state" />
                 <mat-error>{{ getErrorMessage('state') }}</mat-error>
               </mat-form-field>
             </div>
@@ -118,8 +143,12 @@
         </form>
 
         <div class="col-md-7 col-sm-12 mt-5">
-          <ecoeden-button (next)="onSubmit()" [isLoading]="isFormSubmitting" [type]="ButtonType.info" [isDisabled]="isFormSubmitting"
-            >Create</ecoeden-button
+          <ecoeden-button
+            (next)="onSubmit()"
+            [isLoading]="isFormSubmitting"
+            [type]="ButtonType.info"
+            [isDisabled]="isFormSubmitting"
+            >{{ isUpdatePage ? 'Update' : 'Create' }}</ecoeden-button
           >
         </div>
       </div>

@@ -1,5 +1,9 @@
 <div class="supplier-list__container">
-  <ecoeden-search-layout addButtonLabel="ADD SUPPLIER" filterLabel="Filter suppliers" [isFileterFormValid]="checkIfAnyControlHasValue()">
+  <ecoeden-search-layout
+    addButtonLabel="ADD SUPPLIER"
+    filterLabel="Filter suppliers"
+    [isFileterFormValid]="checkIfAnyControlHasValue()"
+  >
     <form [formGroup]="supplierFilterFormGroup">
       <div class="row">
         <div class="col-sm-12 col-md-4">
@@ -35,6 +39,8 @@
           [actionsEnabled]="true"
           [allowModify]="true"
           (visit)="onVisit($event)"
+          (edit)="onUpdate($event)"
+          (delete)="onDelete($event)"
           (pageChange)="pageChange($event)"
         ></ecoeden-table>
       </div>

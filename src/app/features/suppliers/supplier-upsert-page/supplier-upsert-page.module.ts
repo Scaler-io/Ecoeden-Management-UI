@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SupplierCreatePageComponent} from './supplier-create-page.component';
+import {SupplierUpsertPageComponent} from './supplier-upsert-page.component';
 import {DividerModule} from 'src/app/shared/components/divider/divider.module';
 import {AppMaterialModule} from 'src/app/app-material.module';
 import {ButtonModule} from 'src/app/shared/components/button/button.module';
@@ -12,7 +12,7 @@ import {AddressSuggestionEffect} from 'src/app/state/address-suggestion/address-
 import {DirectiveModule} from 'src/app/shared/directives/directive/directive.module';
 
 @NgModule({
-  declarations: [SupplierCreatePageComponent],
+  declarations: [SupplierUpsertPageComponent],
   imports: [
     CommonModule,
     DividerModule,
@@ -24,6 +24,6 @@ import {DirectiveModule} from 'src/app/shared/directives/directive/directive.mod
     EffectsModule.forFeature([AddressSuggestionEffect]),
     DirectiveModule
   ],
-  exports: [SupplierCreatePageComponent]
+  exports: [SupplierUpsertPageComponent]
 })
-export class SupplierCreatePageModule {}
+export class SupplierUpsertPageModule {}

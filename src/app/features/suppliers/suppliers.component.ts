@@ -5,17 +5,22 @@ import {ToastrService} from 'ngx-toastr';
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {SearchLayoutService} from 'src/app/shared/components/search-layout/search-layout.service';
 import {PaginationMetaData} from 'src/app/core/models/pagination';
-import {PaginatedSupplierList, SupplierSearchRequest, SupplierSummary} from 'src/app/core/models/supplier';
+import {PaginatedSupplierList, SupplierCommadType, SupplierSearchRequest, SupplierSummary} from 'src/app/core/models/supplier';
 import {MatTableDataSource} from '@angular/material/table';
 import {TableColumnMap, TableDataSource} from 'src/app/core/models/table-source';
 
 import * as supplierActions from '../../state/supplier/supplier.action';
-import {getPaginatedSuppliers, getSupplierCount} from 'src/app/state/supplier/supplier.selector';
+import * as requestPageActions from '../../state/request-page/request-page.action';
+import {getPaginatedSuppliers, getSupplierCommandResponse, getSupplierCount} from 'src/app/state/supplier/supplier.selector';
 import {debounceTime, delay, tap} from 'rxjs';
 import {fadeSlideInOut} from 'src/app/core/animations/fadeInOut';
 import {PageEvent} from '@angular/material/paginator';
 import {FormControl, FormGroup} from '@angular/forms';
 import {getMobileViewState} from 'src/app/state/mobile-view/mobile-view.selector';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmDialogComponent} from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import {DialogData} from 'src/app/core/models/dialog.model';
+import {CommandResultStatus} from 'src/app/core/models/common';
 
 @Component({
   selector: 'ecoeden-suppliers',
@@ -37,6 +42,7 @@ export class SuppliersComponent implements OnInit, OnDestroy {
   private currentSortField: string;
   public filterPanelOpened: boolean;
   public isMobileView: boolean;
+  public deletedSupplier: string;
   public supplierFilterFormGroup: FormGroup = new FormGroup({
     status: new FormControl('')
   });
@@ -51,10 +57,11 @@ export class SuppliersComponent implements OnInit, OnDestroy {
   constructor(
     private zone: NgZone,
     private router: Router,
-    private toastr: ToastrService,
     private store: Store<AppState>,
     private cdr: ChangeDetectorRef,
-    private searchLayoutService: SearchLayoutService
+    private searchLayoutService: SearchLayoutService,
+    private dialog: MatDialog,
+    private toastr: ToastrService
   ) {}
 
   private subscriptions = {
@@ -64,17 +71,17 @@ export class SuppliersComponent implements OnInit, OnDestroy {
     changeSortMenu: null,
     applyFilter: null,
     clearFilter: null,
-    mobileViewState: null
+    mobileViewState: null,
+    supplierDeleteCommand: null
   };
 
   ngOnInit(): void {
-    console.log('here');
     this.noChangeDetection(() => {
       this.fetchSupplierCount(); // fetch total supplier list count
       this.fetchSuppliers(false, 1, 20); // first time call, with default serach params,
     });
 
-    this.subscriptions.supplierTotalCount = this.store.pipe(select(getSupplierCount)).subscribe(response => {
+    this.subscriptions.supplierTotalCount = this.store.pipe(select(getSupplierCount), delay(1000)).subscribe(response => {
       this.dataLength = response;
       this.totalSupplierCount = response;
     });
@@ -90,6 +97,27 @@ export class SuppliersComponent implements OnInit, OnDestroy {
       this.useChangeDetection(() => (this.isMobileView = response));
     });
 
+    this.subscriptions.supplierDeleteCommand = this.store.pipe(select(getSupplierCommandResponse)).subscribe(response => {
+      if (response && response.commandType === SupplierCommadType.Delete) {
+        if (response.status === CommandResultStatus.Success) {
+          this.store.dispatch(
+            new requestPageActions.RequestPageSet({
+              heading: `Supplier ${this.deletedSupplier} deleted successfully`,
+              subheading: 'You can create more or get back to the supplier list page',
+              nextUrl: 'supplier/add',
+              previousUrl: 'suppliers',
+              requestPage: 'suppliers'
+            })
+          );
+          this.router.navigate(['success']);
+        } else {
+          this.toastr.error('Something went wrong. Please try again later');
+        }
+        this.store.dispatch(new supplierActions.ClearSupplierCommandResult());
+      }
+    });
+
+    this.addSupplier();
     this.performSearch();
     this.changeSortMenu();
     this.applyFilter();
@@ -104,6 +132,7 @@ export class SuppliersComponent implements OnInit, OnDestroy {
     if (this.subscriptions.applyFilter) this.subscriptions.applyFilter.unsubscribe();
     if (this.subscriptions.clearFilter) this.subscriptions.clearFilter.unsubscribe();
     if (this.subscriptions.mobileViewState) this.subscriptions.mobileViewState.unsubscribe();
+    if (this.subscriptions.supplierDeleteCommand) this.subscriptions.supplierDeleteCommand.unsubscribe();
   }
 
   private fetchSuppliers(
@@ -291,7 +320,14 @@ export class SuppliersComponent implements OnInit, OnDestroy {
       this.isFilterApplied = true;
       this.noChangeDetection(() => {
         this.fetchSupplierCount(this.supplierFilterFormGroup.value, this.searchTerm, 'name,address,email');
-        this.fetchSuppliersWithFilters(this.supplierFilterFormGroup.value, 1, 20, this.searchTerm, 'name,address,email', this.currentSortField);
+        this.fetchSuppliersWithFilters(
+          this.supplierFilterFormGroup.value,
+          1,
+          20,
+          this.searchTerm,
+          'name,address,email',
+          this.currentSortField
+        );
       });
     });
   }
@@ -313,6 +349,43 @@ export class SuppliersComponent implements OnInit, OnDestroy {
     });
   }
 
+  public onUpdate(event: TableDataSource): void {
+    this.router.navigate(['suppliers', 'update'], {
+      queryParams: {
+        supplierId: (event as SupplierSummary).id
+      }
+    });
+  }
+
+  public onDelete(event: TableDataSource): void {
+    const supplier = event as SupplierSummary;
+    this.deletedSupplier = supplier.name;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: <DialogData>{
+        title: 'Are you sure you want to delete this supplier?',
+        content: 'Deleting this supplier will permanently remove all associated records. This action cannot be undone.',
+        primaryActionLabel: 'Delete',
+        secondaryActionLabel: 'Cancel'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(response => {
+      if (response?.confirm) {
+        this.store.dispatch(new supplierActions.DeleteSupplier(supplier.id));
+      }
+    });
+  }
+
+  public checkIfAnyControlHasValue(): boolean {
+    return Object.values(this.supplierFilterFormGroup.controls).some(control => control.value && control.value.trim() !== '');
+  }
+
+  private addSupplier(): void {
+    this.searchLayoutService.addNewAction$.subscribe(() => {
+      this.router.navigate(['suppliers', 'add']);
+    });
+  }
+
   private noChangeDetection(fn: Function): void {
     this.zone.runOutsideAngular(() => {
       fn();
@@ -324,9 +397,5 @@ export class SuppliersComponent implements OnInit, OnDestroy {
       fn();
       this.cdr.markForCheck();
     });
-  }
-
-  public checkIfAnyControlHasValue(): boolean {
-    return Object.values(this.supplierFilterFormGroup.controls).some(control => control.value && control.value.trim() !== '');
   }
 }

@@ -1,0 +1,21 @@
+<div class="dialog">
+  <div class="dialog__header">
+    <span class="material-symbols-outlined dialog__close-button" (click)="closeButtonAction()">close</span>
+  </div>
+  <h1 mat-dialog-title>{{ data.title }}</h1>
+  <div mat-dialog-content>
+    <p class="dialog__text">{{ data.content }}</p>
+  </div>
+  <div mat-dialog-actions>
+    <ecoeden-button
+      [type]="ButtonType.danger"
+      (click)="openPrimaryActionUrl(data.primaryActionUrl)"
+      >{{ data.primaryActionLabel }}</ecoeden-button
+    >
+    <ecoeden-button
+      [type]="ButtonType.info"
+      (click)="openSecondaryActionUrl(data.secondaryActionUrl)"
+      >{{ data.secondaryActionLabel }}</ecoeden-button
+    >
+  </div>
+</div>

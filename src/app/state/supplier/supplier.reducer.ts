@@ -61,8 +61,7 @@ export function supplieReducer(state: SupplierState = initialState, action: supp
       };
     case supplierActions.UPSERT_SUPPLIER:
       return {
-        ...state,
-        supplierCommandResponse: null
+        ...state
       };
     case supplierActions.UPSERT_SUPPLIER_SUCCESS:
       return {
@@ -83,6 +82,11 @@ export function supplieReducer(state: SupplierState = initialState, action: supp
       return {
         ...state,
         supplierCommandResponse: action.payload as SupplierCommandResponse
+      };
+    case supplierActions.CLEAR_SUPPLIER_COMMAND_RESULT:
+      return {
+        ...state,
+        supplierCommandResponse: null
       };
     default:
       return state;

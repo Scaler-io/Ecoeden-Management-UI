@@ -13,7 +13,7 @@ import {SearchLayoutModule} from 'src/app/shared/components/search-layout/search
 import {TableModule} from 'src/app/shared/components/table/table.module';
 import {SupplierListMobileModule} from './supplier-list-mobile/supplier-list-mobile.module';
 import {SupplierDetailedViewModule} from './supplier-detailed-view/supplier-detailed-view.module';
-import {SupplierCreatePageModule} from './supplier-create-page/supplier-create-page.module';
+import {SupplierUpsertPageModule} from './supplier-upsert-page/supplier-upsert-page.module';
 
 @NgModule({
   declarations: [SuppliersComponent],
@@ -25,7 +25,7 @@ import {SupplierCreatePageModule} from './supplier-create-page/supplier-create-p
     ReactiveFormsModule,
     SearchLayoutModule,
     TableModule,
-    SupplierCreatePageModule,
+    SupplierUpsertPageModule,
     SupplierDetailedViewModule,
     AppMaterialModule,
     SupplierListMobileModule

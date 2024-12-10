@@ -18,6 +18,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {EffectsModule} from '@ngrx/effects';
 import {AuthInterceptor} from './core/auth/auth.interceptor';
 import {ToastrModule} from 'ngx-toastr';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,7 +54,18 @@ import {ToastrModule} from 'ngx-toastr';
       preventDuplicates: true
     })
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: <MatDialogConfig>{
+        width: '600px',
+        maxWidth: '600px',
+        hasBackdrop: true,
+        disableClose: true
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

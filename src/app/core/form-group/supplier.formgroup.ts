@@ -4,7 +4,7 @@ import {PhoneNumberValidator} from '../validators/phonenumber.validator';
 
 export class SupplierFormGroupHelper extends BaseFormGroupHelper {
   public static createSupplierFormGroup(): FormGroup {
-    return this.fb.group({
+    const res = this.fb.group({
       supplierName: ['', [Validators.required]],
       supplierEmail: ['', [Validators.required, Validators.email]],
       supplierPhone: ['', [Validators.required, PhoneNumberValidator]],
@@ -14,7 +14,10 @@ export class SupplierFormGroupHelper extends BaseFormGroupHelper {
       city: ['', [Validators.required]],
       district: ['', [Validators.required]],
       state: ['', [Validators.required]],
-      postCode: ['', [Validators.required]]
+      postCode: ['', [Validators.required]],
+      status: [false]
     });
+
+    return res;
   }
 }

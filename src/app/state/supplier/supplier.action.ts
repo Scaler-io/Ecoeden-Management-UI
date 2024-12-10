@@ -24,6 +24,8 @@ export const DELETE_SUPPLIER = 'DELETE_SUPPLIER';
 export const DELETE_SUPPLIER_SUCCESS = 'DELETE_SUPPLIER_SUCCES';
 export const DELETE_SUPPLIER_FAILURE = 'DELETE_SUPPLIER_FAILURE';
 
+export const CLEAR_SUPPLIER_COMMAND_RESULT = 'CLEAR_SUPPLIER_COMMAND_RESULT';
+
 export class GetSuppliers implements Action {
   type: string = GET_SUPLIERS;
   constructor(public payload: SupplierSearchRequest) {}
@@ -73,6 +75,11 @@ export class DeleteSupplierFailure implements Action {
   constructor(public payload: SupplierCommandResponse) {}
 }
 
+export class ClearSupplierCommandResult implements Action {
+  type: string = CLEAR_SUPPLIER_COMMAND_RESULT;
+  constructor(public payload?: any) {}
+}
+
 export type SupplierActions =
   | GetSuppliers
   | GetSuppliersSuccess
@@ -85,4 +92,5 @@ export type SupplierActions =
   | UpsertSupplierFailure
   | DeleteSupplier
   | DeleteSupplierSuccess
-  | DeleteSupplierFailure;
+  | DeleteSupplierFailure
+  | ClearSupplierCommandResult;

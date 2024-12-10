@@ -1,0 +1,20 @@
+@import '../../../../assets/styles/variables';
+
+.dialog {
+  text-align: center;
+  padding: 5px 15px 35px 15px;
+  &__header {
+    display: flex;
+    justify-content: end;
+    .dialog__close-button {
+      cursor: pointer;
+      &:hover {
+        color: $color-primary;
+        transition: all 0.3s ease-in-out;
+      }
+    }
+  }
+  .dialog__text {
+    font-size: $font-sm;
+  }
+}

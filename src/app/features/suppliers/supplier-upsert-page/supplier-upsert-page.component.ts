@@ -6,46 +6,88 @@ import {AddressSuggestion, StreetType} from 'src/app/core/models/address-suggest
 import {ButtonType} from 'src/app/shared/components/button/button.model';
 import {AppState} from 'src/app/store/app.state';
 import {getAddressSuggestions} from 'src/app/state/address-suggestion/address-suggestion.selector';
-import {debounceTime, filter} from 'rxjs';
+import {debounceTime, delay, filter, map} from 'rxjs';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {ToastrService} from 'ngx-toastr';
 import {validationMessage} from 'src/app/core/validators/validationMessage';
 import {SupplierFormModel, UpsertSupplierRequest} from 'src/app/core/models/supplier';
 import {SupplierMapper} from 'src/app/core/mappers/supplier.mapper';
-import {getSupplierCommandResponse} from 'src/app/state/supplier/supplier.selector';
+import {getSupplierCommandResponse, getSupplierDetails} from 'src/app/state/supplier/supplier.selector';
 import {CommandResultStatus} from 'src/app/core/models/common';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as addressSuggestionActions from '../../../state/address-suggestion/address-suggestion.action';
 import * as supplierActions from '../../../state/supplier/supplier.action';
 import * as requestPageActions from '../../../state/request-page/request-page.action';
 
 @Component({
-  selector: 'ecoeden-supplier-create-page',
-  templateUrl: './supplier-create-page.component.html',
-  styleUrls: ['./supplier-create-page.component.scss']
+  selector: 'ecoeden-supplier-upsert-page',
+  templateUrl: './supplier-upsert-page.component.html',
+  styleUrls: ['./supplier-upsert-page.component.scss']
 })
-export class SupplierCreatePageComponent implements OnInit, OnDestroy {
+export class SupplierUpsertPageComponent implements OnInit, OnDestroy {
   public ButtonType = ButtonType;
   public isFormSubmitting: boolean;
   public streetTypes: StreetType[] = Object.values(StreetType);
   public filteredStreets: string[] = [];
   public regions: string[] = [];
   public supplierFormGroup: FormGroup;
+  public supplierId: string;
   public postcodeSelected: string;
   public isPostcodeValidating: boolean;
   private isProgrammaticPostcodeChange: boolean;
+  public isPageLoading: boolean;
+
   private subscriptions = {
     addressSuggestion: null,
-    supplierCreated: null
+    supplierUpsert: null,
+    supplierDetails: null
   };
 
   constructor(
     private store: Store<AppState>,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.store.dispatch(new addressSuggestionActions.ClearAddressSuggestion());
+
+    if (this.isUpdatePage) {
+      this.isPageLoading = true;
+      this.route.queryParams.subscribe(query => {
+        if (query && query['supplierId']) {
+          this.supplierId = query['supplierId'];
+          this.store.dispatch(new supplierActions.GetSupplierDetails(this.supplierId));
+        }
+      });
+
+      this.subscriptions.supplierDetails = this.store
+        .pipe(
+          select(getSupplierDetails),
+          delay(3000),
+          map(response =>
+            response
+              ? {
+                  ...response,
+                  contactDetails: {
+                    ...response.contactDetails,
+                    phone: response.contactDetails.phone.replace('+91', '')
+                  }
+                }
+              : response
+          )
+        )
+        .subscribe(updatedResponse => {
+          this.isProgrammaticPostcodeChange = true;
+          this.supplierId = updatedResponse?.id;
+          const formData = SupplierMapper.mapSupplierDataToForm(updatedResponse);
+          this.supplierFormGroup.patchValue(formData);
+          this.isPageLoading = false;
+        });
+    }
+
+    this.regions = [];
     this.supplierFormGroup = SupplierFormGroupHelper.createSupplierFormGroup();
     this.filteredStreets = this.streetTypes;
     this.supplierFormGroup.get('streetType').valueChanges.subscribe(value => {
@@ -70,10 +112,10 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.subscriptions.supplierCreated = this.store.pipe(select(getSupplierCommandResponse)).subscribe(response => {
+    this.subscriptions.supplierUpsert = this.store.pipe(select(getSupplierCommandResponse)).subscribe(response => {
       if (this.isFormSubmitting) {
         if (response?.status === CommandResultStatus.Success) {
-          this.completeSupplierCreateCommand(response.supplierId);
+          this.completeSupplierUpsertCommand(response.supplierId);
         } else {
           this.toastr.error('Something went wrong. Please try again');
         }
@@ -84,6 +126,8 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.subscriptions.addressSuggestion) this.subscriptions.addressSuggestion.unsubscribe();
+    if (this.subscriptions.supplierUpsert) this.subscriptions.supplierUpsert.unsubscribe();
+    if (this.subscriptions.supplierDetails) this.subscriptions.supplierDetails.unsubscribe();
   }
 
   public onBlur(): void {
@@ -98,6 +142,7 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
       this.isFormSubmitting = true;
       const supplierFormData: SupplierFormModel = this.supplierFormGroup.getRawValue();
       const supplierRequest: UpsertSupplierRequest = SupplierMapper.mapSupplierFormToSupplierRequest(supplierFormData);
+      if (this.isUpdatePage) supplierRequest.id = this.supplierId;
       this.store.dispatch(new supplierActions.UpsertSupplier(supplierRequest));
     }
   }
@@ -115,6 +160,10 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
 
   public getErrorMessage(control: string): string {
     return validationMessage(control, this.supplierFormGroup);
+  }
+
+  public get isUpdatePage(): boolean {
+    return this.router.url.includes('suppliers/update');
   }
 
   private clearAddressFields(): void {
@@ -157,12 +206,12 @@ export class SupplierCreatePageComponent implements OnInit, OnDestroy {
       });
   }
 
-  private completeSupplierCreateCommand(supplierId: string): void {
+  private completeSupplierUpsertCommand(supplierId: string): void {
     this.store.dispatch(
       new requestPageActions.RequestPageSet({
         requestPage: 'suppliers',
-        heading: `Successfully created supplier '${this.supplierFormGroup.get('supplierName').value}'`,
-        subheading: 'You can create more or get back to the previous page',
+        heading: `Successfully ${this.isUpdatePage ? 'updated' : 'created'} supplier '${this.supplierFormGroup.get('supplierName').value}'`,
+        subheading: 'You can create more or get back to the supplier page',
         previousUrl: `suppliers/${supplierId}`,
         nextUrl: 'suppliers/add'
       })

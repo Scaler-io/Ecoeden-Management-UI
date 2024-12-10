@@ -36,6 +36,11 @@ export function addressSuggestionReducer(
           regions: []
         }
       };
+    case addressSuggestionActtions.CLEAR_ADDRESS_SUGGESTION:
+      return {
+        ...state,
+        suggestion: null
+      };
     default:
       return state;
   }
