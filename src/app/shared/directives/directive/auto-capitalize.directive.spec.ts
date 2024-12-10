@@ -1,4 +1,4 @@
-import { AutoCapitalizeDirective } from './auto-capitalize.directive';
+import {AutoCapitalizeDirective} from './auto-capitalize.directive';
 
 describe('AutoCapitalizeDirective', () => {
   it('should create an instance', () => {

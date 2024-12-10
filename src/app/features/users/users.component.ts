@@ -15,7 +15,7 @@ import * as userActions from '../../state/user/user.action';
 import {getMobileViewState} from 'src/app/state/mobile-view/mobile-view.selector';
 import {Router} from '@angular/router';
 import {fadeSlideInOut} from 'src/app/core/animations/fadeInOut';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {SearchLayoutService} from 'src/app/shared/components/search-layout/search-layout.service';
 import {ToastrService} from 'ngx-toastr';
 
@@ -37,7 +37,6 @@ export class UsersComponent implements OnInit, OnDestroy {
   public isMobileView: boolean;
   public roleFilters: UserRoles[] = [UserRoles.Admin, UserRoles.Opeartor, UserRoles.Auditor];
   private currentSortField: string;
-  public filterPanelOpened: boolean = false;
   public isFilterApplied: boolean;
   public isSearchApplied: boolean;
   public userFilterFormGroup: FormGroup = new FormGroup({
@@ -246,11 +245,11 @@ export class UsersComponent implements OnInit, OnDestroy {
           tap(text => {
             this.searchTerm = text;
             if (text.length > 3 || text.length === 0) {
-              this.isSearchApplied = text.length > 3 || (text.length > 0 && text.length < 3) ? true : false;
+              // this.isSearchApplied = text.length > 3 || (text.length > 0 && text.length < 3) ? true : false;
               this.isPageLoading = true;
             } else {
               this.isPageLoading = false;
-              this.isSearchApplied = false;
+              // this.isSearchApplied = false;
             }
           }),
           debounceTime(500)
@@ -263,17 +262,24 @@ export class UsersComponent implements OnInit, OnDestroy {
                 this.fetchUserList(false, 1, 20);
               } else {
                 this.fetchUserCount(this.userFilterFormGroup.value);
-                this.fetchUserListWithFilters(this.userFilterFormGroup.value, 1, 20, this.currentSortField);
+                this.fetchUserListWithFilters(this.userFilterFormGroup.value, 1, 20);
               }
             });
           }
           if (searchText.length > 3) {
             this.zone.runOutsideAngular(() => {
               if (!this.isFilterApplied) {
-                this.fetchUserList(true, 1, 20, searchText, 'fullName,email,userName');
+                this.fetchUserList(true, 1, 20, searchText, 'fullName,email,userName', this.currentSortField);
                 this.fetchUserCount(null, searchText, 'fullName,email,userName');
               } else {
-                this.fetchUserListWithFilters(this.userFilterFormGroup.value, 1, 20, searchText, 'fullName,email,userName', this.currentSortField);
+                this.fetchUserListWithFilters(
+                  this.userFilterFormGroup.value,
+                  1,
+                  20,
+                  searchText,
+                  'fullName,email,userName',
+                  this.currentSortField
+                );
                 this.fetchUserCount(this.userFilterFormGroup.value, searchText, 'fullName,email,userName');
               }
             });
@@ -287,9 +293,9 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.currentSortField = sortField;
       this.zone.runOutsideAngular(() => {
         if (!this.isFilterApplied) {
-          this.fetchUserList(false, 1, 20, null, null, sortField);
+          this.fetchUserList(!!this.searchTerm, 1, 20, this.searchTerm, 'fullName,email,userName', sortField);
         } else {
-          this.fetchUserListWithFilters(this.userFilterFormGroup.value, 1, 20, this.currentSortField);
+          this.fetchUserListWithFilters(this.userFilterFormGroup.value, 1, 20, this.searchTerm, 'fullName,email,userName', sortField);
         }
       });
     });
@@ -299,8 +305,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.subscriptions.applyFilter = this.searchLayoutService.filter$.subscribe(() => {
       this.isFilterApplied = true;
       this.zone.runOutsideAngular(() => {
-        this.fetchUserCount(this.userFilterFormGroup.value);
-        this.fetchUserListWithFilters(this.userFilterFormGroup.value, 1, 20, this.currentSortField);
+        this.fetchUserCount(this.userFilterFormGroup.value, this.searchTerm, 'fullName,email,userName');
+        this.fetchUserListWithFilters(this.userFilterFormGroup.value, 1, 20, this.searchTerm, 'fullName,email,userName', this.currentSortField);
       });
     });
   }
@@ -311,8 +317,8 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.userFilterFormGroup.reset();
       this.userFilterFormGroup.get('userRoles').markAsUntouched();
       this.zone.runOutsideAngular(() => {
-        this.fetchUserCount();
-        this.fetchUserList(false, 1, 20, '', '', this.currentSortField);
+        this.fetchUserCount(null, this.searchTerm, 'fullName,email,userName');
+        this.fetchUserList(!!this.searchTerm, 1, 20, this.searchTerm, 'fullName,email,userName', this.currentSortField);
       });
     });
   }

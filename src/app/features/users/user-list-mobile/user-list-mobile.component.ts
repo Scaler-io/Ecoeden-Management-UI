@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UserSummary } from 'src/app/core/models/user';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {UserSummary} from 'src/app/core/models/user';
 
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'ecoeden-user-list-mobile',
@@ -24,7 +24,7 @@ export class UserListMobileComponent implements OnInit {
     this.pageChange.next(pageIndex);
   }
 
-  public onVisit(id: string){
+  public onVisit(id: string) {
     this.router.navigateByUrl(`users/${id}`);
   }
 }

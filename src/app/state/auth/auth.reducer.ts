@@ -1,4 +1,4 @@
-import { AuthUser } from 'src/app/core/models/auth-user';
+import {AuthUser} from 'src/app/core/models/auth-user';
 import * as authActions from './auth.action';
 
 export const AUTH_STATE_NAME = 'auth';
@@ -12,17 +12,14 @@ export interface AuthState {
 const initialState: AuthState = {
   user: null,
   isLoggedIn: false,
-  token: '',
+  token: ''
 };
 
-const parseJson = (item) => {
+const parseJson = item => {
   return JSON.parse(item);
 };
 
-export function authReducer(
-  state: AuthState = initialState,
-  action: authActions.AuthActions
-) {
+export function authReducer(state: AuthState = initialState, action: authActions.AuthActions) {
   switch (action.type) {
     case authActions.SET_AUTH_STATE:
       return <AuthState>{
@@ -33,10 +30,10 @@ export function authReducer(
           username: action.payload.userData.name,
           email: action.payload.userData.email,
           roles: parseJson(action.payload.userData.roles),
-          permissions: parseJson(action.payload.userData.permissions),
+          permissions: parseJson(action.payload.userData.permissions)
         },
         isLoggedIn: action.payload.isAuthenticated,
-        token: action.payload.accessToken,
+        token: action.payload.accessToken
       };
     default:
       return state;

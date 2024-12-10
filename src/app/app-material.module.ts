@@ -14,6 +14,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import {MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleModule, RippleGlobalOptions} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -42,7 +44,9 @@ const MaterialComponentModule = [
   MatFormFieldModule,
   MatInputModule,
   MatIconModule,
-  MatTabsModule
+  MatTabsModule,
+  MatAutocompleteModule,
+  MatDialogModule
 ];
 
 @NgModule({

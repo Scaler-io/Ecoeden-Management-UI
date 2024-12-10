@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 
 export const SIDENAV_STATE_TOGGLE = 'SIDENAV_STATE_TOGGLE';
 

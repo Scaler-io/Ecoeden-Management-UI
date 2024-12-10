@@ -7,18 +7,15 @@ export interface SidenavToggleState {
 }
 
 const initialState: SidenavToggleState = {
-  expanded: true,
+  expanded: true
 };
 
-export function sidenavToggleReducer(
-  state: SidenavToggleState = initialState,
-  action: sidnavToggleActions.SidenavActions
-) {
+export function sidenavToggleReducer(state: SidenavToggleState = initialState, action: sidnavToggleActions.SidenavActions) {
   switch (action.type) {
     case sidnavToggleActions.SIDENAV_STATE_TOGGLE:
       return {
         ...state,
-        expanded: !state.expanded,
+        expanded: !state.expanded
       };
     default:
       return state;

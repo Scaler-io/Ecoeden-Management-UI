@@ -17,11 +17,15 @@ export class AppComponent implements OnInit, OnDestroy {
   public isMobileView: boolean = false;
   public isAuthenticated: boolean = false;
   public isAppBusy: boolean = true;
-
   private subscriptions = {
     authState: null
   };
-  constructor(private auth: AuthService, private store: Store<AppState>, private router: Router) {
+
+  constructor(
+    private auth: AuthService,
+    private store: Store<AppState>,
+    private router: Router
+  ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart && this.router.url === '/') {
         this.isAppBusy = true;
@@ -50,6 +54,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.performAuthentcation();
   }
 
+  ngOnDestroy(): void {
+    if (this.subscriptions.authState) this.subscriptions.authState.unsubscribe();
+  }
+
   private chekIfMobileView(): void {
     if ((window as Window).innerWidth < 576) {
       this.isMobileView = true;
@@ -69,9 +77,5 @@ export class AppComponent implements OnInit, OnDestroy {
         this.store.dispatch(new authActions.SetAuthState(response));
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscriptions.authState) this.subscriptions.authState.unsubscribe();
   }
 }

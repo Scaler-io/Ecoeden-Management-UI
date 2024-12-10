@@ -1,5 +1,5 @@
-import { LogLevel } from 'angular-auth-oidc-client';
-import { IConfiguration } from './IConfiguration';
+import {LogLevel} from 'angular-auth-oidc-client';
+import {IConfiguration} from './IConfiguration';
 
 export const environment: IConfiguration = {
   production: true,
@@ -16,9 +16,8 @@ export const environment: IConfiguration = {
     clientId: 'ecoeden.management.ui',
     logLevel: LogLevel.Error,
     responseType: 'code',
-    scope:
-      'openid profile email catalogueapi:read catalogueapi:write userapi:read userapi:write',
+    scope: 'openid profile email catalogueapi:read catalogueapi:write userapi:read userapi:write',
     silentRenew: false,
-    useRefreshToken: false,
-  },
+    useRefreshToken: false
+  }
 };

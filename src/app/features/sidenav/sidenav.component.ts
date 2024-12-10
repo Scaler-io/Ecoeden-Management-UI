@@ -20,12 +20,12 @@ export class SidenavComponent implements OnInit, OnDestroy {
     suppliers: false
   };
 
-  constructor(private store: Store<AppState>) {}
-
   private subscriptions = {
     sidenavToggleState: null,
     mobileViewState: null
   };
+
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.subscriptions.sidenavToggleState = this.store.pipe(select(getSidenavToggleState)).subscribe(state => {
@@ -45,11 +45,15 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   public handleSidenavItemClick(menu?: string) {
     if (menu) this.updateSubmenuActions(menu);
-    !this.isMobileView && !this.sidenavExpanded && this.store.dispatch(new sidenavToggleAction.ToggleSideNav());
+    if (!this.isMobileView && !this.sidenavExpanded) {
+      this.store.dispatch(new sidenavToggleAction.ToggleSideNav());
+    }
   }
 
   public hadndleSubmenuClick() {
-    this.isMobileView && !this.sidenavExpanded && this.store.dispatch(new sidenavToggleAction.ToggleSideNav());
+    if (this.isMobileView && !this.sidenavExpanded) {
+      this.store.dispatch(new sidenavToggleAction.ToggleSideNav());
+    }
   }
 
   ngOnDestroy(): void {

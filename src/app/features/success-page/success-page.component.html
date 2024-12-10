@@ -8,7 +8,7 @@
   </div>
 
   <div class="success-page__action-layout">
-    <ecoeden-button (next)="previousClick()">Back</ecoeden-button>
-    <ecoeden-button (next)="nextClick()">{{ nexButtonLabel }}</ecoeden-button>
+    <ecoeden-button [type]="ButtonType.info" (next)="previousClick()">Back</ecoeden-button>
+    <ecoeden-button [type]="ButtonType.info" (next)="nextClick()">{{ nexButtonLabel }}</ecoeden-button>
   </div>
 </div>

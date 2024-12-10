@@ -25,7 +25,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     authState: null
   };
 
-  constructor(private store: Store<AppState>, private auth: AuthService) {}
+  constructor(
+    private store: Store<AppState>,
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.subcriptions.mobileViewState = this.store.pipe(select(getMobileViewState)).subscribe(state => (this.isMobileView = state));

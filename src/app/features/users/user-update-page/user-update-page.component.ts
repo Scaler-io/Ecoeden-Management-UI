@@ -31,6 +31,7 @@ export class UserUpdatePageComponent implements OnInit, OnDestroy {
   public ButtonType = ButtonType;
   public roleUpdateForm: FormGroup;
   public isRoleFormSubmitting: boolean;
+  public userId: string;
 
   constructor(
     private store: Store<AppState>,
@@ -52,7 +53,7 @@ export class UserUpdatePageComponent implements OnInit, OnDestroy {
     this.roleUpdateForm = UserFormGroupHelper.createUserRoleUpdateFormGroup();
     this.route.params.subscribe(params => {
       this.uploader = this.fileService.createUserImageUploader(params?.id);
-      this.store.dispatch(new userActions.UserDetailsFetch(params?.id));
+      this.userId = params?.id;
     });
 
     this.subscription.userDetails = this.store.pipe(select(getUserDetails)).subscribe(response => {
@@ -63,6 +64,10 @@ export class UserUpdatePageComponent implements OnInit, OnDestroy {
         this.roleUpdateForm.patchValue({
           roles: response.userRoles
         });
+      } else if (!response && this.userId) {
+        this.store.dispatch(new userActions.UserDetailsFetch(this.userId));
+      } else {
+        this.toastr.error('Something went wrong');
       }
     });
 

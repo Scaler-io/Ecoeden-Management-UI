@@ -1,7 +1,11 @@
 @import './variables';
 
 .material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
 }
 
 .mat-expansion-panel-body {
@@ -75,4 +79,19 @@ li {
 .mat-form-field {
   width: 100%;
   font-size: $font-sm !important;
+}
+
+.mat-option.mat-active {
+  background: $color-primary !important;
+  color: #fff !important;
+}
+
+.custom-select-panel {
+  margin-top: 45px;
+}
+
+.mat-dialog-actions {
+  margin-top: 20px;
+  column-gap: 20px;
+  justify-content: center;
 }

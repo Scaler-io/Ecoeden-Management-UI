@@ -1,4 +1,4 @@
-import { FormatStatusPipe } from './format-status.pipe';
+import {FormatStatusPipe} from './format-status.pipe';
 
 describe('FormatStatusPipe', () => {
   it('create an instance', () => {
