@@ -26,6 +26,11 @@ const routes: Routes = [
     data: {breadcrumb: {label: 'Products'}}
   },
   {
+    path: 'customers',
+    loadChildren: () => import('./features/customer/customer.module').then(m => m.CustomerModule),
+    data: {breadcrumb: {label: 'Customers'}}
+  },
+  {
     path: 'success',
     canActivate: [PreventSuccessPageGuard],
     loadChildren: () => import('./features/success-page/success-page.module').then(m => m.SuccessPageModule)

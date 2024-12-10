@@ -17,7 +17,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
   public subMenuList = {
     users: false,
     products: false,
-    suppliers: false
+    suppliers: false,
+    customers: false
   };
 
   private subscriptions = {
@@ -34,10 +35,13 @@ export class SidenavComponent implements OnInit, OnDestroy {
         this.subMenuList = {
           ...this.subMenuList,
           users: false,
-          products: false
+          products: false,
+          suppliers: false,
+          customers: false
         };
       }
     });
+
     this.subscriptions.mobileViewState = this.store.pipe(select(getMobileViewState)).subscribe(state => {
       this.isMobileView = state;
     });
@@ -72,7 +76,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
           ...this.subMenuList,
           users: !this.subMenuList.users,
           products: false,
-          suppliers: false
+          suppliers: false,
+          customers: false
         };
         break;
       case 'products':
@@ -80,7 +85,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
           ...this.subMenuList,
           users: false,
           products: !this.subMenuList.products,
-          suppliers: false
+          suppliers: false,
+          customers: false
         };
         break;
       case 'suppliers':
@@ -88,8 +94,31 @@ export class SidenavComponent implements OnInit, OnDestroy {
           ...this.subMenuList,
           users: false,
           products: false,
-          suppliers: !this.subMenuList.suppliers
+          suppliers: !this.subMenuList.suppliers,
+          customers: false
         };
+        break;
+      case 'customers':
+        {
+          this.subMenuList = {
+            ...this.subMenuList,
+            users: false,
+            products: false,
+            suppliers: false,
+            customers: !this.subMenuList.customers
+          };
+        }
+        break;
+      case 'customers':
+        {
+          this.subMenuList = {
+            ...this.subMenuList,
+            users: false,
+            products: false,
+            suppliers: false,
+            customers: !this.subMenuList.customers
+          };
+        }
         break;
       default:
         break;
