@@ -24,6 +24,8 @@ export const DELETE_CUSTOMER = 'DELETE_CUSTOMER';
 export const DELETE_CUSTOMER_SUCCESS = 'DELETE_CUSTOMER_SUCCESS';
 export const DELETE_CUSTOMER_FAILURE = 'DELETE_CUSTOMER_FAILURE';
 
+export const CLEAR_CUSTOMER_COMMAND_RESULT = 'CLEAR_CUSTOMER_COMMAND_RESULT';
+
 export class GetAllCustomers implements Action {
   type: string = GET_ALL_CUSTOMERS;
   constructor(public payload: CustomerSearchRequest) {}
@@ -84,6 +86,11 @@ export class DeleteCustomerFailure implements Action {
   constructor(public payload: CustomerCommandResponse) {}
 }
 
+export class ClearCustomerCommandResult implements Action {
+  type: string = CLEAR_CUSTOMER_COMMAND_RESULT;
+  constructor(public payload?: any) {}
+}
+
 export type CustomerActions =
   | GetAllCustomers
   | GetAllCustomerSuccess
@@ -96,4 +103,5 @@ export type CustomerActions =
   | UpsertCustomerFailure
   | DeleteCustomer
   | DeleteCustomerSuccess
-  | DeleteCustomerFailure;
+  | DeleteCustomerFailure
+  | ClearCustomerCommandResult;

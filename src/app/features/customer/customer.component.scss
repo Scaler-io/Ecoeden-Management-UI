@@ -1,0 +1,9 @@
+@import '../../../assets/styles/grid';
+@import '../../../assets/styles/variables';
+
+.customer-list__loading-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}

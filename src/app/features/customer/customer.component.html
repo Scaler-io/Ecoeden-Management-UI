@@ -1,1 +1,49 @@
-<p>customer works!</p>
+<div class="customer-list__container">
+  <ecoeden-search-layout
+    addButtonLabel="ADD CUSTOMER"
+    filterLabel="Filter customers"
+    [isFileterFormValid]="checkIfAnyControlHasValue()"
+  >
+    <form [formGroup]="customerFilterFormGroup">
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="true">Active</mat-option>
+              <mat-option value="false">Inactive</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </ecoeden-search-layout>
+
+  <!-- page loading spinner -->
+  <ng-container *ngIf="isPageLoading">
+    <div class="customer-list__loading-content">
+      <mat-spinner [diameter]="40" color="primary"></mat-spinner>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isPageLoading">
+    <!-- customer list table: for desktop view  only-->
+    <div class="row height-full" @fadeSlideInOut *ngIf="!isMobileView">
+      <div class="col-sm-12">
+        <ecoeden-table
+          [dataSource]="customers"
+          [columns]="displayColumns"
+          [paginationMetadata]="paginationMetaData"
+          [fieldValueMap]="columnNameMap"
+          [dataLength]="dataLength"
+          [actionsEnabled]="true"
+          [allowModify]="true"
+          (visit)="onVisit($event)"
+          (edit)="onUpdate($event)"
+          (delete)="onDelete($event)"
+          (pageChange)="pageChange($event)"
+        ></ecoeden-table>
+      </div>
+    </div>
+  </ng-container>
+</div>

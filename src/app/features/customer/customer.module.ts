@@ -6,6 +6,10 @@ import {StoreModule} from '@ngrx/store';
 import {CUSTOMER_STATE_NAME, customerReducer} from 'src/app/state/customer/customer.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {CustomerEffect} from 'src/app/state/customer/customer.effect';
+import {AppMaterialModule} from 'src/app/app-material.module';
+import {SearchLayoutModule} from 'src/app/shared/components/search-layout/search-layout.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {TableModule} from 'src/app/shared/components/table/table.module';
 
 @NgModule({
   declarations: [CustomerComponent],
@@ -13,7 +17,11 @@ import {CustomerEffect} from 'src/app/state/customer/customer.effect';
     CommonModule,
     CustomerRoutingModule,
     StoreModule.forFeature(CUSTOMER_STATE_NAME, customerReducer),
-    EffectsModule.forFeature([CustomerEffect])
+    EffectsModule.forFeature([CustomerEffect]),
+    SearchLayoutModule,
+    TableModule,
+    AppMaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class CustomerModule {}

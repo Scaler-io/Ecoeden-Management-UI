@@ -39,6 +39,16 @@ export function customerReducer(state: CustomerState = initialState, action: cus
         count: count,
         currentPage: pageIndex
       };
+    case customerActions.GET_CUSTOMER_COUNT:
+      return {
+        ...state,
+        totalCustomers: 0
+      };
+    case customerActions.GET_CUSTOMER_COUNT_SUCCESS:
+      return {
+        ...state,
+        totalCustomers: action.payload as number
+      };
     case customerActions.GET_CUSTOMER_DETAILS:
       return {
         ...state,
@@ -78,5 +88,12 @@ export function customerReducer(state: CustomerState = initialState, action: cus
         ...state,
         customerCommandResponse: action.payload as CustomerCommandResponse
       };
+    case customerActions.CLEAR_CUSTOMER_COMMAND_RESULT:
+      return {
+        ...state,
+        customerCommandResponse: null
+      };
+    default:
+      return state;
   }
 }

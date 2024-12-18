@@ -9,7 +9,7 @@ export const getPaginatedCustomers = createSelector(customerState, state => {
     count: state.count,
     pageIndex: state.currentPage,
     pageSize: state.top,
-    data: state.customers
+    data: state.customers,
   };
 });
 
@@ -21,6 +21,6 @@ export const getCustomerCount = createSelector(customerState, state => {
   return state.totalCustomers;
 });
 
-export const getcustomerCommandResponse = createSelector(customerState, state => {
+export const getCustomerCommandResponse = createSelector(customerState, state => {
   return state.customerCommandResponse;
 });
