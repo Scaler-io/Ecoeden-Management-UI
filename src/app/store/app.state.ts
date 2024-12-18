@@ -1,5 +1,6 @@
 import {ADDRESS_SUGGESTION_STATE_NAME, AddressSuggestionState} from '../state/address-suggestion/address-suggestion.reducer';
 import {AUTH_STATE_NAME, authReducer, AuthState} from '../state/auth/auth.reducer';
+import {CUSTOMER_STATE_NAME, CustomerState} from '../state/customer/customer.reducer';
 import {MOBILE_VIEW_STATE_NAME, mobileViewReducer, MobileViewState} from '../state/mobile-view/mobile-view.reducer';
 import {REQUEST_PAGE_STATE_NAME, requestPageReducers, RequestPageState} from '../state/request-page/request-page.reducer';
 import {SIDENAV_TOGGLE_STATE_NAME, sidenavToggleReducer, SidenavToggleState} from '../state/sidenav/sidenav.reducer';
@@ -14,6 +15,7 @@ export interface AppState {
   [SUPPLIER_STATE_NAME]: SupplierState;
   [REQUEST_PAGE_STATE_NAME]: RequestPageState;
   [ADDRESS_SUGGESTION_STATE_NAME]: AddressSuggestionState;
+  [CUSTOMER_STATE_NAME]: CustomerState;
 }
 
 export const appReducers = {

@@ -50,7 +50,9 @@ export interface UpsertSupplierRequest {
   status: boolean;
 }
 
-export interface SupplierCommandResponse extends CommandResponse {}
+export interface SupplierCommandResponse extends CommandResponse {
+  supplierId: string;
+}
 
 export enum SupplierCommadType {
   Upsert = 'Supplier created or updated',

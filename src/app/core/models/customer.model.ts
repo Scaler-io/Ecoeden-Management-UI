@@ -50,7 +50,9 @@ export interface UpsertCustomerRequest {
   status: boolean;
 }
 
-export interface CustomerCommandResponse extends CommandResponse {}
+export interface CustomerCommandResponse extends CommandResponse {
+  customerId: string;
+}
 
 export enum CustomerCommadType {
   Upsert = 'Customer created or updated',
