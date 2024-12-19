@@ -12,6 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {TableModule} from 'src/app/shared/components/table/table.module';
 import {CustomerListMobileModule} from './customer-list-mobile/customer-list-mobile.module';
 import {CustomerDetailedViewModule} from './customer-detailed-view/customer-detailed-view.module';
+import {CustomerUpsertPageModule} from './customer-upsert-page/customer-upsert-page.module';
 
 @NgModule({
   declarations: [CustomerComponent],
@@ -22,6 +23,7 @@ import {CustomerDetailedViewModule} from './customer-detailed-view/customer-deta
     EffectsModule.forFeature([CustomerEffect]),
     CustomerListMobileModule,
     CustomerDetailedViewModule,
+    CustomerUpsertPageModule,
     SearchLayoutModule,
     TableModule,
     AppMaterialModule,
