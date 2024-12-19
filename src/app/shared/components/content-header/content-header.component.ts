@@ -17,7 +17,8 @@ export class ContentHeaderComponent implements OnInit {
     ['Dashboard']: 'dashboard',
     ['Users']: 'person',
     ['Products']: 'psychiatry',
-    ['Suppliers']: 'local_shipping'
+    ['Suppliers']: 'local_shipping',
+    ['Customers']: 'diversity_1'
   };
 
   constructor(

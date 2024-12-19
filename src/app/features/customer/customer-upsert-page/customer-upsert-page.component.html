@@ -1,0 +1,162 @@
+<div class="container">
+    <ng-container *ngIf="isPageLoading">
+      <mat-spinner diameter="40" color="primary"></mat-spinner>
+    </ng-container>
+  
+    <ng-container *ngIf="!isPageLoading">
+      <div class="row">
+        <div class="col-sm-12 col-md-7">
+          <form [formGroup]="customerFormGroup">
+            <div class="row">
+              <div class="col-sm-12">
+                <ecoeden-divider label="Customer details" color="#fafafa"></ecoeden-divider>
+              </div>
+  
+              <div class="col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Customer name</mat-label>
+                  <input matInput type="text" formControlName="customerName" />
+                  <mat-error>{{ getErrorMessage('customerName') }}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Customer email</mat-label>
+                  <input matInput type="email" formControlName="customerEmail" />
+                  <mat-error>{{ getErrorMessage('customerEmail') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline" floatLabel="always">
+                  <mat-label>Mobile</mat-label>
+                  <span matPrefix>+91 &nbsp;</span>
+                  <input type="tel" matInput placeholder="555-555-1234" formControlName="customerPhone" numberOnly inputLimit="10" />
+                  <mat-error>{{ getErrorMessage('customerPhone') }}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <!-- Address details -->
+            <!-- Address: street details -->
+            <div class="row mt-5">
+              <div class="col-sm-12">
+                <ecoeden-divider label="Address details" color="#fafafa"></ecoeden-divider>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Street number</mat-label>
+                  <input type="text" matInput autocomplete="new-password" formControlName="streetNumber" />
+                  <mat-error>{{ getErrorMessage('streetNumber') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Street name</mat-label>
+                  <input type="text" matInput autocomplete="new-password" formControlName="streetName" autoCapitalize="true" />
+                  <mat-error>{{ getErrorMessage('streetName') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Street type</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                    [matAutocomplete]="auto"
+                    (blur)="onBlur()"
+                    formControlName="streetType"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let streetType of filteredStreets" [value]="streetType">{{ streetType }}</mat-option>
+                  </mat-autocomplete>
+                  <mat-error>{{ getErrorMessage('streetType') }}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div class="row" *ngIf="isUpdatePage">
+              <div class="col-sm-12">
+                <mat-slide-toggle formControlName="status">
+                  <span style="font-size: 14px;">Status</span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+  
+            <!-- Address: postcode and state details -->
+            <div class="row mt-5">
+              <div class="col-sm-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Postcode</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    [matAutocomplete]="autoAddressSuggestion"
+                    formControlName="postCode"
+                    numberOnly
+                    inputLimit="6"
+                    autocomplete="false"
+                  />
+                  <mat-spinner matSuffix diameter="20" color="primary" *ngIf="isPostcodeValidating"></mat-spinner>
+                  <mat-autocomplete
+                    (optionSelected)="onAddressSelection($event)"
+                    #autoAddressSuggestion="matAutocomplete"
+                    autocomplete="false"
+                  >
+                    <mat-option *ngFor="let region of regions" [value]="region">{{ region }}</mat-option>
+                  </mat-autocomplete>
+                  <mat-error>{{ getErrorMessage('streetType') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-7 mt-2">
+                <p class="pincode-hint"
+                  >Find the city, district and state using appropriate pincode. If not found please enter manually.</p
+                >
+              </div>
+            </div>
+            <div class="row page-content--disabled">
+              <div class="col-sm-12 col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>City</mat-label>
+                  <input type="text" readonly matInput formControlName="city" />
+                  <mat-error>{{ getErrorMessage('city') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>District</mat-label>
+                  <input type="text" readonly matInput formControlName="district" />
+                  <mat-error>{{ getErrorMessage('district') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>State</mat-label>
+                  <input type="text" readonly matInput formControlName="state" />
+                  <mat-error>{{ getErrorMessage('state') }}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </form>
+  
+          <div class="col-md-7 col-sm-12 mt-5">
+            <ecoeden-button
+              (next)="onSubmit()"
+              [isLoading]="isFormSubmitting"
+              [type]="ButtonType.info"
+              [isDisabled]="isFormSubmitting"
+              >{{ isUpdatePage ? 'Update' : 'Create' }}</ecoeden-button
+            >
+          </div>
+        </div>
+  
+        <div class="col-md-5">
+          <div class="customer-bg"></div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  

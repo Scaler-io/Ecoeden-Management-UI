@@ -5,7 +5,13 @@
 >
   <div class="sidenav__content">
     <ul class="sidenav__content-list">
-      <li class="sidenav__content-list--item" matRipple (click)="handleSidenavItemClick()" routerLink="dashboard" [routerLinkActive]="'route-active'">
+      <li
+        class="sidenav__content-list--item"
+        matRipple
+        (click)="handleSidenavItemClick()"
+        routerLink="dashboard"
+        [routerLinkActive]="'route-active'"
+      >
         <div class="main-content">
           <span class="material-symbols-outlined item-icon">Dashboard</span>
           <span class="item-label">Dashboard</span>
@@ -16,7 +22,10 @@
         <div class="main-content">
           <span class="material-symbols-outlined item-icon">local_shipping</span>
           <span class="item-label">Suppliers</span>
-          <span class="material-symbols-outlined item-icon">{{ subMenuList.suppliers ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</span>
+          <span
+            class="material-symbols-outlined item-icon"
+            >{{ subMenuList.suppliers ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</span
+          >
         </div>
         <ul class="submenu" [class.submenu--active]="subMenuList.suppliers">
           <li matRipple routerLink="suppliers" (click)="hadndleSubmenuClick()">
@@ -30,11 +39,35 @@
         </ul>
       </li>
 
+      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick('customers')" [routerLinkActive]="'route-active'">
+        <div class="main-content">
+          <span class="material-symbols-outlined item-icon">diversity_1</span>
+          <span class="item-label">Customers</span>
+          <span
+            class="material-symbols-outlined item-icon"
+            >{{ subMenuList.customers ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</span
+          >
+        </div>
+        <ul class="submenu" [class.submenu--active]="subMenuList.customers">
+          <li matRipple routerLink="customers" (click)="hadndleSubmenuClick()">
+            <span class="material-symbols-outlined">list</span>
+            <span>All customers</span>
+          </li>
+          <li matRipple routerLink="customers/add" (click)="hadndleSubmenuClick()">
+            <span class="material-symbols-outlined">add</span>
+            <span>Add new customer</span>
+          </li>
+        </ul>
+      </li>
+
       <li class="sidenav__content-list--item" (click)="handleSidenavItemClick('users')" [routerLinkActive]="'route-active'">
         <div class="main-content">
           <span class="material-symbols-outlined item-icon">person</span>
           <span class="item-label">Users</span>
-          <span class="material-symbols-outlined item-icon">{{ subMenuList.users ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</span>
+          <span
+            class="material-symbols-outlined item-icon"
+            >{{ subMenuList.users ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</span
+          >
         </div>
         <ul class="submenu" [class.submenu--active]="subMenuList.users">
           <li matRipple routerLink="users" (click)="hadndleSubmenuClick()">
@@ -52,7 +85,10 @@
         <div class="main-content">
           <span class="material-symbols-outlined item-icon">psychiatry</span>
           <span class="item-label">Products</span>
-          <span class="material-symbols-outlined item-icon">{{ subMenuList.products ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</span>
+          <span
+            class="material-symbols-outlined item-icon"
+            >{{ subMenuList.products ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</span
+          >
         </div>
         <ul class="submenu" [class.submenu--active]="subMenuList.products">
           <li matRipple routerLink="products" (click)="hadndleSubmenuClick()">

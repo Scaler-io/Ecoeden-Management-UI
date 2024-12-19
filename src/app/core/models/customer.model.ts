@@ -4,18 +4,20 @@ import {PaginatedResult} from './pagination';
 import {SearchRequestBase} from './search-request';
 import {TableDataSource} from './table-source';
 
-export class PaginatedSupplierList extends PaginatedResult {
+export class PaginatedCustomerList extends PaginatedResult {
   constructor(
     public pageIndex: number,
     public pageSize: number,
     public count: number,
-    public data: SupplierSummary[]
+    public data: CustomerSummary[]
   ) {
     super(pageIndex, pageSize, count, data);
   }
 }
 
-export interface SupplierSummary extends TableDataSource {
+export interface CustomerSearchRequest extends SearchRequestBase {}
+
+export interface CustomerSummary extends TableDataSource {
   id: string;
   name: string;
   email: string;
@@ -26,14 +28,12 @@ export interface SupplierSummary extends TableDataSource {
   updatedOn: Date | null;
 }
 
-export interface SupplierSearchRequest extends SearchRequestBase {}
-
-export interface Supplier {
+export interface Customer {
   id: string;
   name: string;
   contactDetails: ContactDetails;
   status: boolean;
-  metadata: MetaData;
+  metaData: MetaData;
 }
 
 interface MetaData {
@@ -43,26 +43,26 @@ interface MetaData {
   updtedBy: string;
 }
 
-export interface UpsertSupplierRequest {
+export interface UpsertCustomerRequest {
   id?: string;
   name: string;
   contactDetails: ContactDetails;
   status: boolean;
 }
 
-export interface SupplierCommandResponse extends CommandResponse {
-  supplierId: string;
+export interface CustomerCommandResponse extends CommandResponse {
+  customerId: string;
 }
 
-export enum SupplierCommadType {
-  Upsert = 'Supplier created or updated',
-  Delete = 'Supplier deleted'
+export enum CustomerCommadType {
+  Upsert = 'Customer created or updated',
+  Delete = 'Customer deleted'
 }
 
-export interface SupplierFormModel {
-  supplierName: string;
-  supplierEmail: string;
-  supplierPhone: string;
+export interface CustomerFormModel {
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
   streetNumber: string;
   streetName: string;
   streetType: string;
