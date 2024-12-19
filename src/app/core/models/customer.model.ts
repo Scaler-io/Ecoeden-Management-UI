@@ -33,7 +33,7 @@ export interface Customer {
   name: string;
   contactDetails: ContactDetails;
   status: boolean;
-  metadata: MetaData;
+  metaData: MetaData;
 }
 
 interface MetaData {

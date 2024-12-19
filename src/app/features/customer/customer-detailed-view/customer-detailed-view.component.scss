@@ -1,0 +1,64 @@
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/mixin';
+
+$page-padding: 130px;
+
+.customer-details {
+  &__primary {
+    display: flex;
+    .basic-details {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 0;
+      row-gap: 10px;
+      &--title {
+        font-weight: $font-weight-bold;
+        font-size: $font-xl;
+        color: $color-primary;
+        padding: 0;
+        @include for-phone-only-up {
+          font-size: $font-lg;
+        }
+      }
+      &--subtitle {
+        font-size: $font-sm;
+        color: $color-accent;
+      }
+    }
+  }
+
+  &__action-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+    height: 100%;
+    column-gap: 1.2rem;
+    @include for-phone-only-up {
+      justify-content: center;
+    }
+    button {
+      display: flex;
+      @include for-phone-only-up {
+        line-height: 25px;
+      }
+      span {
+        display: inline-block;
+        font-size: $font-sm;
+        @include for-phone-only-up {
+          font-size: $font-xs;
+        }
+        &:last-child {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
+
+[class^='col-'] {
+  margin-bottom: 2.6rem;
+  @include for-phone-only-up {
+    margin-bottom: 0.5rem;
+  }
+}

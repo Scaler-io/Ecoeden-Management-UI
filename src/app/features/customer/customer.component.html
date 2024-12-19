@@ -45,5 +45,16 @@
         ></ecoeden-table>
       </div>
     </div>
+
+    <div class="row" @fadeSlideInOut *ngIf="isMobileView">
+      <div class="col-sm-12">
+        <ecoeden-customer-list-mobile
+          [customerList]="customers.data"
+          (pageChange)="onMobilePageChange($event)"
+          [totalCount]="totalCustomerCount"
+          [currentPage]="paginationMetaData.currentPage"
+        ></ecoeden-customer-list-mobile>
+      </div>
+    </div>
   </ng-container>
 </div>

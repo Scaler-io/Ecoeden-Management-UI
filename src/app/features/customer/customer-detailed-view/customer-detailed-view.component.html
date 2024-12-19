@@ -1,0 +1,117 @@
+<div class="customer-details" @fadeSlideInOut>
+  <ng-container *ngIf="!customer">
+    <mat-spinner diameter="40" color="primary"></mat-spinner>
+  </ng-container>
+  <ng-container *ngIf="customer">
+    <div class="row">
+      <div class="col-sm-12">
+        <mat-card>
+          <div matCardContent>
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <div class="customer-details__primary">
+                  <div class="basic-details">
+                    <div class="basic-details--title">
+                      {{ customer.name }}
+                    </div>
+                    <div class="basic-details--subtitle"> ({{ customer.id }}) </div>
+                    <div class="basic-details--status">
+                      <span
+                        class="badge rounded-pill"
+                        [class]="{
+                            'badge--success': customer.status,
+                            'badge--danger': !customer.status
+                          }"
+                        >{{ customer.status ? "Enabled" : "Disabled" }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <ng-container>
+                  <div class="customer-details__action-group">
+                    <button mat-raised-button button color="primary" (click)="goToUpdate()"
+                      ><span class="material-symbols-outlined">edit</span>
+                      <span>Edit</span>
+                    </button>
+                    <button mat-raised-button color="warn" (click)="deleteCustomer()">
+                      <span class="material-symbols-outlined">delete</span>
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="container">
+                  <!-- Contact details here -->
+                  <div class="row">
+                    <div class="col-sm-12"><ecoeden-divider label="Contact details"></ecoeden-divider></div>
+                    <div class="col-sm-12 col-md-6">
+                      <ecoeden-individual-details
+                        icon="email"
+                        label="Email"
+                        [value]="customer.contactDetails.email"
+                      ></ecoeden-individual-details>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <ecoeden-individual-details
+                        icon="phone"
+                        label="Phone"
+                        [value]="customer.contactDetails.phone"
+                      ></ecoeden-individual-details>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <ecoeden-individual-details
+                        icon="schedule"
+                        label="Created on"
+                        [value]="customer.metaData.createdAt.toString()"
+                      ></ecoeden-individual-details>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <ecoeden-individual-details
+                        icon="schedule"
+                        label="Updated on"
+                        [value]="customer.metaData.updatedAt.toString()"
+                      ></ecoeden-individual-details>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12"><ecoeden-divider label="Address details"></ecoeden-divider></div>
+                    <div class="col-sm-12 col-md-6">
+                      <ecoeden-individual-details icon="pin_drop" label="Street" [value]="street"></ecoeden-individual-details>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <ecoeden-individual-details
+                        icon="location_city"
+                        label="City"
+                        [value]="customer.contactDetails.address.city"
+                      ></ecoeden-individual-details>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <ecoeden-individual-details
+                        icon="map"
+                        label="State"
+                        [value]="customer.contactDetails.address.state"
+                      ></ecoeden-individual-details>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <ecoeden-individual-details
+                        icon="my_location"
+                        label="Postcode"
+                        [value]="customer.contactDetails.address.postCode"
+                      ></ecoeden-individual-details>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </ng-container>
+</div>

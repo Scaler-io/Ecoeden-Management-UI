@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
@@ -25,6 +25,7 @@ import {CommandResultStatus} from 'src/app/core/models/common';
   selector: 'ecoeden-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeSlideInOut]
 })
 export class CustomerComponent implements OnInit, OnDestroy {

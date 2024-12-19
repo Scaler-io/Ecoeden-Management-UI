@@ -10,6 +10,8 @@ import {AppMaterialModule} from 'src/app/app-material.module';
 import {SearchLayoutModule} from 'src/app/shared/components/search-layout/search-layout.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TableModule} from 'src/app/shared/components/table/table.module';
+import {CustomerListMobileModule} from './customer-list-mobile/customer-list-mobile.module';
+import {CustomerDetailedViewModule} from './customer-detailed-view/customer-detailed-view.module';
 
 @NgModule({
   declarations: [CustomerComponent],
@@ -18,6 +20,8 @@ import {TableModule} from 'src/app/shared/components/table/table.module';
     CustomerRoutingModule,
     StoreModule.forFeature(CUSTOMER_STATE_NAME, customerReducer),
     EffectsModule.forFeature([CustomerEffect]),
+    CustomerListMobileModule,
+    CustomerDetailedViewModule,
     SearchLayoutModule,
     TableModule,
     AppMaterialModule,
