@@ -36,6 +36,11 @@ const routes: Routes = [
     loadChildren: () => import('./features/success-page/success-page.module').then(m => m.SuccessPageModule)
   },
   {
+    path: 'units',
+    loadChildren: () => import('./features/units/units.module').then(m => m.UnitsModule),
+    data: {breadcrumb: {label: 'Units'}}
+  },
+  {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full'

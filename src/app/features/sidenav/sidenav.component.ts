@@ -18,7 +18,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
     users: false,
     products: false,
     suppliers: false,
-    customers: false
+    customers: false,
+    units: false
   };
 
   private subscriptions = {
@@ -37,7 +38,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
           users: false,
           products: false,
           suppliers: false,
-          customers: false
+          customers: false,
+          units: false
         };
       }
     });
@@ -77,7 +79,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
           users: !this.subMenuList.users,
           products: false,
           suppliers: false,
-          customers: false
+          customers: false,
+          units: false
         };
         break;
       case 'products':
@@ -86,7 +89,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
           users: false,
           products: !this.subMenuList.products,
           suppliers: false,
-          customers: false
+          customers: false,
+          units: false
         };
         break;
       case 'suppliers':
@@ -95,7 +99,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
           users: false,
           products: false,
           suppliers: !this.subMenuList.suppliers,
-          customers: false
+          customers: false,
+          units: false
         };
         break;
       case 'customers':
@@ -105,20 +110,20 @@ export class SidenavComponent implements OnInit, OnDestroy {
             users: false,
             products: false,
             suppliers: false,
-            customers: !this.subMenuList.customers
+            customers: !this.subMenuList.customers,
+            units: false
           };
         }
         break;
-      case 'customers':
-        {
-          this.subMenuList = {
-            ...this.subMenuList,
-            users: false,
-            products: false,
-            suppliers: false,
-            customers: !this.subMenuList.customers
-          };
-        }
+      case 'units':
+        this.subMenuList = {
+          ...this.subMenuList,
+          users: false,
+          products: false,
+          suppliers: false,
+          customers: false,
+          units: !this.subMenuList.units
+        };
         break;
       default:
         break;

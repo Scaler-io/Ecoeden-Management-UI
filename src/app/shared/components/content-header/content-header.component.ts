@@ -18,7 +18,8 @@ export class ContentHeaderComponent implements OnInit {
     ['Users']: 'person',
     ['Products']: 'psychiatry',
     ['Suppliers']: 'local_shipping',
-    ['Customers']: 'diversity_1'
+    ['Customers']: 'diversity_1',
+    ['Units']: 'weight'
   };
 
   constructor(

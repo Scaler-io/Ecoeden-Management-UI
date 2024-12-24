@@ -60,6 +60,27 @@
         </ul>
       </li>
 
+      <li class="sidenav__content-list--item" (click)="handleSidenavItemClick('units')" [routerLinkActive]="'route-active'">
+        <div class="main-content">
+          <span class="material-symbols-outlined item-icon">weight</span>
+          <span class="item-label">Units</span>
+          <span
+            class="material-symbols-outlined item-icon"
+            >{{ subMenuList.units ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</span
+          >
+        </div>
+        <ul class="submenu" [class.submenu--active]="subMenuList.units">
+          <li matRipple routerLink="units" (click)="hadndleSubmenuClick()">
+            <span class="material-symbols-outlined">list</span>
+            <span>All units</span>
+          </li>
+          <li matRipple routerLink="units/add" (click)="hadndleSubmenuClick()">
+            <span class="material-symbols-outlined">add</span>
+            <span>Add new unit</span>
+          </li>
+        </ul>
+      </li>
+
       <li class="sidenav__content-list--item" (click)="handleSidenavItemClick('users')" [routerLinkActive]="'route-active'">
         <div class="main-content">
           <span class="material-symbols-outlined item-icon">person</span>

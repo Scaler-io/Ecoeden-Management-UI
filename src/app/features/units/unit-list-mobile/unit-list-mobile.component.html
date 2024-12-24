@@ -1,0 +1,53 @@
+<div class="row">
+  <div
+    class="col-sm-12"
+    *ngFor="let unit of unitList | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: totalCount }"
+  >
+    <mat-card class="mb-5">
+      <mat-card-header>
+        <div matCardTitle>
+          {{ unit.name }}
+          <span
+            class="badge rounded-pill"
+            [class]="{
+                'badge--success': unit.status,
+                'badge--danger': !unit.status  
+               }"
+            >{{ unit.status | formatStatus }}</span
+          >
+        </div>
+        <mat-card-actions>
+          <button mat-icon-button color="primary" [matMenuTriggerFor]="actionMenu" #actionMenuTrigger="matMenuTrigger"
+            ><span class="material-symbols-outlined">more_horiz</span></button
+          >
+        </mat-card-actions>
+      </mat-card-header>
+      <div></div>
+      <mat-card-footer>
+        <span class="material-symbols-outlined">history</span>
+        <span>{{ unit.createdOn | formatDate | formatStatus }}</span>
+      </mat-card-footer>
+    </mat-card>
+    <!-- Action menu -->
+    <mat-menu #actionMenu="matMenu">
+      <div mat-button mat-menu-item (click)="onVisit(unit.id)">
+        <span class="material-symbols-outlined text-primary">visibility</span>
+        <span>View details</span>
+      </div>
+      <div mat-button mat-menu-item>
+        <span class="material-symbols-outlined text-secondary">edit</span>
+        <span>Edit</span>
+      </div>
+      <div mat-button mat-menu-item>
+        <span class="material-symbols-outlined text-warn">delete</span>
+        <span>Delete</span>
+      </div>
+    </mat-menu>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+  </div>
+</div>
