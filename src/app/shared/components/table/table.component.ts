@@ -17,6 +17,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input('actionsEnabled') actionEnabled: boolean;
   @Input('paginationMetadata') paginationMetaData: PaginationMetaData;
   @Input() dataLength: number;
+  @Input() allowVisit: boolean = true;
   @Input() allowModify: boolean = true;
 
   @Output() pageChange: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();

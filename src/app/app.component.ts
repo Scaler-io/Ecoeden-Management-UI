@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
       } else {
         setTimeout(() => {
           this.isAppBusy = false;
-        }, 1000);
+        }, 2000);
       }
     });
   }

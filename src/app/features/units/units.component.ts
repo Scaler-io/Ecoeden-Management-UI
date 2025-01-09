@@ -11,7 +11,7 @@ import {CommandResultStatus} from 'src/app/core/models/common';
 import {DialogData} from 'src/app/core/models/dialog.model';
 import {PaginationMetaData} from 'src/app/core/models/pagination';
 import {TableColumnMap, TableDataSource} from 'src/app/core/models/table-source';
-import {PaginatedUnitList, UnitCommadType, UnitSearchRequest, UnitSummary} from 'src/app/core/models/unit';
+import {PaginatedUnitList, UnitCommadType, UnitSearchRequest, UnitSummary, UnitUpdateDialogData} from 'src/app/core/models/unit';
 import {ConfirmDialogComponent} from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import {SearchLayoutService} from 'src/app/shared/components/search-layout/search-layout.service';
 import {getMobileViewState} from 'src/app/state/mobile-view/mobile-view.selector';
@@ -20,6 +20,7 @@ import {AppState} from 'src/app/store/app.state';
 import * as requestPageActions from '../../state/request-page/request-page.action';
 import * as unitActions from '../../state/unit/unit.action';
 import {fadeSlideInOut} from 'src/app/core/animations/fadeInOut';
+import {UnitUpdateDialogComponent} from './unit-update-dialog/unit-update-dialog.component';
 
 @Component({
   selector: 'ecoeden-units',
@@ -183,11 +184,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
   }
 
   public onUpdate(event: TableDataSource): void {
-    this.router.navigate(['units', 'update'], {
-      queryParams: {
-        unitId: (event as UnitSummary).id
-      }
-    });
+    this.showUpdateDialog(event as UnitSummary);
   }
 
   public onDelete(event: TableDataSource): void {
@@ -205,6 +202,16 @@ export class UnitsComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(response => {
       if (response?.confirm) {
         this.store.dispatch(new unitActions.DeleteUnit(unit.id));
+      }
+    });
+  }
+
+  private showUpdateDialog(unit: UnitSummary): void {
+    this.dialog.open(UnitUpdateDialogComponent, {
+      data: <UnitUpdateDialogData>{
+        title: `Update unit <br/>${unit.name}`,
+        unit: unit,
+        primaryActionLabel: 'Update'
       }
     });
   }

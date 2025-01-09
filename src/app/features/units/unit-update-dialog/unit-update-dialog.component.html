@@ -1,0 +1,24 @@
+<div class="unit__update-layout">
+  <div class="dialog__header">
+    <div class="dialog__header__title" [innerHTML]="data.title"></div>
+    <div class="dialog__header__close-btn"><span class="material-symbols-outlined" (click)="closeDialog()">close</span></div>
+  </div>
+  <div class="dialog__body">
+    <form [formGroup]="unitFormGroup">
+      <mat-form-field appearance="outline">
+        <mat-label>Unit name</mat-label>
+        <input type="text" matInput formControlName="unitName" />
+        <mat-error>Unit name is required</mat-error>
+      </mat-form-field>
+      <div><mat-slide-toggle formControlName="status" color="primary">Status</mat-slide-toggle></div>
+    </form>
+    <div class="form__submit-btn-container">
+      <ecoeden-button
+        [type]="ButtonType.info"
+        [isLoading]="isFormSubmitting"
+        (click)="onNextClick()"
+        >{{ data.primaryActionLabel}}</ecoeden-button
+      >
+    </div>
+  </div>
+</div>

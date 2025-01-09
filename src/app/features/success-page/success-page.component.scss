@@ -5,7 +5,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   .success-page__image {
     img {
       height: 65px;
@@ -24,6 +23,8 @@
     }
   }
   .success-page__action-layout {
+    align-self: center;
+    margin-top: 55px;
     padding: 15px;
     display: flex;
     column-gap: 15px;

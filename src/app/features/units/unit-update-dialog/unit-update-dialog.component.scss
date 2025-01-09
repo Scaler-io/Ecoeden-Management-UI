@@ -1,0 +1,29 @@
+@import '../../../../assets/styles/variables';
+
+.unit__update-layout {
+  .dialog {
+    &__header {
+      display: flex;
+      justify-content: center;
+      &__title {
+        font-size: 25px;
+        text-align: center;
+        color: $color-primary;
+        justify-self: center;
+        flex-grow: 1;
+      }
+      &__close-btn {
+        color: $color-accent;
+        cursor: pointer;
+      }
+    }
+  }
+  .dialog__body {
+    margin-top: 20px;
+    padding: 20px 55px 20px 55px;
+    text-align: center;
+    .form__submit-btn-container {
+      margin-top: 15px;
+    }
+  }
+}

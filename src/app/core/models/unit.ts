@@ -1,4 +1,5 @@
 import {CommandResponse} from './common';
+import {DialogData} from './dialog.model';
 import {PaginatedResult} from './pagination';
 import {SearchRequestBase} from './search-request';
 import {TableDataSource} from './table-source';
@@ -55,5 +56,9 @@ export enum UnitCommadType {
 
 export interface UnitFormModel {
   unitName: string;
-  state: string;
+  status?: boolean;
+}
+
+export interface UnitUpdateDialogData extends DialogData {
+  unit: UnitSummary;
 }

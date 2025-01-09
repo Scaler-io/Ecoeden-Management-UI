@@ -11,6 +11,8 @@ import {UNIT_STATE_NAME, unitReducer} from 'src/app/state/unit/unit.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {UnitEffect} from 'src/app/state/unit/unit.effect';
 import {UnitListMobileModule} from './unit-list-mobile/unit-list-mobile.module';
+import {UnitUpsertPageModule} from './unit-upsert-page/unit-upsert-page.module';
+import {UnitUpdateDialogModule} from './unit-update-dialog/unit-update-dialog.module';
 
 @NgModule({
   declarations: [UnitsComponent],
@@ -22,6 +24,8 @@ import {UnitListMobileModule} from './unit-list-mobile/unit-list-mobile.module';
     ReactiveFormsModule,
     TableModule,
     UnitListMobileModule,
+    UnitUpsertPageModule,
+    UnitUpdateDialogModule,
     StoreModule.forFeature(UNIT_STATE_NAME, unitReducer),
     EffectsModule.forFeature([UnitEffect])
   ]
