@@ -19,7 +19,7 @@
         </ng-template>
       </ng-container>
       <ng-template #actionColumns>
-        <button class="action-button--watch material-symbols-outlined" (click)="onVisit(element)"> visibility</button>
+        <button *ngIf="allowVisit" class="action-button--watch material-symbols-outlined" (click)="onVisit(element)"> visibility</button>
         <ng-container *ngIf="allowModify">
           <button class="action-button--edit material-symbols-outlined" (click)="onEdit(element)">edit</button>
           <button class="action-button--delete material-symbols-outlined" (click)="onDelete(element)">delete</button>

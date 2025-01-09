@@ -5,6 +5,7 @@ import {MOBILE_VIEW_STATE_NAME, mobileViewReducer, MobileViewState} from '../sta
 import {REQUEST_PAGE_STATE_NAME, requestPageReducers, RequestPageState} from '../state/request-page/request-page.reducer';
 import {SIDENAV_TOGGLE_STATE_NAME, sidenavToggleReducer, SidenavToggleState} from '../state/sidenav/sidenav.reducer';
 import {SUPPLIER_STATE_NAME, SupplierState} from '../state/supplier/supplier.reducer';
+import {UNIT_STATE_NAME, UnitState} from '../state/unit/unit.reducer';
 import {USER_STATE_NAME, UserState} from '../state/user/user.reducer';
 
 export interface AppState {
@@ -16,6 +17,7 @@ export interface AppState {
   [REQUEST_PAGE_STATE_NAME]: RequestPageState;
   [ADDRESS_SUGGESTION_STATE_NAME]: AddressSuggestionState;
   [CUSTOMER_STATE_NAME]: CustomerState;
+  [UNIT_STATE_NAME]: UnitState;
 }
 
 export const appReducers = {

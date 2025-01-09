@@ -1,14 +1,13 @@
 <div class="success-pgae__container">
-  <div class="success-page__image">
-    <img src="../../../assets/images/check.png" alt="success" />
-  </div>
   <div class="success-page__content">
+    <div class="success-page__image">
+      <img src="../../../assets/images/check.png" alt="success" />
+    </div>
     <div class="success-page__content-heading">{{ requestPage.heading }}</div>
     <div class="success-page__content-subheading">{{ requestPage.subheading }}</div>
   </div>
-
   <div class="success-page__action-layout">
-    <ecoeden-button [type]="ButtonType.info" (next)="previousClick()">Back</ecoeden-button>
+    <ecoeden-button *ngIf="requestPage.previousUrl" [type]="ButtonType.info" (next)="previousClick()">Back</ecoeden-button>
     <ecoeden-button [type]="ButtonType.info" (next)="nextClick()">{{ nexButtonLabel }}</ecoeden-button>
   </div>
 </div>
